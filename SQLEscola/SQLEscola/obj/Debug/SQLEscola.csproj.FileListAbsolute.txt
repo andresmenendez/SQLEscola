@@ -1,0 +1,7 @@
+c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\bin\SQLEscola.dll
+c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\bin\SQLEscola.pdb
+c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\bin\EntityFramework.dll
+c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\bin\EntityFramework.xml
+c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\obj\Debug\SQLEscola.csprojResolveAssemblyReference.cache
+c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\obj\Debug\SQLEscola.dll
+c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\obj\Debug\SQLEscola.pdb
