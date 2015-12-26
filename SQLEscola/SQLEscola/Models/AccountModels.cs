@@ -45,6 +45,11 @@ namespace SQLEscola.Models
     public class RegisterModel
     {
         [Required]
+        [StringLength(60, ErrorMessage = "A {0} deve ter pelo menos {2} caracteres.", MinimumLength = 6)]
+        [Display(Name = "Nome Completo")]
+        public string Nome { get; set; }
+
+        [Required]
         [Display(Name = "Nome de Usuário")]
         public string UserName { get; set; }
 

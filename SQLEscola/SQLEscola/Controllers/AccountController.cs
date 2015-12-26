@@ -84,6 +84,11 @@ namespace SQLEscola.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    UsuarioModel usuarioModel = new UsuarioModel();
+                    usuarioModel.Email = model.Email;
+                    usuarioModel.Nome = model.Nome;
+                    usuarioModel.UserName = model.UserName;
+                    Gerenciadores.GerenciadorUsuario.GetInstance().Inserir(usuarioModel);
                     return RedirectToAction("Index", "Home");
                 }
                 else

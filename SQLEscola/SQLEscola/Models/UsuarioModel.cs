@@ -12,17 +12,16 @@ namespace SQLEscola.Models
         [Required]
         public int Id_Usuario { get; set; }
 
-        [Required]
         [Display(Name = "Nome do Usuário")]
         [StringLength(60)]
         public string Nome { get; set; }
 
-        [Required]
+        public string UserName { get; set; }
+
         [StringLength(50)]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
-        [Required]
         [StringLength(45)]
         [Display(Name = "Senha")]
         public string Senha { get; set; }
@@ -30,7 +29,6 @@ namespace SQLEscola.Models
         [Display(Name = "Foto")]
         public byte[] Foto { get; set; }
 
-        [Required]
         public int Id_Perfil { get; set; }
     }
 }
