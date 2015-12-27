@@ -22,6 +22,8 @@ namespace Gerenciadores
 
         private GerenciadorUsuario()
         {
+            this.unitOfWork = new UnitOfWork();
+            shared = false;
         }
 
         public static GerenciadorUsuario GetInstance()
@@ -92,7 +94,8 @@ namespace Gerenciadores
                         select new UsuarioModel
                         {
                             Id_Usuario = user.Id_Usuario,
-                            Nome = user.Nome
+                            Nome = user.Nome,
+                            Email = user.Email
                         };
             return query;
         }

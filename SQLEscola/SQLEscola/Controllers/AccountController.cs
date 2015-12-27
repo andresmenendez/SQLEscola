@@ -38,12 +38,12 @@ namespace SQLEscola.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Inicial", "Home");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("", "O usuário ou senha estão incorretos.");
                 }
             }
 
