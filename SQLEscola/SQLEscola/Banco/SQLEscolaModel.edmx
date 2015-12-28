@@ -1018,7 +1018,7 @@
         <EntityTypeShape EntityType="sqlescolaModel.tb_resultado" Width="1.5" PointX="9.75" PointY="3.375" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_tecnologia" Width="1.5" PointX="3" PointY="8.25" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_turma" Width="1.5" PointX="0.75" PointY="5.25" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_usuario" Width="1.5" PointX="3" PointY="0.75" Height="2.7494921875000031" IsExpanded="true" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_usuario" Width="1.5" PointX="4.25" PointY="0.5" Height="2.7494921875000031" IsExpanded="true" />
         <AssociationConnector Association="sqlescolaModel.fk_tb_atividade_tb_turma1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="6.1439925130208337" />
           <ConnectorPoint PointX="3" PointY="6.1439925130208337" />
@@ -1037,8 +1037,9 @@
           <ConnectorPoint PointX="7.5" PointY="4.9660953776041659" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_resposta_tb_usuario1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="3.3122460937500016" />
-          <ConnectorPoint PointX="7.5" PointY="3.3122460937500016" />
+          <ConnectorPoint PointX="5.75" PointY="1.8124995" />
+          <ConnectorPoint PointX="8.25" PointY="1.8124995" />
+          <ConnectorPoint PointX="8.25" PointY="3.125" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_resultado_tb_resposta1" ManuallyRouted="false">
           <ConnectorPoint PointX="9" PointY="4.3651432291666694" />
@@ -1047,14 +1048,14 @@
         <AssociationConnector Association="sqlescolaModel.tb_matricula" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="5.25" />
           <ConnectorPoint PointX="2.625" PointY="4.875" />
-          <ConnectorPoint PointX="2.625" PointY="2.1247460937500016" />
-          <ConnectorPoint PointX="3" PointY="2.1247460937500016" />
+          <ConnectorPoint PointX="2.625" PointY="1.8747460937500016" />
+          <ConnectorPoint PointX="4.25" PointY="1.8747460937500016" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.tb_perfil_usuario" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.6102148437500006" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="2.61021484375" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="2.6102148437500006" />
-          <ConnectorPoint PointX="3" PointY="2.6102148437500006" />
+          <ConnectorPoint PointX="2.25" PointY="2.4852148437500006" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="2.48521484375" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="2.4852148437500006" />
+          <ConnectorPoint PointX="4.25" PointY="2.4852148437500006" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.tb_questao_restricoes" ManuallyRouted="false">
           <ConnectorPoint PointX="6.4062525" PointY="7.9609993489583317" />

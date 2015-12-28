@@ -7,7 +7,7 @@ using SQLEscola.Models;
 using SQLEscola.Banco;
 
 
-namespace Gerenciadores
+namespace SQLEscola.Gerenciadores
 {
     /// <summary>
     /// Gerencia todas as regras de negócio da entidade Usuario
