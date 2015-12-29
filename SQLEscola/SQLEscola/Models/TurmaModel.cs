@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SQLEscola.Models
 {
-    [Serializable]
     public class TurmaModel
     {
         [Required]
@@ -14,7 +13,11 @@ namespace SQLEscola.Models
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Turma")]
+        [Display(Name = "Nome da Turma")]
         public string Turma { get; set; }
+
+        public int Id_Usuario { get; set; }
+
+        public string Usuario { get; set; }
     }
 }

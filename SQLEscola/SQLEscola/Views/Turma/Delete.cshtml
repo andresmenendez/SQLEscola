@@ -1,18 +1,18 @@
-﻿@model SQLEscola.Banco.tb_turma
+﻿@model SQLEscola.Models.TurmaModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Remover";
 }
 
-<h2>Delete</h2>
+<h2>Remover</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza que deseja remover esta turma?</h3>
 <fieldset>
-    <legend>tb_turma</legend>
+    <legend>Turma</legend>
 
-    <div class="display-label">Nome</div>
+    <div class="display-label">Nome da Turma</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Nome)
+        @Html.DisplayFor(model => model.Turma)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

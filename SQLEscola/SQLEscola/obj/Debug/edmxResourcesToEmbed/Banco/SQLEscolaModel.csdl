@@ -59,101 +59,101 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
-    <Property Name="description" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="name" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="description" MaxLength="256" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="my_aspnet_membership">
     <Key>
       <PropertyRef Name="userId" />
     </Key>
-    <Property Name="userId" Type="Int32" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
-    <Property Name="Comment" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
-    <Property Name="PasswordKey" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
-    <Property Name="PasswordFormat" Type="SByte" />
-    <Property Name="PasswordQuestion" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-    <Property Name="PasswordAnswer" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-    <Property Name="IsApproved" Type="Boolean" />
-    <Property Name="LastActivityDate" Type="DateTime" />
-    <Property Name="LastLoginDate" Type="DateTime" />
-    <Property Name="LastPasswordChangedDate" Type="DateTime" />
-    <Property Name="CreationDate" Type="DateTime" />
-    <Property Name="IsLockedOut" Type="Boolean" />
-    <Property Name="LastLockedOutDate" Type="DateTime" />
-    <Property Name="FailedPasswordAttemptCount" Type="Int64" />
-    <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" />
-    <Property Name="FailedPasswordAnswerAttemptCount" Type="Int64" />
-    <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" />
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="String" Name="Email" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Comment" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PasswordKey" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Type="SByte" Name="PasswordFormat" />
+    <Property Type="String" Name="PasswordQuestion" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PasswordAnswer" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="IsApproved" />
+    <Property Type="DateTime" Name="LastActivityDate" />
+    <Property Type="DateTime" Name="LastLoginDate" />
+    <Property Type="DateTime" Name="LastPasswordChangedDate" />
+    <Property Type="DateTime" Name="CreationDate" />
+    <Property Type="Boolean" Name="IsLockedOut" />
+    <Property Type="DateTime" Name="LastLockedOutDate" />
+    <Property Type="Int64" Name="FailedPasswordAttemptCount" />
+    <Property Type="DateTime" Name="FailedPasswordAttemptWindowStart" />
+    <Property Type="Int64" Name="FailedPasswordAnswerAttemptCount" />
+    <Property Type="DateTime" Name="FailedPasswordAnswerAttemptWindowStart" />
   </EntityType>
   <EntityType Name="my_aspnet_profiles">
     <Key>
       <PropertyRef Name="userId" />
     </Key>
-    <Property Name="userId" Type="Int32" Nullable="false" />
-    <Property Name="valueindex" Type="String" MaxLength="1073741823" Unicode="false" FixedLength="false" />
-    <Property Name="stringdata" Type="String" MaxLength="1073741823" Unicode="false" FixedLength="false" />
-    <Property Name="binarydata" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="lastUpdatedDate" Type="DateTime" Nullable="false" />
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="String" Name="valueindex" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="stringdata" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="binarydata" MaxLength="Max" FixedLength="false" />
+    <Property Type="DateTime" Name="lastUpdatedDate" Nullable="false" />
   </EntityType>
   <EntityType Name="my_aspnet_roles">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="applicationId" Type="Int32" Nullable="false" />
-    <Property Name="name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="applicationId" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="my_aspnet_sessioncleanup">
     <Key>
       <PropertyRef Name="ApplicationId" />
     </Key>
-    <Property Name="LastRun" Type="DateTime" Nullable="false" />
-    <Property Name="IntervalMinutes" Type="Int32" Nullable="false" />
-    <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+    <Property Type="DateTime" Name="LastRun" Nullable="false" />
+    <Property Type="Int32" Name="IntervalMinutes" Nullable="false" />
+    <Property Type="Int32" Name="ApplicationId" Nullable="false" />
   </EntityType>
   <EntityType Name="my_aspnet_sessions">
     <Key>
       <PropertyRef Name="SessionId" />
       <PropertyRef Name="ApplicationId" />
     </Key>
-    <Property Name="SessionId" Type="String" Nullable="false" MaxLength="191" Unicode="false" FixedLength="false" />
-    <Property Name="ApplicationId" Type="Int32" Nullable="false" />
-    <Property Name="Created" Type="DateTime" Nullable="false" />
-    <Property Name="Expires" Type="DateTime" Nullable="false" />
-    <Property Name="LockDate" Type="DateTime" Nullable="false" />
-    <Property Name="LockId" Type="Int32" Nullable="false" />
-    <Property Name="Timeout" Type="Int32" Nullable="false" />
-    <Property Name="Locked" Type="Boolean" Nullable="false" />
-    <Property Name="SessionItems" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="Flags" Type="Int32" Nullable="false" />
+    <Property Type="String" Name="SessionId" Nullable="false" MaxLength="191" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="ApplicationId" Nullable="false" />
+    <Property Type="DateTime" Name="Created" Nullable="false" />
+    <Property Type="DateTime" Name="Expires" Nullable="false" />
+    <Property Type="DateTime" Name="LockDate" Nullable="false" />
+    <Property Type="Int32" Name="LockId" Nullable="false" />
+    <Property Type="Int32" Name="Timeout" Nullable="false" />
+    <Property Type="Boolean" Name="Locked" Nullable="false" />
+    <Property Type="Binary" Name="SessionItems" MaxLength="Max" FixedLength="false" />
+    <Property Type="Int32" Name="Flags" Nullable="false" />
   </EntityType>
   <EntityType Name="my_aspnet_users">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="applicationId" Type="Int32" Nullable="false" />
-    <Property Name="name" Type="String" Nullable="false" MaxLength="256" Unicode="false" FixedLength="false" />
-    <Property Name="isAnonymous" Type="Boolean" Nullable="false" />
-    <Property Name="lastActivityDate" Type="DateTime" />
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="applicationId" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="isAnonymous" Nullable="false" />
+    <Property Type="DateTime" Name="lastActivityDate" />
   </EntityType>
   <EntityType Name="my_aspnet_usersinroles">
     <Key>
       <PropertyRef Name="userId" />
       <PropertyRef Name="roleId" />
     </Key>
-    <Property Name="userId" Type="Int32" Nullable="false" />
-    <Property Name="roleId" Type="Int32" Nullable="false" />
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="Int32" Name="roleId" Nullable="false" />
   </EntityType>
   <EntityType Name="tb_atividade">
     <Key>
       <PropertyRef Name="Id_Atividade" />
     </Key>
-    <Property Name="Id_Atividade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Id_Turma" Type="Int32" Nullable="false" />
-    <Property Name="Nome_Atividade" Type="String" Nullable="false" MaxLength="120" Unicode="false" FixedLength="false" />
+    <Property Type="Int32" Name="Id_Atividade" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id_Turma" Nullable="false" />
+    <Property Type="String" Name="Nome_Atividade" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_atividade_tb_turma1" FromRole="tb_atividade" ToRole="tb_turma" />
     <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_atividade" ToRole="tb_questao" />
   </EntityType>
@@ -161,24 +161,24 @@
     <Key>
       <PropertyRef Name="Id_Perfil" />
     </Key>
-    <Property Name="Id_Perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Perfil" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Type="Int32" Name="Id_Perfil" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Perfil" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.tb_perfil_usuario" FromRole="tb_perfil" ToRole="tb_usuario" />
   </EntityType>
   <EntityType Name="tb_questao">
     <Key>
       <PropertyRef Name="Id_Questao" />
     </Key>
-    <Property Name="Id_Questao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Id_Tecnologia" Type="Int32" Nullable="false" />
-    <Property Name="Id_Atividade" Type="Int32" Nullable="false" />
-    <Property Name="Descricao" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-    <Property Name="ScriptCriacao" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-    <Property Name="ScriptPovoamento" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-    <Property Name="ScriptResolucao" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-    <Property Name="Ordem" Type="Int32" Nullable="false" />
-    <Property Name="Data_Criacao" Type="DateTime" />
-    <Property Name="Data_Alteracao" Type="DateTime" />
+    <Property Type="Int32" Name="Id_Questao" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id_Tecnologia" Nullable="false" />
+    <Property Type="Int32" Name="Id_Atividade" Nullable="false" />
+    <Property Type="String" Name="Descricao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ScriptCriacao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ScriptPovoamento" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ScriptResolucao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Ordem" Nullable="false" />
+    <Property Type="DateTime" Name="Data_Criacao" />
+    <Property Type="DateTime" Name="Data_Alteracao" />
     <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_questao" ToRole="tb_atividade" />
     <NavigationProperty Name="tb_tecnologia" Relationship="sqlescolaModel.fk_tb_questao_tb_tecnologia1" FromRole="tb_questao" ToRole="tb_tecnologia" />
     <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_questao1" FromRole="tb_questao" ToRole="tb_resposta" />
@@ -188,11 +188,11 @@
     <Key>
       <PropertyRef Name="Id_Resposta" />
     </Key>
-    <Property Name="Id_Resposta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ScriptResposta" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-    <Property Name="Id_Usuario" Type="Int32" Nullable="false" />
-    <Property Name="Data_Resposta" Type="DateTime" Nullable="false" />
-    <Property Name="Id_Questao" Type="Int32" Nullable="false" />
+    <Property Type="Int32" Name="Id_Resposta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="ScriptResposta" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
+    <Property Type="DateTime" Name="Data_Resposta" Nullable="false" />
+    <Property Type="Int32" Name="Id_Questao" Nullable="false" />
     <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_resposta_tb_questao1" FromRole="tb_resposta" ToRole="tb_questao" />
     <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_resposta_tb_usuario1" FromRole="tb_resposta" ToRole="tb_usuario" />
     <NavigationProperty Name="tb_resultado" Relationship="sqlescolaModel.fk_tb_resultado_tb_resposta1" FromRole="tb_resposta" ToRole="tb_resultado" />
@@ -201,36 +201,37 @@
     <Key>
       <PropertyRef Name="Id_Restricoes" />
     </Key>
-    <Property Name="Id_Restricoes" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Descricao" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
-    <Property Name="Valores" Type="Double" Nullable="false" />
+    <Property Type="Int32" Name="Id_Restricoes" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Descricao" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="Valores" Nullable="false" />
     <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.tb_questao_restricoes" FromRole="tb_restricao" ToRole="tb_questao" />
   </EntityType>
   <EntityType Name="tb_resultado">
     <Key>
       <PropertyRef Name="Id_Resultado" />
     </Key>
-    <Property Name="Id_Resultado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Erros" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-    <Property Name="Comentarios_Prof" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-    <Property Name="Id_Resposta" Type="Int32" Nullable="false" />
+    <Property Type="Int32" Name="Id_Resultado" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Erros" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Comentarios_Prof" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Id_Resposta" Nullable="false" />
     <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resultado_tb_resposta1" FromRole="tb_resultado" ToRole="tb_resposta" />
   </EntityType>
   <EntityType Name="tb_tecnologia">
     <Key>
       <PropertyRef Name="Id_Tecnologia" />
     </Key>
-    <Property Name="Id_Tecnologia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Descricao" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
-    <Property Name="Versao" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Type="Int32" Name="Id_Tecnologia" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Descricao" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Versao" MaxLength="10" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_questao_tb_tecnologia1" FromRole="tb_tecnologia" ToRole="tb_questao" />
   </EntityType>
   <EntityType Name="tb_turma">
     <Key>
       <PropertyRef Name="Id_Turma" />
     </Key>
-    <Property Name="Id_Turma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Type="Int32" Name="Id_Turma" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Nome" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
     <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_atividade_tb_turma1" FromRole="tb_turma" ToRole="tb_atividade" />
     <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.tb_matricula" FromRole="tb_turma" ToRole="tb_usuario" />
   </EntityType>
@@ -238,19 +239,19 @@
     <Key>
       <PropertyRef Name="Id_Usuario" />
     </Key>
-    <Property Name="Id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Nome" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="Senha" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
-    <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="Perfil" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
+    <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Senha" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="Foto" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="Perfil" MaxLength="1" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_usuario1" FromRole="tb_usuario" ToRole="tb_resposta" />
     <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.tb_matricula" FromRole="tb_usuario" ToRole="tb_turma" />
     <NavigationProperty Name="tb_perfil" Relationship="sqlescolaModel.tb_perfil_usuario" FromRole="tb_usuario" ToRole="tb_perfil" />
   </EntityType>
   <Association Name="fk_tb_atividade_tb_turma1">
-    <End Role="tb_turma" Type="sqlescolaModel.tb_turma" Multiplicity="1" />
-    <End Role="tb_atividade" Type="sqlescolaModel.tb_atividade" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="1" />
+    <End Type="sqlescolaModel.tb_atividade" Role="tb_atividade" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="tb_turma">
         <PropertyRef Name="Id_Turma" />
@@ -261,8 +262,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_tb_questao_tb_atividade1">
-    <End Role="tb_atividade" Type="sqlescolaModel.tb_atividade" Multiplicity="1" />
-    <End Role="tb_questao" Type="sqlescolaModel.tb_questao" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_atividade" Role="tb_atividade" Multiplicity="1" />
+    <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="tb_atividade">
         <PropertyRef Name="Id_Atividade" />
@@ -273,8 +274,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_tb_questao_tb_tecnologia1">
-    <End Role="tb_tecnologia" Type="sqlescolaModel.tb_tecnologia" Multiplicity="1" />
-    <End Role="tb_questao" Type="sqlescolaModel.tb_questao" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_tecnologia" Role="tb_tecnologia" Multiplicity="1" />
+    <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="tb_tecnologia">
         <PropertyRef Name="Id_Tecnologia" />
@@ -285,8 +286,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_tb_resposta_tb_questao1">
-    <End Role="tb_questao" Type="sqlescolaModel.tb_questao" Multiplicity="1" />
-    <End Role="tb_resposta" Type="sqlescolaModel.tb_resposta" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="1" />
+    <End Type="sqlescolaModel.tb_resposta" Role="tb_resposta" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="tb_questao">
         <PropertyRef Name="Id_Questao" />
@@ -297,8 +298,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_tb_resposta_tb_usuario1">
-    <End Role="tb_usuario" Type="sqlescolaModel.tb_usuario" Multiplicity="1" />
-    <End Role="tb_resposta" Type="sqlescolaModel.tb_resposta" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="1" />
+    <End Type="sqlescolaModel.tb_resposta" Role="tb_resposta" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="tb_usuario">
         <PropertyRef Name="Id_Usuario" />
@@ -309,8 +310,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_tb_resultado_tb_resposta1">
-    <End Role="tb_resposta" Type="sqlescolaModel.tb_resposta" Multiplicity="1" />
-    <End Role="tb_resultado" Type="sqlescolaModel.tb_resultado" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_resposta" Role="tb_resposta" Multiplicity="1" />
+    <End Type="sqlescolaModel.tb_resultado" Role="tb_resultado" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="tb_resposta">
         <PropertyRef Name="Id_Resposta" />
@@ -321,15 +322,15 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="tb_matricula">
-    <End Role="tb_turma" Type="sqlescolaModel.tb_turma" Multiplicity="*" />
-    <End Role="tb_usuario" Type="sqlescolaModel.tb_usuario" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="*" />
   </Association>
   <Association Name="tb_perfil_usuario">
-    <End Role="tb_perfil" Type="sqlescolaModel.tb_perfil" Multiplicity="*" />
-    <End Role="tb_usuario" Type="sqlescolaModel.tb_usuario" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_perfil" Role="tb_perfil" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="*" />
   </Association>
   <Association Name="tb_questao_restricoes">
-    <End Role="tb_questao" Type="sqlescolaModel.tb_questao" Multiplicity="*" />
-    <End Role="tb_restricao" Type="sqlescolaModel.tb_restricao" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_restricao" Role="tb_restricao" Multiplicity="*" />
   </Association>
 </Schema>

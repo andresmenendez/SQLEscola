@@ -3417,11 +3417,13 @@ namespace SQLEscola.Banco
         /// </summary>
         /// <param name="id_Turma">Initial value of the Id_Turma property.</param>
         /// <param name="nome">Initial value of the Nome property.</param>
-        public static tb_turma Createtb_turma(global::System.Int32 id_Turma, global::System.String nome)
+        /// <param name="id_Usuario">Initial value of the Id_Usuario property.</param>
+        public static tb_turma Createtb_turma(global::System.Int32 id_Turma, global::System.String nome, global::System.Int32 id_Usuario)
         {
             tb_turma tb_turma = new tb_turma();
             tb_turma.Id_Turma = id_Turma;
             tb_turma.Nome = nome;
+            tb_turma.Id_Usuario = id_Usuario;
             return tb_turma;
         }
 
@@ -3479,6 +3481,30 @@ namespace SQLEscola.Banco
         private global::System.String _Nome;
         partial void OnNomeChanging(global::System.String value);
         partial void OnNomeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id_Usuario
+        {
+            get
+            {
+                return _Id_Usuario;
+            }
+            set
+            {
+                OnId_UsuarioChanging(value);
+                ReportPropertyChanging("Id_Usuario");
+                _Id_Usuario = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Id_Usuario");
+                OnId_UsuarioChanged();
+            }
+        }
+        private global::System.Int32 _Id_Usuario;
+        partial void OnId_UsuarioChanging(global::System.Int32 value);
+        partial void OnId_UsuarioChanged();
 
         #endregion
 
@@ -3549,16 +3575,12 @@ namespace SQLEscola.Banco
         /// <param name="id_Usuario">Initial value of the Id_Usuario property.</param>
         /// <param name="nome">Initial value of the Nome property.</param>
         /// <param name="email">Initial value of the Email property.</param>
-        /// <param name="senha">Initial value of the Senha property.</param>
-        /// <param name="perfil">Initial value of the Perfil property.</param>
-        public static tb_usuario Createtb_usuario(global::System.Int32 id_Usuario, global::System.String nome, global::System.String email, global::System.String senha, global::System.String perfil)
+        public static tb_usuario Createtb_usuario(global::System.Int32 id_Usuario, global::System.String nome, global::System.String email)
         {
             tb_usuario tb_usuario = new tb_usuario();
             tb_usuario.Id_Usuario = id_Usuario;
             tb_usuario.Nome = nome;
             tb_usuario.Email = email;
-            tb_usuario.Senha = senha;
-            tb_usuario.Perfil = perfil;
             return tb_usuario;
         }
 
@@ -3644,7 +3666,7 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String Senha
         {
@@ -3656,7 +3678,7 @@ namespace SQLEscola.Banco
             {
                 OnSenhaChanging(value);
                 ReportPropertyChanging("Senha");
-                _Senha = StructuralObject.SetValidValue(value, false);
+                _Senha = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Senha");
                 OnSenhaChanged();
             }
@@ -3692,7 +3714,7 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String Perfil
         {
@@ -3704,7 +3726,7 @@ namespace SQLEscola.Banco
             {
                 OnPerfilChanging(value);
                 ReportPropertyChanging("Perfil");
-                _Perfil = StructuralObject.SetValidValue(value, false);
+                _Perfil = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Perfil");
                 OnPerfilChanged();
             }

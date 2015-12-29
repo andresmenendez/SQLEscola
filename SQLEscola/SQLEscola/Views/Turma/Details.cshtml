@@ -1,7 +1,7 @@
-﻿@model SQLEscola.Banco.tb_turma
+﻿@model SQLEscola.Models.TurmaModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
 <h2>Details</h2>
@@ -11,7 +11,7 @@
 
     <div class="display-label">Nome</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Nome)
+        @Html.DisplayFor(model => model.Turma)
     </div>
 </fieldset>
 <p>

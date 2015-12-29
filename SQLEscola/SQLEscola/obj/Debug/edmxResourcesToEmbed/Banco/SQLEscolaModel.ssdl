@@ -257,17 +257,18 @@
     </Key>
     <Property Name="Id_Turma" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Id_Usuario" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="tb_usuario">
     <Key>
       <PropertyRef Name="Id_Usuario" />
     </Key>
-    <Property Name="Id_Usuario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Usuario" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="60" />
     <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Senha" Type="varchar" Nullable="false" MaxLength="45" />
+    <Property Name="Senha" Type="varchar" MaxLength="45" />
     <Property Name="Foto" Type="blob" />
-    <Property Name="Perfil" Type="char" Nullable="false" MaxLength="1" />
+    <Property Name="Perfil" Type="char" MaxLength="1" />
   </EntityType>
   <Association Name="fk_tb_atividade_tb_turma1">
     <End Role="tb_turma" Type="sqlescolaModel.Store.tb_turma" Multiplicity="1" />

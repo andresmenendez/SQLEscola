@@ -89,7 +89,8 @@ namespace SQLEscola.Gerenciadores
                         select new TurmaModel
                         {
                             Id_Turma = turma.Id_Turma,
-                            Turma = turma.Nome
+                            Turma = turma.Nome,
+                            Id_Usuario = turma.Id_Usuario
                         };
             return query;
         }
@@ -100,7 +101,13 @@ namespace SQLEscola.Gerenciadores
         /// <returns></returns>
         public IEnumerable<TurmaModel> ObterTodos()
         {
-            return GetQuery();
+            IEnumerable<TurmaModel> turmas = GetQuery().OrderBy(turma => turma.Turma);
+            List<TurmaModel> listaTurmas = turmas.ToList();
+            foreach (TurmaModel item in listaTurmas)
+            {
+                item.Usuario = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Nome;
+            }
+            return listaTurmas;
         }
 
         
@@ -129,6 +136,13 @@ namespace SQLEscola.Gerenciadores
             return turmas.ElementAtOrDefault(0);
         }
 
+        public IEnumerable<TurmaModel> ObterPorUsuario(int idUser)
+        {
+            IEnumerable<TurmaModel> turmas = GetQuery().Where(turmaModel => turmaModel.Id_Usuario == idUser);
+
+            return turmas;
+        }
+
         /// <summary>
         /// Atribui dados do Usuario Model para o Usuario Entity
         /// </summary>
@@ -138,6 +152,7 @@ namespace SQLEscola.Gerenciadores
         {
             turmaE.Id_Turma = turmaModel.Id_Turma;
             turmaE.Nome = turmaModel.Turma;
+            turmaE.Id_Usuario = turmaModel.Id_Usuario;
         }
     }
 }

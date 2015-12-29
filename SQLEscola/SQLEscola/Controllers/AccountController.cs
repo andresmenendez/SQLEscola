@@ -88,6 +88,10 @@ namespace SQLEscola.Controllers
                     usuarioModel.Email = model.Email;
                     usuarioModel.Nome = model.Nome;
                     usuarioModel.UserName = model.UserName;
+                    //Pegando Id do Usuario
+                    MembershipUser mu = Membership.GetUser(model.UserName);
+                    string userId = mu.ProviderUserKey.ToString();
+                    usuarioModel.Id_Usuario = Convert.ToInt32(userId);
                     Gerenciadores.GerenciadorUsuario.GetInstance().Inserir(usuarioModel);
                     return RedirectToAction("Index", "Home");
                 }

@@ -1,7 +1,7 @@
-﻿@model SQLEscola.Banco.tb_turma
+﻿@model SQLEscola.Models.TurmaModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Turma";
 }
 
 <h2>Edit</h2>
@@ -12,24 +12,25 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>tb_turma</legend>
+        <legend>Editar Turma</legend>
 
         @Html.HiddenFor(model => model.Id_Turma)
+        @Html.HiddenFor(model => model.Id_Usuario)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Nome)
+            @Html.LabelFor(model => model.Turma)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Nome)
-            @Html.ValidationMessageFor(model => model.Nome)
+            @Html.TextBoxFor(model => model.Turma, new { style = "width:400px", Maxlength = "100" })
+            @Html.ValidationMessageFor(model => model.Turma)
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Salvar Turma" class="but but-success but-small but-shadow but-rc" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retornar para Lista de Turmas", "Index")
 </div>

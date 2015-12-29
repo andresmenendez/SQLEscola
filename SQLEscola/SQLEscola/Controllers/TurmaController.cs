@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using SQLEscola.Banco;
 using SQLEscola.Gerenciadores;
 using SQLEscola.Models;
+using System.Web.Security;
 
 namespace SQLEscola.Controllers
 { 
@@ -19,6 +20,12 @@ namespace SQLEscola.Controllers
         public ViewResult Index()
         {
             return View(GerenciadorTurma.GetInstance().ObterTodos());
+        }
+
+        public ViewResult FiltrarPorUser()
+        {
+            string userId = Membership.GetUser().ProviderUserKey.ToString();
+            return View(GerenciadorTurma.GetInstance().ObterPorUsuario(Convert.ToInt32(userId)));
         }
 
         //
@@ -42,15 +49,17 @@ namespace SQLEscola.Controllers
         // POST: /Turma/Create
 
         [HttpPost]
-        public ActionResult Create(TurmaModel turma)
+        public ActionResult Create(TurmaModel model)
         {
             if (ModelState.IsValid)
             {
-                GerenciadorTurma.GetInstance().Inserir(turma);
+                string userId = Membership.GetUser().ProviderUserKey.ToString();
+                model.Id_Usuario = Convert.ToInt32(userId);
+                GerenciadorTurma.GetInstance().Inserir(model);
                 return RedirectToAction("Index");
             }
 
-            return View(turma);
+            return View(model);
         }
         
         //
@@ -66,14 +75,14 @@ namespace SQLEscola.Controllers
         // POST: /Turma/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(TurmaModel turma)
+        public ActionResult Edit(TurmaModel model)
         {
             if (ModelState.IsValid)
             {
-                GerenciadorTurma.GetInstance().Editar(turma);
+                GerenciadorTurma.GetInstance().Editar(model);
                 return RedirectToAction("Index");
             }
-            return View(turma);
+            return View(model);
         }
 
         //
