@@ -172,9 +172,9 @@
   </EntityType>
   <EntityType Name="tb_matricula">
     <Key>
-      <PropertyRef Name="Id_Usuario" />
-      <PropertyRef Name="Id_Turma" />
+      <PropertyRef Name="Id_Matricula" />
     </Key>
+    <Property Name="Id_Matricula" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Id_Usuario" Type="int" Nullable="false" />
     <Property Name="Id_Turma" Type="int" Nullable="false" />
   </EntityType>

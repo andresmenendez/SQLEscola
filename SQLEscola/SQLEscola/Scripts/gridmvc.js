@@ -386,7 +386,7 @@ if (typeof (GridMvc.lang) == 'undefined')
 GridMvc.lang.en = {
     filterTypeLabel: "Tipo: ",
     filterValueLabel: "Valor:",
-    applyFilterButtonText: "Confirmar",
+    applyFilterButtonText: "Filtrar",
     filterSelectTypes: {
         Equals: "Exatamente",
         StartsWith: "Começa com",

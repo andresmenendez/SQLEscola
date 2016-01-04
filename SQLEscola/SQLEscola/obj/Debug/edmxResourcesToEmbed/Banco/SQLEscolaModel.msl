@@ -108,6 +108,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tb_matricula">
+      <EntityTypeMapping TypeName="sqlescolaModel.tb_matricula">
+        <MappingFragment StoreEntitySet="tb_matricula">
+          <ScalarProperty Name="Id_Turma" ColumnName="Id_Turma" />
+          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+          <ScalarProperty Name="Id_Matricula" ColumnName="Id_Matricula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tb_perfil">
       <EntityTypeMapping TypeName="sqlescolaModel.tb_perfil">
         <MappingFragment StoreEntitySet="tb_perfil">
@@ -192,14 +201,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="tb_matricula" TypeName="sqlescolaModel.tb_matricula" StoreEntitySet="tb_matricula">
-      <EndProperty Name="tb_usuario">
-        <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
-      </EndProperty>
-      <EndProperty Name="tb_turma">
-        <ScalarProperty Name="Id_Turma" ColumnName="Id_Turma" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="tb_perfil_usuario" TypeName="sqlescolaModel.tb_perfil_usuario" StoreEntitySet="tb_perfil_usuario">
       <EndProperty Name="tb_usuario">
         <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />

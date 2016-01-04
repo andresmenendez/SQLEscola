@@ -28,6 +28,30 @@ namespace SQLEscola.Controllers
             return View(GerenciadorTurma.GetInstance().ObterPorUsuario(Convert.ToInt32(userId)));
         }
 
+        public ViewResult SolicitarMatricula()
+        {
+            string userId = Membership.GetUser().ProviderUserKey.ToString();
+            return View(GerenciadorTurma.GetInstance().ObterTurmasParaMatricula(Convert.ToInt32(userId)));
+        }
+
+        public ActionResult Matricular(int idTurma)
+        {
+            MatriculaModel mat = new MatriculaModel();
+            mat.Id_Turma = idTurma;
+            string userId = Membership.GetUser().ProviderUserKey.ToString();
+            mat.Id_Usuario = Convert.ToInt32(userId);
+            try
+            {
+                GerenciadorMatricula.GetInstance().Inserir(mat);
+                ViewBag.InseriuCorreto = "True";
+            }
+            catch
+            {
+                ViewBag.InseriuCorreto = "False";
+            }
+            return RedirectToAction("SolicitarMatricula");
+        }
+
         //
         // GET: /Turma/Details/5
 

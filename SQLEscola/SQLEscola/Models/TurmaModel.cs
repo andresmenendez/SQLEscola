@@ -19,5 +19,7 @@ namespace SQLEscola.Models
         public int Id_Usuario { get; set; }
 
         public string Usuario { get; set; }
+
+        public int QtdeAlunos { get; set; }
     }
 }

@@ -21,11 +21,12 @@ using System.Xml.Serialization;
 
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_atividade_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_atividade), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_atividade1", "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_atividade), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_tecnologia1", "tb_tecnologia", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_tecnologia), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_questao1", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_questao), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_resposta), "tb_resultado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resultado), true)]
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "tb_matricula", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_turma), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_usuario))]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "tb_perfil_usuario", "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_perfil), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_usuario))]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "tb_questao_restricoes", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), "tb_restricao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_restricao))]
 
@@ -222,6 +223,22 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_atividade> _tb_atividade;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_matricula> tb_matricula
+        {
+            get
+            {
+                if ((_tb_matricula == null))
+                {
+                    _tb_matricula = base.CreateObjectSet<tb_matricula>("tb_matricula");
+                }
+                return _tb_matricula;
+            }
+        }
+        private ObjectSet<tb_matricula> _tb_matricula;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -425,6 +442,14 @@ namespace SQLEscola.Banco
         public void AddTotb_atividade(tb_atividade tb_atividade)
         {
             base.AddObject("tb_atividade", tb_atividade);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_matricula EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_matricula(tb_matricula tb_matricula)
+        {
+            base.AddObject("tb_matricula", tb_matricula);
         }
     
         /// <summary>
@@ -2181,6 +2206,195 @@ namespace SQLEscola.Banco
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="tb_matricula")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_matricula : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_matricula object.
+        /// </summary>
+        /// <param name="id_Matricula">Initial value of the Id_Matricula property.</param>
+        /// <param name="id_Usuario">Initial value of the Id_Usuario property.</param>
+        /// <param name="id_Turma">Initial value of the Id_Turma property.</param>
+        public static tb_matricula Createtb_matricula(global::System.Int32 id_Matricula, global::System.Int32 id_Usuario, global::System.Int32 id_Turma)
+        {
+            tb_matricula tb_matricula = new tb_matricula();
+            tb_matricula.Id_Matricula = id_Matricula;
+            tb_matricula.Id_Usuario = id_Usuario;
+            tb_matricula.Id_Turma = id_Turma;
+            return tb_matricula;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id_Matricula
+        {
+            get
+            {
+                return _Id_Matricula;
+            }
+            set
+            {
+                if (_Id_Matricula != value)
+                {
+                    OnId_MatriculaChanging(value);
+                    ReportPropertyChanging("Id_Matricula");
+                    _Id_Matricula = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id_Matricula");
+                    OnId_MatriculaChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id_Matricula;
+        partial void OnId_MatriculaChanging(global::System.Int32 value);
+        partial void OnId_MatriculaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id_Usuario
+        {
+            get
+            {
+                return _Id_Usuario;
+            }
+            set
+            {
+                OnId_UsuarioChanging(value);
+                ReportPropertyChanging("Id_Usuario");
+                _Id_Usuario = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Id_Usuario");
+                OnId_UsuarioChanged();
+            }
+        }
+        private global::System.Int32 _Id_Usuario;
+        partial void OnId_UsuarioChanging(global::System.Int32 value);
+        partial void OnId_UsuarioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id_Turma
+        {
+            get
+            {
+                return _Id_Turma;
+            }
+            set
+            {
+                OnId_TurmaChanging(value);
+                ReportPropertyChanging("Id_Turma");
+                _Id_Turma = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Id_Turma");
+                OnId_TurmaChanged();
+            }
+        }
+        private global::System.Int32 _Id_Turma;
+        partial void OnId_TurmaChanging(global::System.Int32 value);
+        partial void OnId_TurmaChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma")]
+        public tb_turma tb_turma
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_turma> tb_turmaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_turma>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario")]
+        public tb_usuario tb_usuario
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_usuario> tb_usuarioReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="tb_perfil")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -3539,18 +3753,18 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "tb_matricula", "tb_usuario")]
-        public EntityCollection<tb_usuario> tb_usuario
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_turma1", "tb_matricula")]
+        public EntityCollection<tb_matricula> tb_matricula
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_usuario>("sqlescolaModel.tb_matricula", "tb_usuario");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_matricula");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_usuario>("sqlescolaModel.tb_matricula", "tb_usuario", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_matricula", value);
                 }
             }
         }
@@ -3746,6 +3960,28 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_matricula")]
+        public EntityCollection<tb_matricula> tb_matricula
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_matricula");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_matricula", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_resposta_tb_usuario1", "tb_resposta")]
         public EntityCollection<tb_resposta> tb_resposta
         {
@@ -3758,28 +3994,6 @@ namespace SQLEscola.Banco
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_resposta>("sqlescolaModel.fk_tb_resposta_tb_usuario1", "tb_resposta", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "tb_matricula", "tb_turma")]
-        public EntityCollection<tb_turma> tb_turma
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_turma>("sqlescolaModel.tb_matricula", "tb_turma");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_turma>("sqlescolaModel.tb_matricula", "tb_turma", value);
                 }
             }
         }

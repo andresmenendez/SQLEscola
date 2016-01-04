@@ -17,6 +17,7 @@ namespace Persistence
     {
         private sqlescolaEntities _context;
         private IRepositorioGenerico<tb_atividade> _repAtividade;
+        private IRepositorioGenerico<tb_matricula> _repMatricula;
         private IRepositorioGenerico<tb_perfil> _repPerfil;
         private IRepositorioGenerico<tb_questao> _repQuestao;
         private IRepositorioGenerico<tb_resposta> _repResposta;
@@ -35,6 +36,19 @@ namespace Persistence
         }
         
         #region IUnitOfWork Members
+
+        public IRepositorioGenerico<tb_matricula> RepositorioMatricula
+        {
+            get
+            {
+                if (_repMatricula == null)
+                {
+                    _repMatricula = new RepositorioGenerico<tb_matricula>(_context);
+                }
+
+                return _repMatricula;
+            }
+        }
 
         public IRepositorioGenerico<tb_usuario> RepositorioUsuario
         {

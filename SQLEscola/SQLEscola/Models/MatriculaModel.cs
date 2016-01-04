@@ -10,6 +10,9 @@ namespace SQLEscola.Models
     public class MatriculaModel
     {
         [Required]
+        public int Id_Matricula { get; set; }
+
+        [Required]
         public int Id_Usuario { get; set; }
 
         [Required]

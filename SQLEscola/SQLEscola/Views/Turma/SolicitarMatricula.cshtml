@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SQLEscola.Models.TurmaModel>
+@{
+    ViewBag.Title = "Matrícula em Turma";
+}
+
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+<h2>Matrícula em Turma</h2>
+
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+
+<div class="box-content">
+    @helper CustomRenderingOfColumn(SQLEscola.Models.TurmaModel turma)
+    {
+        if (turma.Id_Usuario != Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()))
+        {
+            @Html.ActionLink("Matricular", "Matricular", new { id = turma.Id_Turma }, new { @class = "modal-link", style = "font-size:small;", onclick = ("return exibirConfirmacoes()")  });
+        }
+    }
+    @Html.Grid(Model).Columns(columns =>
+    {
+
+        columns.Add(turma => turma.Turma)
+                .Titled("Nome da Turma")
+                .ThenSortByDescending(turma => turma.Turma)
+                .SetWidth(350)
+                .Filterable(true);
+
+        columns.Add(turma => turma.Usuario)
+                .Titled("Professor")
+                .ThenSortByDescending(turma => turma.Usuario)
+                .SetWidth(200)
+                .Filterable(true);
+
+        columns.Add(turma => turma.QtdeAlunos)
+                .Titled("Alunos Matriculados")
+                .ThenSortByDescending(turma => turma.QtdeAlunos)
+                .SetWidth(150)
+                .Filterable(true);
+
+        columns.Add()
+                .Titled("Opções")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(150)
+                .RenderValueAs(turma => CustomRenderingOfColumn(turma));
+
+
+    }).WithPaging(5).Sortable()
+</div>
+
+<!-- Código Javascript para confirmações do botão -->
+    <script type="text/javascript">
+        function exibirConfirmacoes() {
+            var x;
+            var r = confirm("Deseja realmente se matricular nesta turma?");
+            if (r == true) {
+                alert("Você acaba de se matricular nesta turma. \nPara visualizar atividades postadas pelos professor dirija-se para aba de Turmas.");
+                return true;
+            } else {
+                alert("Matrícula cancelada.");
+                return false;
+            }
+        }
+    </script>

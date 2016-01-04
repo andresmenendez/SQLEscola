@@ -106,6 +106,7 @@ namespace SQLEscola.Gerenciadores
             foreach (TurmaModel item in listaTurmas)
             {
                 item.Usuario = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Nome;
+                item.QtdeAlunos = GerenciadorMatricula.GetInstance().ObterPorTurma(item.Id_Turma).Count();
             }
             return listaTurmas;
         }
@@ -138,9 +139,24 @@ namespace SQLEscola.Gerenciadores
 
         public IEnumerable<TurmaModel> ObterPorUsuario(int idUser)
         {
-            IEnumerable<TurmaModel> turmas = GetQuery().Where(turmaModel => turmaModel.Id_Usuario == idUser);
+            IEnumerable<TurmaModel> turmas = GetQuery().Where(turmaModel => turmaModel.Id_Usuario == idUser).OrderBy(turmaModel => turmaModel.Turma);
+            List<TurmaModel> listaTurmas = turmas.ToList();
+            foreach (TurmaModel item in listaTurmas)
+            {
+                item.Usuario = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Nome;
+            }
+            return listaTurmas;
+        }
 
-            return turmas;
+        public IEnumerable<TurmaModel> ObterTurmasParaMatricula(int idUser)
+        {
+            IEnumerable<TurmaModel> turmas = GetQuery().Where(turmaModel => turmaModel.Id_Usuario != idUser).OrderBy(turmaModel => turmaModel.Turma);
+            List<TurmaModel> listaTurmas = turmas.ToList();
+            foreach (TurmaModel item in listaTurmas)
+            {
+                item.Usuario = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Nome;
+            }
+            return listaTurmas;
         }
 
         /// <summary>
