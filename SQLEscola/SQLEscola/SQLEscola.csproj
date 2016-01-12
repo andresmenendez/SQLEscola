@@ -73,9 +73,11 @@
       <DependentUpon>SQLEscolaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AtivarPerfilController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatriculaController.cs" />
     <Compile Include="Controllers\TurmaController.cs" />
+    <Compile Include="Gerenciadores\GerenciadorAtivarPerfil.cs" />
     <Compile Include="Gerenciadores\GerenciadorMatricula.cs" />
     <Compile Include="Gerenciadores\GerenciadorTurma.cs" />
     <Compile Include="Gerenciadores\GerenciadorUsuario.cs" />
@@ -304,6 +306,11 @@
     <Content Include="Views\Matricula\Create.cshtml" />
     <Content Include="Views\Matricula\Edit.cshtml" />
     <Content Include="Views\Matricula\Delete.cshtml" />
+    <Content Include="Views\AtivarPerfil\Index.cshtml" />
+    <Content Include="Views\AtivarPerfil\Details.cshtml" />
+    <Content Include="Views\AtivarPerfil\Create.cshtml" />
+    <Content Include="Views\AtivarPerfil\Edit.cshtml" />
+    <Content Include="Views\AtivarPerfil\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

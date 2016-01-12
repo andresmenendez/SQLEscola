@@ -7,6 +7,7 @@ namespace Persistence
     {
         void Commit(bool shared);
         IRepositorioGenerico<tb_atividade> RepositorioAtividade { get; }
+        IRepositorioGenerico<tb_ativar_perfil> RepositorioAtivarPerfil { get; }
         IRepositorioGenerico<tb_matricula> RepositorioMatricula { get; }
         IRepositorioGenerico<tb_questao> RepositorioQuestao { get; }
         IRepositorioGenerico<tb_resposta> RepositorioResposta { get; }

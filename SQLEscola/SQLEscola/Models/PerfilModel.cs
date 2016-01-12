@@ -18,5 +18,8 @@ namespace SQLEscola.Models
         [Required]
         [StringLength(1)]
         public string Status { get; set; }
+
+        public string NomeUsuario { get; set; }
+        public string NomeCompletoUsuario { get; set; }
     }
 }

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SQLEscola.Models.PerfilModel>
+@{
+    ViewBag.Title = "Solicitar Perfil de Professor para o Administrador do Sistema";
+}
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+<h2>Solicitar Perfil de Professor</h2>
+
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+
+
+<div class="box-content">
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(ativar => ativar.NomeCompletoUsuario)
+                    .Titled("Nome Completo")
+                    .SetWidth(350)
+                    .Filterable(true);
+        
+        columns.Add(ativar => ativar.NomeUsuario)
+                .Titled("Nome de Usuário")
+                .SetWidth(350)
+                .Filterable(true);
+
+        columns.Add(ativar => ativar.Status)
+                .Titled("Status da Solicitação")
+                .SetWidth(350)
+                .Filterable(true);
+        
+
+        columns.Add()
+                .Titled("Opções")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(150)
+                .RenderValueAs(turma => Html.ActionLink("Solicitar", "Edit", new { id = turma.Id_Ativar_Perfil }, new { @class = "modal-link" }));
+
+
+    }).WithPaging(5).Sortable()
+</div>

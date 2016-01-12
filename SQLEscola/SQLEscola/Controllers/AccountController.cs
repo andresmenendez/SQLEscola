@@ -48,7 +48,12 @@ namespace SQLEscola.Controllers
                         }
                         else
                         {
-                            Session["Perfil"] = "Usuário";
+                            Session["Perfil"] = Global.PerfilUsuario;
+                            Session[Global.NomeUsuario] = model.UserName;
+                            MembershipUser mu = Membership.GetUser(model.UserName);
+                            string userId = mu.ProviderUserKey.ToString();
+                            Session[Global.NomeCompletoUsuario] = Gerenciadores.GerenciadorUsuario.GetInstance().
+                                Obter(Convert.ToInt32(userId)).Nome;
                             return RedirectToAction("Inicial", "Home");
                         }
                     }
@@ -107,6 +112,9 @@ namespace SQLEscola.Controllers
                     Gerenciadores.GerenciadorUsuario.GetInstance().Inserir(usuarioModel);
                     //Adicionando Perfil de Usuário ao novo usuário
                     Roles.AddUserToRole(model.UserName, Global.RoleUser);
+                    Session["Perfil"] = Global.PerfilUsuario;
+                    Session[Global.NomeUsuario] = model.UserName;
+                    Session[Global.NomeCompletoUsuario] = model.Nome;
                     return RedirectToAction("Index", "Home");
                 }
                 else

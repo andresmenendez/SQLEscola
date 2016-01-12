@@ -10,5 +10,9 @@ namespace SQLEscola.Models
         public const string RoleAdm = "administrador";
         public const string RoleUser = "usuario";
         public const string RoleProf = "professor";
+        public const string NomeUsuario = "NomeUsuario";
+        public const string NomeCompletoUsuario = "NomeCompletoUsuario";
+        public const string PerfilUsuario = "Usuário";
+        public const string PerfilProfessor = "Professor";
     }
 }
