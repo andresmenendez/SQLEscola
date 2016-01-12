@@ -6,18 +6,9 @@
     <edmx:StorageModels>
     <Schema Namespace="sqlescolaModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="sqlescolaModelStoreContainer">
-          <EntitySet Name="my_aspnet_applications" EntityType="sqlescolaModel.Store.my_aspnet_applications" store:Type="Tables" Schema="sqlescola" />
-          <EntitySet Name="my_aspnet_membership" EntityType="sqlescolaModel.Store.my_aspnet_membership" store:Type="Tables" Schema="sqlescola" />
-          <EntitySet Name="my_aspnet_profiles" EntityType="sqlescolaModel.Store.my_aspnet_profiles" store:Type="Tables" Schema="sqlescola" />
-          <EntitySet Name="my_aspnet_roles" EntityType="sqlescolaModel.Store.my_aspnet_roles" store:Type="Tables" Schema="sqlescola" />
-          <EntitySet Name="my_aspnet_sessioncleanup" EntityType="sqlescolaModel.Store.my_aspnet_sessioncleanup" store:Type="Tables" Schema="sqlescola" />
-          <EntitySet Name="my_aspnet_sessions" EntityType="sqlescolaModel.Store.my_aspnet_sessions" store:Type="Tables" Schema="sqlescola" />
-          <EntitySet Name="my_aspnet_users" EntityType="sqlescolaModel.Store.my_aspnet_users" store:Type="Tables" Schema="sqlescola" />
-          <EntitySet Name="my_aspnet_usersinroles" EntityType="sqlescolaModel.Store.my_aspnet_usersinroles" store:Type="Tables" Schema="sqlescola" />
+          <EntitySet Name="tb_ativar_perfil" EntityType="sqlescolaModel.Store.tb_ativar_perfil" store:Type="Tables" Schema="sqlescola" />
           <EntitySet Name="tb_atividade" EntityType="sqlescolaModel.Store.tb_atividade" store:Type="Tables" Schema="sqlescola" />
           <EntitySet Name="tb_matricula" EntityType="sqlescolaModel.Store.tb_matricula" store:Type="Tables" Schema="sqlescola" />
-          <EntitySet Name="tb_perfil" EntityType="sqlescolaModel.Store.tb_perfil" store:Type="Tables" Schema="sqlescola" />
-          <EntitySet Name="tb_perfil_usuario" EntityType="sqlescolaModel.Store.tb_perfil_usuario" store:Type="Tables" Schema="sqlescola" />
           <EntitySet Name="tb_questao" EntityType="sqlescolaModel.Store.tb_questao" store:Type="Tables" Schema="sqlescola" />
           <EntitySet Name="tb_questao_restricoes" EntityType="sqlescolaModel.Store.tb_questao_restricoes" store:Type="Tables" Schema="sqlescola" />
           <EntitySet Name="tb_resposta" EntityType="sqlescolaModel.Store.tb_resposta" store:Type="Tables" Schema="sqlescola" />
@@ -29,6 +20,14 @@
           <AssociationSet Name="fk_tb_atividade_tb_turma1" Association="sqlescolaModel.Store.fk_tb_atividade_tb_turma1">
             <End Role="tb_turma" EntitySet="tb_turma" />
             <End Role="tb_atividade" EntitySet="tb_atividade" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tb_matricula_tb_turma1" Association="sqlescolaModel.Store.fk_tb_matricula_tb_turma1">
+            <End Role="tb_turma" EntitySet="tb_turma" />
+            <End Role="tb_matricula" EntitySet="tb_matricula" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tb_matricula_tb_usuario1" Association="sqlescolaModel.Store.fk_tb_matricula_tb_usuario1">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_matricula" EntitySet="tb_matricula" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_questao_has_tb_restricoes_tb_questao1" Association="sqlescolaModel.Store.fk_tb_questao_has_tb_restricoes_tb_questao1">
             <End Role="tb_questao" EntitySet="tb_questao" />
@@ -58,114 +57,22 @@
             <End Role="tb_resposta" EntitySet="tb_resposta" />
             <End Role="tb_resultado" EntitySet="tb_resultado" />
           </AssociationSet>
-          <AssociationSet Name="fk_tb_usuario_has_tb_perfil_tb_perfil1" Association="sqlescolaModel.Store.fk_tb_usuario_has_tb_perfil_tb_perfil1">
-            <End Role="tb_perfil" EntitySet="tb_perfil" />
-            <End Role="tb_perfil_usuario" EntitySet="tb_perfil_usuario" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tb_usuario_has_tb_perfil_tb_usuario1" Association="sqlescolaModel.Store.fk_tb_usuario_has_tb_perfil_tb_usuario1">
+          <AssociationSet Name="fk_tb_turma_tb_usuario1" Association="sqlescolaModel.Store.fk_tb_turma_tb_usuario1">
             <End Role="tb_usuario" EntitySet="tb_usuario" />
-            <End Role="tb_perfil_usuario" EntitySet="tb_perfil_usuario" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tb_usuario_has_tb_turma_tb_turma1" Association="sqlescolaModel.Store.fk_tb_usuario_has_tb_turma_tb_turma1">
             <End Role="tb_turma" EntitySet="tb_turma" />
-            <End Role="tb_matricula" EntitySet="tb_matricula" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_usuario_has_tb_turma_tb_usuario1" Association="sqlescolaModel.Store.fk_tb_usuario_has_tb_turma_tb_usuario1">
             <End Role="tb_usuario" EntitySet="tb_usuario" />
-            <End Role="tb_matricula" EntitySet="tb_matricula" />
+            <End Role="tb_ativar_perfil" EntitySet="tb_ativar_perfil" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="my_aspnet_applications">
+        <EntityType Name="tb_ativar_perfil">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id_Ativar_Perfil" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="varchar" MaxLength="256" />
-          <Property Name="description" Type="varchar" MaxLength="256" />
-        </EntityType>
-        <EntityType Name="my_aspnet_membership">
-          <Key>
-            <PropertyRef Name="userId" />
-          </Key>
-          <Property Name="userId" Type="int" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="128" />
-          <Property Name="Comment" Type="varchar" MaxLength="255" />
-          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="128" />
-          <Property Name="PasswordKey" Type="char" MaxLength="32" />
-          <Property Name="PasswordFormat" Type="tinyint" />
-          <Property Name="PasswordQuestion" Type="varchar" MaxLength="255" />
-          <Property Name="PasswordAnswer" Type="varchar" MaxLength="255" />
-          <Property Name="IsApproved" Type="bool" />
-          <Property Name="LastActivityDate" Type="datetime" />
-          <Property Name="LastLoginDate" Type="datetime" />
-          <Property Name="LastPasswordChangedDate" Type="datetime" />
-          <Property Name="CreationDate" Type="datetime" />
-          <Property Name="IsLockedOut" Type="bool" />
-          <Property Name="LastLockedOutDate" Type="datetime" />
-          <Property Name="FailedPasswordAttemptCount" Type="uint" />
-          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" />
-          <Property Name="FailedPasswordAnswerAttemptCount" Type="uint" />
-          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" />
-        </EntityType>
-        <EntityType Name="my_aspnet_profiles">
-          <Key>
-            <PropertyRef Name="userId" />
-          </Key>
-          <Property Name="userId" Type="int" Nullable="false" />
-          <Property Name="valueindex" Type="longtext" />
-          <Property Name="stringdata" Type="longtext" />
-          <Property Name="binarydata" Type="longblob" />
-          <Property Name="lastUpdatedDate" Type="timestamp" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="my_aspnet_roles">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="applicationId" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="my_aspnet_sessioncleanup">
-          <Key>
-            <PropertyRef Name="ApplicationId" />
-          </Key>
-          <Property Name="LastRun" Type="datetime" Nullable="false" />
-          <Property Name="IntervalMinutes" Type="int" Nullable="false" />
-          <Property Name="ApplicationId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="my_aspnet_sessions">
-          <Key>
-            <PropertyRef Name="SessionId" />
-            <PropertyRef Name="ApplicationId" />
-          </Key>
-          <Property Name="SessionId" Type="varchar" Nullable="false" MaxLength="191" />
-          <Property Name="ApplicationId" Type="int" Nullable="false" />
-          <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="Expires" Type="datetime" Nullable="false" />
-          <Property Name="LockDate" Type="datetime" Nullable="false" />
-          <Property Name="LockId" Type="int" Nullable="false" />
-          <Property Name="Timeout" Type="int" Nullable="false" />
-          <Property Name="Locked" Type="bool" Nullable="false" />
-          <Property Name="SessionItems" Type="longblob" />
-          <Property Name="Flags" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="my_aspnet_users">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="applicationId" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="256" />
-          <Property Name="isAnonymous" Type="bool" Nullable="false" />
-          <Property Name="lastActivityDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="my_aspnet_usersinroles">
-          <Key>
-            <PropertyRef Name="userId" />
-            <PropertyRef Name="roleId" />
-          </Key>
-          <Property Name="userId" Type="int" Nullable="false" />
-          <Property Name="roleId" Type="int" Nullable="false" />
+          <Property Name="Id_Ativar_Perfil" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Usuario" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" Nullable="false" MaxLength="1" />
         </EntityType>
         <EntityType Name="tb_atividade">
           <Key>
@@ -182,21 +89,6 @@
           <Property Name="Id_Matricula" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Id_Usuario" Type="int" Nullable="false" />
           <Property Name="Id_Turma" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tb_perfil">
-          <Key>
-            <PropertyRef Name="Id_Perfil" />
-          </Key>
-          <Property Name="Id_Perfil" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Perfil" Type="varchar" Nullable="false" MaxLength="15" />
-        </EntityType>
-        <EntityType Name="tb_perfil_usuario">
-          <Key>
-            <PropertyRef Name="Id_Usuario" />
-            <PropertyRef Name="Id_Perfil" />
-          </Key>
-          <Property Name="Id_Usuario" Type="int" Nullable="false" />
-          <Property Name="Id_Perfil" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_questao">
           <Key>
@@ -268,12 +160,10 @@
           <Key>
             <PropertyRef Name="Id_Usuario" />
           </Key>
-          <Property Name="Id_Usuario" Type="int" Nullable="false" />
+          <Property Name="Id_Usuario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="60" />
           <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Senha" Type="varchar" MaxLength="45" />
           <Property Name="Foto" Type="blob" />
-          <Property Name="Perfil" Type="char" MaxLength="1" />
         </EntityType>
         <Association Name="fk_tb_atividade_tb_turma1">
           <End Role="tb_turma" Type="sqlescolaModel.Store.tb_turma" Multiplicity="1" />
@@ -284,6 +174,30 @@
             </Principal>
             <Dependent Role="tb_atividade">
               <PropertyRef Name="Id_Turma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tb_matricula_tb_turma1">
+          <End Role="tb_turma" Type="sqlescolaModel.Store.tb_turma" Multiplicity="1" />
+          <End Role="tb_matricula" Type="sqlescolaModel.Store.tb_matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_turma">
+              <PropertyRef Name="Id_Turma" />
+            </Principal>
+            <Dependent Role="tb_matricula">
+              <PropertyRef Name="Id_Turma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tb_matricula_tb_usuario1">
+          <End Role="tb_usuario" Type="sqlescolaModel.Store.tb_usuario" Multiplicity="1" />
+          <End Role="tb_matricula" Type="sqlescolaModel.Store.tb_matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="Id_Usuario" />
+            </Principal>
+            <Dependent Role="tb_matricula">
+              <PropertyRef Name="Id_Usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -371,76 +285,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_tb_usuario_has_tb_perfil_tb_perfil1">
-          <End Role="tb_perfil" Type="sqlescolaModel.Store.tb_perfil" Multiplicity="1" />
-          <End Role="tb_perfil_usuario" Type="sqlescolaModel.Store.tb_perfil_usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_perfil">
-              <PropertyRef Name="Id_Perfil" />
-            </Principal>
-            <Dependent Role="tb_perfil_usuario">
-              <PropertyRef Name="Id_Perfil" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tb_usuario_has_tb_perfil_tb_usuario1">
+        <Association Name="fk_tb_turma_tb_usuario1">
           <End Role="tb_usuario" Type="sqlescolaModel.Store.tb_usuario" Multiplicity="1" />
-          <End Role="tb_perfil_usuario" Type="sqlescolaModel.Store.tb_perfil_usuario" Multiplicity="*" />
+          <End Role="tb_turma" Type="sqlescolaModel.Store.tb_turma" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_usuario">
               <PropertyRef Name="Id_Usuario" />
             </Principal>
-            <Dependent Role="tb_perfil_usuario">
+            <Dependent Role="tb_turma">
               <PropertyRef Name="Id_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tb_usuario_has_tb_turma_tb_turma1">
-          <End Role="tb_turma" Type="sqlescolaModel.Store.tb_turma" Multiplicity="1" />
-          <End Role="tb_matricula" Type="sqlescolaModel.Store.tb_matricula" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_turma">
-              <PropertyRef Name="Id_Turma" />
-            </Principal>
-            <Dependent Role="tb_matricula">
-              <PropertyRef Name="Id_Turma" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_usuario_has_tb_turma_tb_usuario1">
           <End Role="tb_usuario" Type="sqlescolaModel.Store.tb_usuario" Multiplicity="1" />
-          <End Role="tb_matricula" Type="sqlescolaModel.Store.tb_matricula" Multiplicity="*" />
+          <End Role="tb_ativar_perfil" Type="sqlescolaModel.Store.tb_ativar_perfil" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_usuario">
               <PropertyRef Name="Id_Usuario" />
             </Principal>
-            <Dependent Role="tb_matricula">
+            <Dependent Role="tb_ativar_perfil">
               <PropertyRef Name="Id_Usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-      warning 6013: The table/view 'def.sqlescola.my_aspnet_schemaversion' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="my_aspnet_schemaversion">
-        <Property Name="version" Type="int" />
-      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="sqlescolaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="sqlescolaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="my_aspnet_applications" EntityType="sqlescolaModel.my_aspnet_applications" />
-          <EntitySet Name="my_aspnet_membership" EntityType="sqlescolaModel.my_aspnet_membership" />
-          <EntitySet Name="my_aspnet_profiles" EntityType="sqlescolaModel.my_aspnet_profiles" />
-          <EntitySet Name="my_aspnet_roles" EntityType="sqlescolaModel.my_aspnet_roles" />
-          <EntitySet Name="my_aspnet_sessioncleanup" EntityType="sqlescolaModel.my_aspnet_sessioncleanup" />
-          <EntitySet Name="my_aspnet_sessions" EntityType="sqlescolaModel.my_aspnet_sessions" />
-          <EntitySet Name="my_aspnet_users" EntityType="sqlescolaModel.my_aspnet_users" />
-          <EntitySet Name="my_aspnet_usersinroles" EntityType="sqlescolaModel.my_aspnet_usersinroles" />
+          <EntitySet Name="tb_ativar_perfil" EntityType="sqlescolaModel.tb_ativar_perfil" />
           <EntitySet Name="tb_atividade" EntityType="sqlescolaModel.tb_atividade" />
           <EntitySet Name="tb_matricula" EntityType="sqlescolaModel.tb_matricula" />
-          <EntitySet Name="tb_perfil" EntityType="sqlescolaModel.tb_perfil" />
           <EntitySet Name="tb_questao" EntityType="sqlescolaModel.tb_questao" />
           <EntitySet Name="tb_resposta" EntityType="sqlescolaModel.tb_resposta" />
           <EntitySet Name="tb_restricao" EntityType="sqlescolaModel.tb_restricao" />
@@ -448,6 +324,10 @@
           <EntitySet Name="tb_tecnologia" EntityType="sqlescolaModel.tb_tecnologia" />
           <EntitySet Name="tb_turma" EntityType="sqlescolaModel.tb_turma" />
           <EntitySet Name="tb_usuario" EntityType="sqlescolaModel.tb_usuario" />
+          <AssociationSet Name="fk_tb_usuario_has_tb_turma_tb_usuario1" Association="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_ativar_perfil" EntitySet="tb_ativar_perfil" />
+          </AssociationSet>
           <AssociationSet Name="fk_tb_atividade_tb_turma1" Association="sqlescolaModel.fk_tb_atividade_tb_turma1">
             <End Role="tb_turma" EntitySet="tb_turma" />
             <End Role="tb_atividade" EntitySet="tb_atividade" />
@@ -456,11 +336,11 @@
             <End Role="tb_atividade" EntitySet="tb_atividade" />
             <End Role="tb_questao" EntitySet="tb_questao" />
           </AssociationSet>
-          <AssociationSet Name="fk_tb_usuario_has_tb_turma_tb_turma1" Association="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1">
+          <AssociationSet Name="fk_tb_matricula_tb_turma1" Association="sqlescolaModel.fk_tb_matricula_tb_turma1">
             <End Role="tb_turma" EntitySet="tb_turma" />
             <End Role="tb_matricula" EntitySet="tb_matricula" />
           </AssociationSet>
-          <AssociationSet Name="fk_tb_usuario_has_tb_turma_tb_usuario1" Association="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1">
+          <AssociationSet Name="fk_tb_matricula_tb_usuario1" Association="sqlescolaModel.fk_tb_matricula_tb_usuario1">
             <End Role="tb_usuario" EntitySet="tb_usuario" />
             <End Role="tb_matricula" EntitySet="tb_matricula" />
           </AssociationSet>
@@ -480,106 +360,23 @@
             <End Role="tb_resposta" EntitySet="tb_resposta" />
             <End Role="tb_resultado" EntitySet="tb_resultado" />
           </AssociationSet>
-          <AssociationSet Name="tb_perfil_usuario" Association="sqlescolaModel.tb_perfil_usuario">
-            <End Role="tb_perfil" EntitySet="tb_perfil" />
+          <AssociationSet Name="fk_tb_turma_tb_usuario1" Association="sqlescolaModel.fk_tb_turma_tb_usuario1">
             <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_turma" EntitySet="tb_turma" />
           </AssociationSet>
           <AssociationSet Name="tb_questao_restricoes" Association="sqlescolaModel.tb_questao_restricoes">
             <End Role="tb_questao" EntitySet="tb_questao" />
             <End Role="tb_restricao" EntitySet="tb_restricao" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="my_aspnet_applications">
+        <EntityType Name="tb_ativar_perfil">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id_Ativar_Perfil" />
           </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="name" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="description" MaxLength="256" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="my_aspnet_membership">
-          <Key>
-            <PropertyRef Name="userId" />
-          </Key>
-          <Property Type="Int32" Name="userId" Nullable="false" />
-          <Property Type="String" Name="Email" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Comment" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PasswordKey" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Type="SByte" Name="PasswordFormat" />
-          <Property Type="String" Name="PasswordQuestion" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PasswordAnswer" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="IsApproved" />
-          <Property Type="DateTime" Name="LastActivityDate" />
-          <Property Type="DateTime" Name="LastLoginDate" />
-          <Property Type="DateTime" Name="LastPasswordChangedDate" />
-          <Property Type="DateTime" Name="CreationDate" />
-          <Property Type="Boolean" Name="IsLockedOut" />
-          <Property Type="DateTime" Name="LastLockedOutDate" />
-          <Property Type="Int64" Name="FailedPasswordAttemptCount" />
-          <Property Type="DateTime" Name="FailedPasswordAttemptWindowStart" />
-          <Property Type="Int64" Name="FailedPasswordAnswerAttemptCount" />
-          <Property Type="DateTime" Name="FailedPasswordAnswerAttemptWindowStart" />
-        </EntityType>
-        <EntityType Name="my_aspnet_profiles">
-          <Key>
-            <PropertyRef Name="userId" />
-          </Key>
-          <Property Type="Int32" Name="userId" Nullable="false" />
-          <Property Type="String" Name="valueindex" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="stringdata" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="binarydata" MaxLength="Max" FixedLength="false" />
-          <Property Type="DateTime" Name="lastUpdatedDate" Nullable="false" />
-        </EntityType>
-        <EntityType Name="my_aspnet_roles">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="applicationId" Nullable="false" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="my_aspnet_sessioncleanup">
-          <Key>
-            <PropertyRef Name="ApplicationId" />
-          </Key>
-          <Property Type="DateTime" Name="LastRun" Nullable="false" />
-          <Property Type="Int32" Name="IntervalMinutes" Nullable="false" />
-          <Property Type="Int32" Name="ApplicationId" Nullable="false" />
-        </EntityType>
-        <EntityType Name="my_aspnet_sessions">
-          <Key>
-            <PropertyRef Name="SessionId" />
-            <PropertyRef Name="ApplicationId" />
-          </Key>
-          <Property Type="String" Name="SessionId" Nullable="false" MaxLength="191" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="ApplicationId" Nullable="false" />
-          <Property Type="DateTime" Name="Created" Nullable="false" />
-          <Property Type="DateTime" Name="Expires" Nullable="false" />
-          <Property Type="DateTime" Name="LockDate" Nullable="false" />
-          <Property Type="Int32" Name="LockId" Nullable="false" />
-          <Property Type="Int32" Name="Timeout" Nullable="false" />
-          <Property Type="Boolean" Name="Locked" Nullable="false" />
-          <Property Type="Binary" Name="SessionItems" MaxLength="Max" FixedLength="false" />
-          <Property Type="Int32" Name="Flags" Nullable="false" />
-        </EntityType>
-        <EntityType Name="my_aspnet_users">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="applicationId" Nullable="false" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="isAnonymous" Nullable="false" />
-          <Property Type="DateTime" Name="lastActivityDate" />
-        </EntityType>
-        <EntityType Name="my_aspnet_usersinroles">
-          <Key>
-            <PropertyRef Name="userId" />
-            <PropertyRef Name="roleId" />
-          </Key>
-          <Property Type="Int32" Name="userId" Nullable="false" />
-          <Property Type="Int32" Name="roleId" Nullable="false" />
+          <Property Type="Int32" Name="Id_Ativar_Perfil" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" FromRole="tb_ativar_perfil" ToRole="tb_usuario" />
         </EntityType>
         <EntityType Name="tb_atividade">
           <Key>
@@ -598,16 +395,8 @@
           <Property Type="Int32" Name="Id_Matricula" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
           <Property Type="Int32" Name="Id_Turma" Nullable="false" />
-          <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1" FromRole="tb_matricula" ToRole="tb_turma" />
-          <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" FromRole="tb_matricula" ToRole="tb_usuario" />
-        </EntityType>
-        <EntityType Name="tb_perfil">
-          <Key>
-            <PropertyRef Name="Id_Perfil" />
-          </Key>
-          <Property Type="Int32" Name="Id_Perfil" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Perfil" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.tb_perfil_usuario" FromRole="tb_perfil" ToRole="tb_usuario" />
+          <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_matricula_tb_turma1" FromRole="tb_matricula" ToRole="tb_turma" />
+          <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_matricula_tb_usuario1" FromRole="tb_matricula" ToRole="tb_usuario" />
         </EntityType>
         <EntityType Name="tb_questao">
           <Key>
@@ -677,22 +466,34 @@
           <Property Type="String" Name="Nome" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
           <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_atividade_tb_turma1" FromRole="tb_turma" ToRole="tb_atividade" />
-          <NavigationProperty Name="tb_matricula" Relationship="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1" FromRole="tb_turma" ToRole="tb_matricula" />
+          <NavigationProperty Name="tb_matricula" Relationship="sqlescolaModel.fk_tb_matricula_tb_turma1" FromRole="tb_turma" ToRole="tb_matricula" />
+          <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_turma_tb_usuario1" FromRole="tb_turma" ToRole="tb_usuario" />
         </EntityType>
         <EntityType Name="tb_usuario">
           <Key>
             <PropertyRef Name="Id_Usuario" />
           </Key>
-          <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
+          <Property Type="Int32" Name="Id_Usuario" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Nome" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Senha" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Type="Binary" Name="Foto" MaxLength="Max" FixedLength="false" />
-          <Property Type="String" Name="Perfil" MaxLength="1" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tb_matricula" Relationship="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" FromRole="tb_usuario" ToRole="tb_matricula" />
+          <NavigationProperty Name="tb_ativar_perfil" Relationship="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" FromRole="tb_usuario" ToRole="tb_ativar_perfil" />
+          <NavigationProperty Name="tb_matricula" Relationship="sqlescolaModel.fk_tb_matricula_tb_usuario1" FromRole="tb_usuario" ToRole="tb_matricula" />
           <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_usuario1" FromRole="tb_usuario" ToRole="tb_resposta" />
-          <NavigationProperty Name="tb_perfil" Relationship="sqlescolaModel.tb_perfil_usuario" FromRole="tb_usuario" ToRole="tb_perfil" />
+          <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_turma_tb_usuario1" FromRole="tb_usuario" ToRole="tb_turma" />
         </EntityType>
+        <Association Name="fk_tb_usuario_has_tb_turma_tb_usuario1">
+          <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="1" />
+          <End Type="sqlescolaModel.tb_ativar_perfil" Role="tb_ativar_perfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="Id_Usuario" />
+            </Principal>
+            <Dependent Role="tb_ativar_perfil">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_tb_atividade_tb_turma1">
           <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="1" />
           <End Type="sqlescolaModel.tb_atividade" Role="tb_atividade" Multiplicity="*" />
@@ -717,7 +518,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_tb_usuario_has_tb_turma_tb_turma1">
+        <Association Name="fk_tb_matricula_tb_turma1">
           <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="1" />
           <End Type="sqlescolaModel.tb_matricula" Role="tb_matricula" Multiplicity="*" />
           <ReferentialConstraint>
@@ -729,7 +530,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_tb_usuario_has_tb_turma_tb_usuario1">
+        <Association Name="fk_tb_matricula_tb_usuario1">
           <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="1" />
           <End Type="sqlescolaModel.tb_matricula" Role="tb_matricula" Multiplicity="*" />
           <ReferentialConstraint>
@@ -789,9 +590,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="tb_perfil_usuario">
-          <End Type="sqlescolaModel.tb_perfil" Role="tb_perfil" Multiplicity="*" />
-          <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="*" />
+        <Association Name="fk_tb_turma_tb_usuario1">
+          <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="1" />
+          <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="Id_Usuario" />
+            </Principal>
+            <Dependent Role="tb_turma">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="tb_questao_restricoes">
           <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
@@ -803,101 +612,12 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="sqlescolaModelStoreContainer" CdmEntityContainer="sqlescolaEntities">
-          <EntitySetMapping Name="my_aspnet_applications">
-            <EntityTypeMapping TypeName="sqlescolaModel.my_aspnet_applications">
-              <MappingFragment StoreEntitySet="my_aspnet_applications">
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="my_aspnet_membership">
-            <EntityTypeMapping TypeName="sqlescolaModel.my_aspnet_membership">
-              <MappingFragment StoreEntitySet="my_aspnet_membership">
-                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
-                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
-                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
-                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
-                <ScalarProperty Name="LastLockedOutDate" ColumnName="LastLockedOutDate" />
-                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
-                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
-                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
-                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
-                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
-                <ScalarProperty Name="PasswordKey" ColumnName="PasswordKey" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="my_aspnet_profiles">
-            <EntityTypeMapping TypeName="sqlescolaModel.my_aspnet_profiles">
-              <MappingFragment StoreEntitySet="my_aspnet_profiles">
-                <ScalarProperty Name="lastUpdatedDate" ColumnName="lastUpdatedDate" />
-                <ScalarProperty Name="binarydata" ColumnName="binarydata" />
-                <ScalarProperty Name="stringdata" ColumnName="stringdata" />
-                <ScalarProperty Name="valueindex" ColumnName="valueindex" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="my_aspnet_roles">
-            <EntityTypeMapping TypeName="sqlescolaModel.my_aspnet_roles">
-              <MappingFragment StoreEntitySet="my_aspnet_roles">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="applicationId" ColumnName="applicationId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="my_aspnet_sessioncleanup">
-            <EntityTypeMapping TypeName="sqlescolaModel.my_aspnet_sessioncleanup">
-              <MappingFragment StoreEntitySet="my_aspnet_sessioncleanup">
-                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
-                <ScalarProperty Name="IntervalMinutes" ColumnName="IntervalMinutes" />
-                <ScalarProperty Name="LastRun" ColumnName="LastRun" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="my_aspnet_sessions">
-            <EntityTypeMapping TypeName="sqlescolaModel.my_aspnet_sessions">
-              <MappingFragment StoreEntitySet="my_aspnet_sessions">
-                <ScalarProperty Name="Flags" ColumnName="Flags" />
-                <ScalarProperty Name="SessionItems" ColumnName="SessionItems" />
-                <ScalarProperty Name="Locked" ColumnName="Locked" />
-                <ScalarProperty Name="Timeout" ColumnName="Timeout" />
-                <ScalarProperty Name="LockId" ColumnName="LockId" />
-                <ScalarProperty Name="LockDate" ColumnName="LockDate" />
-                <ScalarProperty Name="Expires" ColumnName="Expires" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
-                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="my_aspnet_users">
-            <EntityTypeMapping TypeName="sqlescolaModel.my_aspnet_users">
-              <MappingFragment StoreEntitySet="my_aspnet_users">
-                <ScalarProperty Name="lastActivityDate" ColumnName="lastActivityDate" />
-                <ScalarProperty Name="isAnonymous" ColumnName="isAnonymous" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="applicationId" ColumnName="applicationId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="my_aspnet_usersinroles">
-            <EntityTypeMapping TypeName="sqlescolaModel.my_aspnet_usersinroles">
-              <MappingFragment StoreEntitySet="my_aspnet_usersinroles">
-                <ScalarProperty Name="roleId" ColumnName="roleId" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
+          <EntitySetMapping Name="tb_ativar_perfil">
+            <EntityTypeMapping TypeName="sqlescolaModel.tb_ativar_perfil">
+              <MappingFragment StoreEntitySet="tb_ativar_perfil">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+                <ScalarProperty Name="Id_Ativar_Perfil" ColumnName="Id_Ativar_Perfil" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -916,14 +636,6 @@
                 <ScalarProperty Name="Id_Turma" ColumnName="Id_Turma" />
                 <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
                 <ScalarProperty Name="Id_Matricula" ColumnName="Id_Matricula" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tb_perfil">
-            <EntityTypeMapping TypeName="sqlescolaModel.tb_perfil">
-              <MappingFragment StoreEntitySet="tb_perfil">
-                <ScalarProperty Name="Perfil" ColumnName="Perfil" />
-                <ScalarProperty Name="Id_Perfil" ColumnName="Id_Perfil" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -994,23 +706,13 @@
           <EntitySetMapping Name="tb_usuario">
             <EntityTypeMapping TypeName="sqlescolaModel.tb_usuario">
               <MappingFragment StoreEntitySet="tb_usuario">
-                <ScalarProperty Name="Perfil" ColumnName="Perfil" />
                 <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="Senha" ColumnName="Senha" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="tb_perfil_usuario" TypeName="sqlescolaModel.tb_perfil_usuario" StoreEntitySet="tb_perfil_usuario">
-            <EndProperty Name="tb_usuario">
-              <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
-            </EndProperty>
-            <EndProperty Name="tb_perfil">
-              <ScalarProperty Name="Id_Perfil" ColumnName="Id_Perfil" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="tb_questao_restricoes" TypeName="sqlescolaModel.tb_questao_restricoes" StoreEntitySet="tb_questao_restricoes">
             <EndProperty Name="tb_restricao">
               <ScalarProperty Name="Id_Restricoes" ColumnName="Id_Restricoes" />
@@ -1040,77 +742,69 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="SQLEscolaModel">
-        <EntityTypeShape EntityType="sqlescolaModel.my_aspnet_applications" Width="1.5" PointX="5.75" PointY="1.75" Height="1.5956835937500102" />
-        <EntityTypeShape EntityType="sqlescolaModel.my_aspnet_membership" Width="1.5" PointX="9.75" PointY="8.75" Height="4.6725065104166674" />
-        <EntityTypeShape EntityType="sqlescolaModel.my_aspnet_profiles" Width="1.5" PointX="7.75" PointY="1.75" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="sqlescolaModel.my_aspnet_roles" Width="1.5" PointX="3.75" PointY="8.75" Height="1.5956835937500102" />
-        <EntityTypeShape EntityType="sqlescolaModel.my_aspnet_sessioncleanup" Width="1.5" PointX="9.75" PointY="1.75" Height="1.5956835937500102" />
-        <EntityTypeShape EntityType="sqlescolaModel.my_aspnet_sessions" Width="1.5" PointX="5.75" PointY="11.75" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="sqlescolaModel.my_aspnet_users" Width="1.5" PointX="11.75" PointY="1.75" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="sqlescolaModel.my_aspnet_usersinroles" Width="1.5" PointX="11.75" PointY="4.75" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_atividade" Width="1.5" PointX="3" PointY="5.125" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_matricula" Width="1.5" PointX="3" PointY="2.125" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_perfil" Width="1.5" PointX="1.5" PointY="8.5" Height="1.5956835937499818" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_questao" Width="1.5" PointX="5.25" PointY="4.25" Height="3.710999348958353" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_resposta" Width="1.5" PointX="7.5" PointY="4.875" Height="2.5571907552083246" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_restricao" Width="1.5" PointX="7.5" PointY="8.5" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_resultado" Width="1.5" PointX="9.75" PointY="5.125" Height="1.980286458333353" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_tecnologia" Width="1.5" PointX="3" PointY="12.25" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_turma" Width="1.5" PointX="0.75" PointY="5.125" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_usuario" Width="1.5" PointX="0.75" PointY="0.75" Height="2.7494921874999818" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_ativar_perfil" Width="1.5" PointX="3" PointY="5.25" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_atividade" Width="1.5" PointX="5.25" PointY="13.875" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_matricula" Width="1.5" PointX="5.25" PointY="10.125" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_questao" Width="1.5" PointX="7.5" PointY="13" Height="3.7109993489583335" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_resposta" Width="1.5" PointX="3" PointY="8.25" Height="2.5571907552083282" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_restricao" Width="1.5" PointX="9.75" PointY="14" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_resultado" Width="1.5" PointX="5.25" PointY="6.625" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_tecnologia" Width="1.5" PointX="5.25" PointY="17" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_turma" Width="1.5" PointX="3" PointY="13.75" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_usuario" Width="1.5" PointX="0.75" PointY="6.25" Height="2.5571907552083246" />
+        <AssociationConnector Association="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" >
+          <ConnectorPoint PointX="2.25" PointY="6.6439925130208337" />
+          <ConnectorPoint PointX="3" PointY="6.6439925130208337" />
+        </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_atividade_tb_turma1" >
-          <ConnectorPoint PointX="2.25" PointY="6.1151432291666623" />
-          <ConnectorPoint PointX="2.6979166666666665" PointY="6.1151432291666614" />
-          <ConnectorPoint PointX="2.8645833333333335" PointY="6.1151432291666623" />
-          <ConnectorPoint PointX="3" PointY="6.1151432291666623" />
+          <ConnectorPoint PointX="4.5" PointY="14.865143229166669" />
+          <ConnectorPoint PointX="5.25" PointY="14.865143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_questao_tb_atividade1" >
-          <ConnectorPoint PointX="4.5" PointY="6.1151432291666623" />
-          <ConnectorPoint PointX="5.25" PointY="6.1151432291666623" />
+          <ConnectorPoint PointX="6.75" PointY="14.865143229166669" />
+          <ConnectorPoint PointX="7.5" PointY="14.865143229166669" />
         </AssociationConnector>
-        <AssociationConnector Association="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1" >
-          <ConnectorPoint PointX="2.25" PointY="5.125" />
-          <ConnectorPoint PointX="2.625" PointY="4.75" />
-          <ConnectorPoint PointX="2.625" PointY="3.1151432291666623" />
-          <ConnectorPoint PointX="2.6979166666666665" PointY="3.1151432291666619" />
-          <ConnectorPoint PointX="2.8645833333333335" PointY="3.1151432291666623" />
-          <ConnectorPoint PointX="3" PointY="3.1151432291666623" />
+        <AssociationConnector Association="sqlescolaModel.fk_tb_matricula_tb_turma1" >
+          <ConnectorPoint PointX="4.5" PointY="13.751152846153847" />
+          <ConnectorPoint PointX="4.875" PointY="13.376152846153847" />
+          <ConnectorPoint PointX="4.875" PointY="11.115143229166669" />
+          <ConnectorPoint PointX="5.25" PointY="11.115143229166669" />
         </AssociationConnector>
-        <AssociationConnector Association="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" >
-          <ConnectorPoint PointX="2.25" PointY="2.5575716145833312" />
-          <ConnectorPoint PointX="2.6979166666666665" PointY="2.5575716145833307" />
-          <ConnectorPoint PointX="2.8645833333333335" PointY="2.5575716145833312" />
-          <ConnectorPoint PointX="3" PointY="2.5575716145833312" />
+        <AssociationConnector Association="sqlescolaModel.fk_tb_matricula_tb_usuario1" >
+          <ConnectorPoint PointX="1.5" PointY="8.8071907552083246" />
+          <ConnectorPoint PointX="1.5" PointY="11.641467343750005" />
+          <ConnectorPoint PointX="1.8229191666666667" PointY="11.641467343750005" />
+          <ConnectorPoint PointX="1.9895858333333332" PointY="11.641467343750005" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="11.641467343750005" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="11.641467343750005" />
+          <ConnectorPoint PointX="5.25" PointY="11.641467343750005" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_questao_tb_tecnologia1" >
-          <ConnectorPoint PointX="4.5" PointY="13.143992513020834" />
-          <ConnectorPoint PointX="5.5" PointY="13.143992513020834" />
-          <ConnectorPoint PointX="5.5" PointY="11.5" />
-          <ConnectorPoint PointX="6" PointY="11.5" />
-          <ConnectorPoint PointX="6" PointY="7.960999348958353" />
+          <ConnectorPoint PointX="6.75" PointY="17.893992513020834" />
+          <ConnectorPoint PointX="8.25" PointY="17.893992513020834" />
+          <ConnectorPoint PointX="8.25" PointY="16.710999348958332" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_resposta_tb_questao1" >
-          <ConnectorPoint PointX="6.75" PointY="6.1535953776041623" />
-          <ConnectorPoint PointX="7.5" PointY="6.1535953776041623" />
+          <ConnectorPoint PointX="8.25" PointY="13" />
+          <ConnectorPoint PointX="8.25" PointY="9.3651432291666623" />
+          <ConnectorPoint PointX="4.5" PointY="9.3651432291666623" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_resposta_tb_usuario1" >
-          <ConnectorPoint PointX="2.25" PointY="1.21875" />
-          <ConnectorPoint PointX="7.59375" PointY="1.21875" />
-          <ConnectorPoint PointX="7.59375" PointY="4.875" />
+          <ConnectorPoint PointX="2.25" PointY="8.5285953776041623" />
+          <ConnectorPoint PointX="3" PointY="8.5285953776041623" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_resultado_tb_resposta1" >
-          <ConnectorPoint PointX="9" PointY="6.1151432291666765" />
-          <ConnectorPoint PointX="9.75" PointY="6.1151432291666765" />
+          <ConnectorPoint PointX="4.5" PointY="8.4276432291666623" />
+          <ConnectorPoint PointX="5.25" PointY="8.4276432291666623" />
         </AssociationConnector>
-        <AssociationConnector Association="sqlescolaModel.tb_perfil_usuario" >
-          <ConnectorPoint PointX="2.78125" PointY="8.5" />
-          <ConnectorPoint PointX="2.78125" PointY="1.8881608072916656" />
-          <ConnectorPoint PointX="2.25" PointY="1.8881608072916656" />
+        <AssociationConnector Association="sqlescolaModel.fk_tb_turma_tb_usuario1" >
+          <ConnectorPoint PointX="1.9062525" PointY="8.8071907552083246" />
+          <ConnectorPoint PointX="1.9062525" PointY="14.836293945312505" />
+          <ConnectorPoint PointX="3" PointY="14.836293945312505" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.tb_questao_restricoes" >
-          <ConnectorPoint PointX="6.4062525" PointY="7.960999348958353" />
-          <ConnectorPoint PointX="6.4062525" PointY="9.3939925130208337" />
-          <ConnectorPoint PointX="7.5" PointY="9.3939925130208337" />
+          <ConnectorPoint PointX="9" PointY="14.893992513020834" />
+          <ConnectorPoint PointX="9.75" PointY="14.893992513020834" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

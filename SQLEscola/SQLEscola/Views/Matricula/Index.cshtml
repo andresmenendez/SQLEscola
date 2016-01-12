@@ -1,39 +1,55 @@
-﻿@model IEnumerable<SQLEscola.Banco.tb_matricula>
-
+﻿@model IEnumerable<SQLEscola.Models.MatriculaModel>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Solicitar Perfil de Professor";
 }
 
-<h2>Index</h2>
+@using GridMvc.Html
+@using GridMvc.Sorting
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            tb_usuario
-        </th>
-        <th>
-            tb_turma
-        </th>
-        <th></th>
-    </tr>
+<h2>Solicitar Perfil de Professor</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.tb_usuario.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tb_turma.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id_Matricula }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id_Matricula }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id_Matricula })
-        </td>
-    </tr>
-}
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
 
-</table>
+<div class="box-content">
+    @Html.Grid(Model).Columns(columns =>
+    {
+
+        columns.Add(mat => mat.Usuario)
+                .Titled("Nome")
+                .ThenSortByDescending(mat => mat.Usuario)
+                .SetWidth(350)
+                .Filterable(true);
+
+        columns.Add(mat => mat.Status)
+                .Titled("Nome")
+                .ThenSortByDescending(mat => mat.Usuario)
+                .SetWidth(350)
+                .Filterable(true);
+
+        columns.Add()
+                .Titled("Opções")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(150);
+
+
+    }).WithPaging(5).Sortable()
+</div>
+
+<!-- Código Javascript para confirmações do botão -->
+    <script type="text/javascript">
+        function exibirConfirmacoes() {
+            var x;
+            var r = confirm("Deseja realmente se matricular nesta turma?");
+            if (r == true) {
+                alert("Você acaba de se matricular nesta turma. \nPara visualizar atividades postadas pelos professor dirija-se para aba de Turmas.");
+                return true;
+            } else {
+                alert("Matrícula cancelada.");
+                return false;
+            }
+        }
+    </script>

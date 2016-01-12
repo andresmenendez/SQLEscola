@@ -38,7 +38,19 @@ namespace SQLEscola.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Inicial", "Home");
+                        //Roles.AddUserToRole(model.UserName, Global.RoleUser);
+                        //Roles.RemoveUserFromRole(model.UserName, Global.RoleUser);
+                        if (Roles.IsUserInRole(model.UserName, Global.RoleProf))
+                        {
+
+                            //TODO Alterar para levar a tela de selecionar perfil
+                            return RedirectToAction("Inicial", "Home");
+                        }
+                        else
+                        {
+                            Session["Perfil"] = "Usuário";
+                            return RedirectToAction("Inicial", "Home");
+                        }
                     }
                 }
                 else
@@ -93,6 +105,8 @@ namespace SQLEscola.Controllers
                     string userId = mu.ProviderUserKey.ToString();
                     usuarioModel.Id_Usuario = Convert.ToInt32(userId);
                     Gerenciadores.GerenciadorUsuario.GetInstance().Inserir(usuarioModel);
+                    //Adicionando Perfil de Usuário ao novo usuário
+                    Roles.AddUserToRole(model.UserName, Global.RoleUser);
                     return RedirectToAction("Index", "Home");
                 }
                 else

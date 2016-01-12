@@ -22,13 +22,7 @@ namespace SQLEscola.Models
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
-        [StringLength(45)]
-        [Display(Name = "Senha")]
-        public string Senha { get; set; }
-
         [Display(Name = "Foto")]
         public byte[] Foto { get; set; }
-
-        public int Id_Perfil { get; set; }
     }
 }

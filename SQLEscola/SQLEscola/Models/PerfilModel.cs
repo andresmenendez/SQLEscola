@@ -10,11 +10,13 @@ namespace SQLEscola.Models
     public class PerfilModel
     {
         [Required]
-        public int Id_Perfil { get; set; }
+        public int Id_Ativar_Perfil { get; set; }
 
         [Required]
-        [StringLength(15)]
-        [Display(Name = "Perfil")]
-        public string Perfil { get; set; }
+        public int Id_Usuario { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string Status { get; set; }
     }
 }

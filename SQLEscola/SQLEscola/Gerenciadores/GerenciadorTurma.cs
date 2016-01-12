@@ -106,7 +106,7 @@ namespace SQLEscola.Gerenciadores
             foreach (TurmaModel item in listaTurmas)
             {
                 item.Usuario = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Nome;
-                item.QtdeAlunos = GerenciadorMatricula.GetInstance().ObterPorTurma(item.Id_Turma).Count();
+                //item.QtdeAlunos = GerenciadorMatricula.GetInstance().ObterPorTurma(item.Id_Turma).Count();
             }
             return listaTurmas;
         }

@@ -18,7 +18,6 @@ namespace Persistence
         private sqlescolaEntities _context;
         private IRepositorioGenerico<tb_atividade> _repAtividade;
         private IRepositorioGenerico<tb_matricula> _repMatricula;
-        private IRepositorioGenerico<tb_perfil> _repPerfil;
         private IRepositorioGenerico<tb_questao> _repQuestao;
         private IRepositorioGenerico<tb_resposta> _repResposta;
         private IRepositorioGenerico<tb_restricao> _repRestricao;
@@ -138,19 +137,6 @@ namespace Persistence
                 }
 
                 return _repQuestao;
-            }
-        }
-
-        public IRepositorioGenerico<tb_perfil> RepositorioPerfil
-        {
-            get
-            {
-                if (_repPerfil == null)
-                {
-                    _repPerfil = new RepositorioGenerico<tb_perfil>(_context);
-                }
-
-                return _repPerfil;
             }
         }
 

@@ -52,7 +52,7 @@ namespace SQLEscola.Gerenciadores
             Atribuir(matriculaModel, matriculaE);
             unitOfWork.RepositorioMatricula.Inserir(matriculaE);
             unitOfWork.Commit(shared);
-            return matriculaE.Id_Turma;
+            return matriculaE.Id_Matricula;
         }
 
         /// <summary>

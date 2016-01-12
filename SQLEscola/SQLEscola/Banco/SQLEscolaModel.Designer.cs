@@ -19,15 +19,16 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_ativar_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_ativar_perfil), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_atividade_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_atividade), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_atividade1", "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_atividade), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_tecnologia1", "tb_tecnologia", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_tecnologia), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_questao1", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_questao), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_resposta), "tb_resultado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resultado), true)]
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "tb_perfil_usuario", "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_perfil), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_usuario))]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_turma_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_turma), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "tb_questao_restricoes", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), "tb_restricao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_restricao))]
 
 #endregion
@@ -83,130 +84,18 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<my_aspnet_applications> my_aspnet_applications
+        public ObjectSet<tb_ativar_perfil> tb_ativar_perfil
         {
             get
             {
-                if ((_my_aspnet_applications == null))
+                if ((_tb_ativar_perfil == null))
                 {
-                    _my_aspnet_applications = base.CreateObjectSet<my_aspnet_applications>("my_aspnet_applications");
+                    _tb_ativar_perfil = base.CreateObjectSet<tb_ativar_perfil>("tb_ativar_perfil");
                 }
-                return _my_aspnet_applications;
+                return _tb_ativar_perfil;
             }
         }
-        private ObjectSet<my_aspnet_applications> _my_aspnet_applications;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<my_aspnet_membership> my_aspnet_membership
-        {
-            get
-            {
-                if ((_my_aspnet_membership == null))
-                {
-                    _my_aspnet_membership = base.CreateObjectSet<my_aspnet_membership>("my_aspnet_membership");
-                }
-                return _my_aspnet_membership;
-            }
-        }
-        private ObjectSet<my_aspnet_membership> _my_aspnet_membership;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<my_aspnet_profiles> my_aspnet_profiles
-        {
-            get
-            {
-                if ((_my_aspnet_profiles == null))
-                {
-                    _my_aspnet_profiles = base.CreateObjectSet<my_aspnet_profiles>("my_aspnet_profiles");
-                }
-                return _my_aspnet_profiles;
-            }
-        }
-        private ObjectSet<my_aspnet_profiles> _my_aspnet_profiles;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<my_aspnet_roles> my_aspnet_roles
-        {
-            get
-            {
-                if ((_my_aspnet_roles == null))
-                {
-                    _my_aspnet_roles = base.CreateObjectSet<my_aspnet_roles>("my_aspnet_roles");
-                }
-                return _my_aspnet_roles;
-            }
-        }
-        private ObjectSet<my_aspnet_roles> _my_aspnet_roles;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<my_aspnet_sessioncleanup> my_aspnet_sessioncleanup
-        {
-            get
-            {
-                if ((_my_aspnet_sessioncleanup == null))
-                {
-                    _my_aspnet_sessioncleanup = base.CreateObjectSet<my_aspnet_sessioncleanup>("my_aspnet_sessioncleanup");
-                }
-                return _my_aspnet_sessioncleanup;
-            }
-        }
-        private ObjectSet<my_aspnet_sessioncleanup> _my_aspnet_sessioncleanup;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<my_aspnet_sessions> my_aspnet_sessions
-        {
-            get
-            {
-                if ((_my_aspnet_sessions == null))
-                {
-                    _my_aspnet_sessions = base.CreateObjectSet<my_aspnet_sessions>("my_aspnet_sessions");
-                }
-                return _my_aspnet_sessions;
-            }
-        }
-        private ObjectSet<my_aspnet_sessions> _my_aspnet_sessions;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<my_aspnet_users> my_aspnet_users
-        {
-            get
-            {
-                if ((_my_aspnet_users == null))
-                {
-                    _my_aspnet_users = base.CreateObjectSet<my_aspnet_users>("my_aspnet_users");
-                }
-                return _my_aspnet_users;
-            }
-        }
-        private ObjectSet<my_aspnet_users> _my_aspnet_users;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<my_aspnet_usersinroles> my_aspnet_usersinroles
-        {
-            get
-            {
-                if ((_my_aspnet_usersinroles == null))
-                {
-                    _my_aspnet_usersinroles = base.CreateObjectSet<my_aspnet_usersinroles>("my_aspnet_usersinroles");
-                }
-                return _my_aspnet_usersinroles;
-            }
-        }
-        private ObjectSet<my_aspnet_usersinroles> _my_aspnet_usersinroles;
+        private ObjectSet<tb_ativar_perfil> _tb_ativar_perfil;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -239,22 +128,6 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_matricula> _tb_matricula;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<tb_perfil> tb_perfil
-        {
-            get
-            {
-                if ((_tb_perfil == null))
-                {
-                    _tb_perfil = base.CreateObjectSet<tb_perfil>("tb_perfil");
-                }
-                return _tb_perfil;
-            }
-        }
-        private ObjectSet<tb_perfil> _tb_perfil;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -373,67 +246,11 @@ namespace SQLEscola.Banco
         #region AddTo Methods
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the my_aspnet_applications EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the tb_ativar_perfil EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTomy_aspnet_applications(my_aspnet_applications my_aspnet_applications)
+        public void AddTotb_ativar_perfil(tb_ativar_perfil tb_ativar_perfil)
         {
-            base.AddObject("my_aspnet_applications", my_aspnet_applications);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the my_aspnet_membership EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomy_aspnet_membership(my_aspnet_membership my_aspnet_membership)
-        {
-            base.AddObject("my_aspnet_membership", my_aspnet_membership);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the my_aspnet_profiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomy_aspnet_profiles(my_aspnet_profiles my_aspnet_profiles)
-        {
-            base.AddObject("my_aspnet_profiles", my_aspnet_profiles);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the my_aspnet_roles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomy_aspnet_roles(my_aspnet_roles my_aspnet_roles)
-        {
-            base.AddObject("my_aspnet_roles", my_aspnet_roles);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the my_aspnet_sessioncleanup EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomy_aspnet_sessioncleanup(my_aspnet_sessioncleanup my_aspnet_sessioncleanup)
-        {
-            base.AddObject("my_aspnet_sessioncleanup", my_aspnet_sessioncleanup);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the my_aspnet_sessions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomy_aspnet_sessions(my_aspnet_sessions my_aspnet_sessions)
-        {
-            base.AddObject("my_aspnet_sessions", my_aspnet_sessions);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the my_aspnet_users EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomy_aspnet_users(my_aspnet_users my_aspnet_users)
-        {
-            base.AddObject("my_aspnet_users", my_aspnet_users);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the my_aspnet_usersinroles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomy_aspnet_usersinroles(my_aspnet_usersinroles my_aspnet_usersinroles)
-        {
-            base.AddObject("my_aspnet_usersinroles", my_aspnet_usersinroles);
+            base.AddObject("tb_ativar_perfil", tb_ativar_perfil);
         }
     
         /// <summary>
@@ -450,14 +267,6 @@ namespace SQLEscola.Banco
         public void AddTotb_matricula(tb_matricula tb_matricula)
         {
             base.AddObject("tb_matricula", tb_matricula);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the tb_perfil EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_perfil(tb_perfil tb_perfil)
-        {
-            base.AddObject("tb_perfil", tb_perfil);
         }
     
         /// <summary>
@@ -527,22 +336,26 @@ namespace SQLEscola.Banco
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="my_aspnet_applications")]
+    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="tb_ativar_perfil")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class my_aspnet_applications : EntityObject
+    public partial class tb_ativar_perfil : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new my_aspnet_applications object.
+        /// Create a new tb_ativar_perfil object.
         /// </summary>
-        /// <param name="id">Initial value of the id property.</param>
-        public static my_aspnet_applications Createmy_aspnet_applications(global::System.Int32 id)
+        /// <param name="id_Ativar_Perfil">Initial value of the Id_Ativar_Perfil property.</param>
+        /// <param name="id_Usuario">Initial value of the Id_Usuario property.</param>
+        /// <param name="status">Initial value of the Status property.</param>
+        public static tb_ativar_perfil Createtb_ativar_perfil(global::System.Int32 id_Ativar_Perfil, global::System.Int32 id_Usuario, global::System.String status)
         {
-            my_aspnet_applications my_aspnet_applications = new my_aspnet_applications();
-            my_aspnet_applications.id = id;
-            return my_aspnet_applications;
+            tb_ativar_perfil tb_ativar_perfil = new tb_ativar_perfil();
+            tb_ativar_perfil.Id_Ativar_Perfil = id_Ativar_Perfil;
+            tb_ativar_perfil.Id_Usuario = id_Usuario;
+            tb_ativar_perfil.Status = status;
+            return tb_ativar_perfil;
         }
 
         #endregion
@@ -554,1480 +367,121 @@ namespace SQLEscola.Banco
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 id
+        public global::System.Int32 Id_Ativar_Perfil
         {
             get
             {
-                return _id;
+                return _Id_Ativar_Perfil;
             }
             set
             {
-                if (_id != value)
+                if (_Id_Ativar_Perfil != value)
                 {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("id");
-                    OnidChanged();
+                    OnId_Ativar_PerfilChanging(value);
+                    ReportPropertyChanging("Id_Ativar_Perfil");
+                    _Id_Ativar_Perfil = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id_Ativar_Perfil");
+                    OnId_Ativar_PerfilChanged();
                 }
             }
         }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
+        private global::System.Int32 _Id_Ativar_Perfil;
+        partial void OnId_Ativar_PerfilChanging(global::System.Int32 value);
+        partial void OnId_Ativar_PerfilChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String name
+        public global::System.Int32 Id_Usuario
         {
             get
             {
-                return _name;
+                return _Id_Usuario;
             }
             set
             {
-                OnnameChanging(value);
-                ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("name");
-                OnnameChanged();
+                OnId_UsuarioChanging(value);
+                ReportPropertyChanging("Id_Usuario");
+                _Id_Usuario = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Id_Usuario");
+                OnId_UsuarioChanged();
             }
         }
-        private global::System.String _name;
-        partial void OnnameChanging(global::System.String value);
-        partial void OnnameChanged();
+        private global::System.Int32 _Id_Usuario;
+        partial void OnId_UsuarioChanging(global::System.Int32 value);
+        partial void OnId_UsuarioChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String description
+        public global::System.String Status
         {
             get
             {
-                return _description;
+                return _Status;
             }
             set
             {
-                OndescriptionChanging(value);
-                ReportPropertyChanging("description");
-                _description = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("description");
-                OndescriptionChanged();
+                OnStatusChanging(value);
+                ReportPropertyChanging("Status");
+                _Status = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Status");
+                OnStatusChanged();
             }
         }
-        private global::System.String _description;
-        partial void OndescriptionChanging(global::System.String value);
-        partial void OndescriptionChanged();
+        private global::System.String _Status;
+        partial void OnStatusChanging(global::System.String value);
+        partial void OnStatusChanged();
 
         #endregion
 
     
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="my_aspnet_membership")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class my_aspnet_membership : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new my_aspnet_membership object.
-        /// </summary>
-        /// <param name="userId">Initial value of the userId property.</param>
-        /// <param name="password">Initial value of the Password property.</param>
-        public static my_aspnet_membership Createmy_aspnet_membership(global::System.Int32 userId, global::System.String password)
-        {
-            my_aspnet_membership my_aspnet_membership = new my_aspnet_membership();
-            my_aspnet_membership.userId = userId;
-            my_aspnet_membership.Password = password;
-            return my_aspnet_membership;
-        }
-
-        #endregion
-
-        #region Primitive Properties
+        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        public global::System.Int32 userId
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario")]
+        public tb_usuario tb_usuario
         {
             get
             {
-                return _userId;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario").Value;
             }
             set
             {
-                if (_userId != value)
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_usuario> tb_usuarioReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario");
+            }
+            set
+            {
+                if ((value != null))
                 {
-                    OnuserIdChanging(value);
-                    ReportPropertyChanging("userId");
-                    _userId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("userId");
-                    OnuserIdChanged();
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario", value);
                 }
             }
         }
-        private global::System.Int32 _userId;
-        partial void OnuserIdChanging(global::System.Int32 value);
-        partial void OnuserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Email
-        {
-            get
-            {
-                return _Email;
-            }
-            set
-            {
-                OnEmailChanging(value);
-                ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Email");
-                OnEmailChanged();
-            }
-        }
-        private global::System.String _Email;
-        partial void OnEmailChanging(global::System.String value);
-        partial void OnEmailChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Comment
-        {
-            get
-            {
-                return _Comment;
-            }
-            set
-            {
-                OnCommentChanging(value);
-                ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Comment");
-                OnCommentChanged();
-            }
-        }
-        private global::System.String _Comment;
-        partial void OnCommentChanging(global::System.String value);
-        partial void OnCommentChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Password
-        {
-            get
-            {
-                return _Password;
-            }
-            set
-            {
-                OnPasswordChanging(value);
-                ReportPropertyChanging("Password");
-                _Password = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Password");
-                OnPasswordChanged();
-            }
-        }
-        private global::System.String _Password;
-        partial void OnPasswordChanging(global::System.String value);
-        partial void OnPasswordChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String PasswordKey
-        {
-            get
-            {
-                return _PasswordKey;
-            }
-            set
-            {
-                OnPasswordKeyChanging(value);
-                ReportPropertyChanging("PasswordKey");
-                _PasswordKey = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("PasswordKey");
-                OnPasswordKeyChanged();
-            }
-        }
-        private global::System.String _PasswordKey;
-        partial void OnPasswordKeyChanging(global::System.String value);
-        partial void OnPasswordKeyChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.SByte> PasswordFormat
-        {
-            get
-            {
-                return _PasswordFormat;
-            }
-            set
-            {
-                OnPasswordFormatChanging(value);
-                ReportPropertyChanging("PasswordFormat");
-                _PasswordFormat = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("PasswordFormat");
-                OnPasswordFormatChanged();
-            }
-        }
-        private Nullable<global::System.SByte> _PasswordFormat;
-        partial void OnPasswordFormatChanging(Nullable<global::System.SByte> value);
-        partial void OnPasswordFormatChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String PasswordQuestion
-        {
-            get
-            {
-                return _PasswordQuestion;
-            }
-            set
-            {
-                OnPasswordQuestionChanging(value);
-                ReportPropertyChanging("PasswordQuestion");
-                _PasswordQuestion = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("PasswordQuestion");
-                OnPasswordQuestionChanged();
-            }
-        }
-        private global::System.String _PasswordQuestion;
-        partial void OnPasswordQuestionChanging(global::System.String value);
-        partial void OnPasswordQuestionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String PasswordAnswer
-        {
-            get
-            {
-                return _PasswordAnswer;
-            }
-            set
-            {
-                OnPasswordAnswerChanging(value);
-                ReportPropertyChanging("PasswordAnswer");
-                _PasswordAnswer = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("PasswordAnswer");
-                OnPasswordAnswerChanged();
-            }
-        }
-        private global::System.String _PasswordAnswer;
-        partial void OnPasswordAnswerChanging(global::System.String value);
-        partial void OnPasswordAnswerChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsApproved
-        {
-            get
-            {
-                return _IsApproved;
-            }
-            set
-            {
-                OnIsApprovedChanging(value);
-                ReportPropertyChanging("IsApproved");
-                _IsApproved = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IsApproved");
-                OnIsApprovedChanged();
-            }
-        }
-        private Nullable<global::System.Boolean> _IsApproved;
-        partial void OnIsApprovedChanging(Nullable<global::System.Boolean> value);
-        partial void OnIsApprovedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> LastActivityDate
-        {
-            get
-            {
-                return _LastActivityDate;
-            }
-            set
-            {
-                OnLastActivityDateChanging(value);
-                ReportPropertyChanging("LastActivityDate");
-                _LastActivityDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LastActivityDate");
-                OnLastActivityDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _LastActivityDate;
-        partial void OnLastActivityDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnLastActivityDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> LastLoginDate
-        {
-            get
-            {
-                return _LastLoginDate;
-            }
-            set
-            {
-                OnLastLoginDateChanging(value);
-                ReportPropertyChanging("LastLoginDate");
-                _LastLoginDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LastLoginDate");
-                OnLastLoginDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _LastLoginDate;
-        partial void OnLastLoginDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnLastLoginDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> LastPasswordChangedDate
-        {
-            get
-            {
-                return _LastPasswordChangedDate;
-            }
-            set
-            {
-                OnLastPasswordChangedDateChanging(value);
-                ReportPropertyChanging("LastPasswordChangedDate");
-                _LastPasswordChangedDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LastPasswordChangedDate");
-                OnLastPasswordChangedDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _LastPasswordChangedDate;
-        partial void OnLastPasswordChangedDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnLastPasswordChangedDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> CreationDate
-        {
-            get
-            {
-                return _CreationDate;
-            }
-            set
-            {
-                OnCreationDateChanging(value);
-                ReportPropertyChanging("CreationDate");
-                _CreationDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CreationDate");
-                OnCreationDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _CreationDate;
-        partial void OnCreationDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnCreationDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsLockedOut
-        {
-            get
-            {
-                return _IsLockedOut;
-            }
-            set
-            {
-                OnIsLockedOutChanging(value);
-                ReportPropertyChanging("IsLockedOut");
-                _IsLockedOut = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IsLockedOut");
-                OnIsLockedOutChanged();
-            }
-        }
-        private Nullable<global::System.Boolean> _IsLockedOut;
-        partial void OnIsLockedOutChanging(Nullable<global::System.Boolean> value);
-        partial void OnIsLockedOutChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> LastLockedOutDate
-        {
-            get
-            {
-                return _LastLockedOutDate;
-            }
-            set
-            {
-                OnLastLockedOutDateChanging(value);
-                ReportPropertyChanging("LastLockedOutDate");
-                _LastLockedOutDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LastLockedOutDate");
-                OnLastLockedOutDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _LastLockedOutDate;
-        partial void OnLastLockedOutDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnLastLockedOutDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> FailedPasswordAttemptCount
-        {
-            get
-            {
-                return _FailedPasswordAttemptCount;
-            }
-            set
-            {
-                OnFailedPasswordAttemptCountChanging(value);
-                ReportPropertyChanging("FailedPasswordAttemptCount");
-                _FailedPasswordAttemptCount = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FailedPasswordAttemptCount");
-                OnFailedPasswordAttemptCountChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _FailedPasswordAttemptCount;
-        partial void OnFailedPasswordAttemptCountChanging(Nullable<global::System.Int64> value);
-        partial void OnFailedPasswordAttemptCountChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> FailedPasswordAttemptWindowStart
-        {
-            get
-            {
-                return _FailedPasswordAttemptWindowStart;
-            }
-            set
-            {
-                OnFailedPasswordAttemptWindowStartChanging(value);
-                ReportPropertyChanging("FailedPasswordAttemptWindowStart");
-                _FailedPasswordAttemptWindowStart = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FailedPasswordAttemptWindowStart");
-                OnFailedPasswordAttemptWindowStartChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _FailedPasswordAttemptWindowStart;
-        partial void OnFailedPasswordAttemptWindowStartChanging(Nullable<global::System.DateTime> value);
-        partial void OnFailedPasswordAttemptWindowStartChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> FailedPasswordAnswerAttemptCount
-        {
-            get
-            {
-                return _FailedPasswordAnswerAttemptCount;
-            }
-            set
-            {
-                OnFailedPasswordAnswerAttemptCountChanging(value);
-                ReportPropertyChanging("FailedPasswordAnswerAttemptCount");
-                _FailedPasswordAnswerAttemptCount = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FailedPasswordAnswerAttemptCount");
-                OnFailedPasswordAnswerAttemptCountChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _FailedPasswordAnswerAttemptCount;
-        partial void OnFailedPasswordAnswerAttemptCountChanging(Nullable<global::System.Int64> value);
-        partial void OnFailedPasswordAnswerAttemptCountChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> FailedPasswordAnswerAttemptWindowStart
-        {
-            get
-            {
-                return _FailedPasswordAnswerAttemptWindowStart;
-            }
-            set
-            {
-                OnFailedPasswordAnswerAttemptWindowStartChanging(value);
-                ReportPropertyChanging("FailedPasswordAnswerAttemptWindowStart");
-                _FailedPasswordAnswerAttemptWindowStart = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FailedPasswordAnswerAttemptWindowStart");
-                OnFailedPasswordAnswerAttemptWindowStartChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _FailedPasswordAnswerAttemptWindowStart;
-        partial void OnFailedPasswordAnswerAttemptWindowStartChanging(Nullable<global::System.DateTime> value);
-        partial void OnFailedPasswordAnswerAttemptWindowStartChanged();
 
         #endregion
 
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="my_aspnet_profiles")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class my_aspnet_profiles : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new my_aspnet_profiles object.
-        /// </summary>
-        /// <param name="userId">Initial value of the userId property.</param>
-        /// <param name="lastUpdatedDate">Initial value of the lastUpdatedDate property.</param>
-        public static my_aspnet_profiles Createmy_aspnet_profiles(global::System.Int32 userId, global::System.DateTime lastUpdatedDate)
-        {
-            my_aspnet_profiles my_aspnet_profiles = new my_aspnet_profiles();
-            my_aspnet_profiles.userId = userId;
-            my_aspnet_profiles.lastUpdatedDate = lastUpdatedDate;
-            return my_aspnet_profiles;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 userId
-        {
-            get
-            {
-                return _userId;
-            }
-            set
-            {
-                if (_userId != value)
-                {
-                    OnuserIdChanging(value);
-                    ReportPropertyChanging("userId");
-                    _userId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("userId");
-                    OnuserIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _userId;
-        partial void OnuserIdChanging(global::System.Int32 value);
-        partial void OnuserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String valueindex
-        {
-            get
-            {
-                return _valueindex;
-            }
-            set
-            {
-                OnvalueindexChanging(value);
-                ReportPropertyChanging("valueindex");
-                _valueindex = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("valueindex");
-                OnvalueindexChanged();
-            }
-        }
-        private global::System.String _valueindex;
-        partial void OnvalueindexChanging(global::System.String value);
-        partial void OnvalueindexChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String stringdata
-        {
-            get
-            {
-                return _stringdata;
-            }
-            set
-            {
-                OnstringdataChanging(value);
-                ReportPropertyChanging("stringdata");
-                _stringdata = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("stringdata");
-                OnstringdataChanged();
-            }
-        }
-        private global::System.String _stringdata;
-        partial void OnstringdataChanging(global::System.String value);
-        partial void OnstringdataChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.Byte[] binarydata
-        {
-            get
-            {
-                return StructuralObject.GetValidValue(_binarydata);
-            }
-            set
-            {
-                OnbinarydataChanging(value);
-                ReportPropertyChanging("binarydata");
-                _binarydata = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("binarydata");
-                OnbinarydataChanged();
-            }
-        }
-        private global::System.Byte[] _binarydata;
-        partial void OnbinarydataChanging(global::System.Byte[] value);
-        partial void OnbinarydataChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime lastUpdatedDate
-        {
-            get
-            {
-                return _lastUpdatedDate;
-            }
-            set
-            {
-                OnlastUpdatedDateChanging(value);
-                ReportPropertyChanging("lastUpdatedDate");
-                _lastUpdatedDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("lastUpdatedDate");
-                OnlastUpdatedDateChanged();
-            }
-        }
-        private global::System.DateTime _lastUpdatedDate;
-        partial void OnlastUpdatedDateChanging(global::System.DateTime value);
-        partial void OnlastUpdatedDateChanged();
-
-        #endregion
-
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="my_aspnet_roles")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class my_aspnet_roles : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new my_aspnet_roles object.
-        /// </summary>
-        /// <param name="id">Initial value of the id property.</param>
-        /// <param name="applicationId">Initial value of the applicationId property.</param>
-        /// <param name="name">Initial value of the name property.</param>
-        public static my_aspnet_roles Createmy_aspnet_roles(global::System.Int32 id, global::System.Int32 applicationId, global::System.String name)
-        {
-            my_aspnet_roles my_aspnet_roles = new my_aspnet_roles();
-            my_aspnet_roles.id = id;
-            my_aspnet_roles.applicationId = applicationId;
-            my_aspnet_roles.name = name;
-            return my_aspnet_roles;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                if (_id != value)
-                {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("id");
-                    OnidChanged();
-                }
-            }
-        }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 applicationId
-        {
-            get
-            {
-                return _applicationId;
-            }
-            set
-            {
-                OnapplicationIdChanging(value);
-                ReportPropertyChanging("applicationId");
-                _applicationId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("applicationId");
-                OnapplicationIdChanged();
-            }
-        }
-        private global::System.Int32 _applicationId;
-        partial void OnapplicationIdChanging(global::System.Int32 value);
-        partial void OnapplicationIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                OnnameChanging(value);
-                ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("name");
-                OnnameChanged();
-            }
-        }
-        private global::System.String _name;
-        partial void OnnameChanging(global::System.String value);
-        partial void OnnameChanged();
-
-        #endregion
-
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="my_aspnet_sessioncleanup")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class my_aspnet_sessioncleanup : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new my_aspnet_sessioncleanup object.
-        /// </summary>
-        /// <param name="lastRun">Initial value of the LastRun property.</param>
-        /// <param name="intervalMinutes">Initial value of the IntervalMinutes property.</param>
-        /// <param name="applicationId">Initial value of the ApplicationId property.</param>
-        public static my_aspnet_sessioncleanup Createmy_aspnet_sessioncleanup(global::System.DateTime lastRun, global::System.Int32 intervalMinutes, global::System.Int32 applicationId)
-        {
-            my_aspnet_sessioncleanup my_aspnet_sessioncleanup = new my_aspnet_sessioncleanup();
-            my_aspnet_sessioncleanup.LastRun = lastRun;
-            my_aspnet_sessioncleanup.IntervalMinutes = intervalMinutes;
-            my_aspnet_sessioncleanup.ApplicationId = applicationId;
-            return my_aspnet_sessioncleanup;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime LastRun
-        {
-            get
-            {
-                return _LastRun;
-            }
-            set
-            {
-                OnLastRunChanging(value);
-                ReportPropertyChanging("LastRun");
-                _LastRun = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LastRun");
-                OnLastRunChanged();
-            }
-        }
-        private global::System.DateTime _LastRun;
-        partial void OnLastRunChanging(global::System.DateTime value);
-        partial void OnLastRunChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 IntervalMinutes
-        {
-            get
-            {
-                return _IntervalMinutes;
-            }
-            set
-            {
-                OnIntervalMinutesChanging(value);
-                ReportPropertyChanging("IntervalMinutes");
-                _IntervalMinutes = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IntervalMinutes");
-                OnIntervalMinutesChanged();
-            }
-        }
-        private global::System.Int32 _IntervalMinutes;
-        partial void OnIntervalMinutesChanging(global::System.Int32 value);
-        partial void OnIntervalMinutesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ApplicationId
-        {
-            get
-            {
-                return _ApplicationId;
-            }
-            set
-            {
-                if (_ApplicationId != value)
-                {
-                    OnApplicationIdChanging(value);
-                    ReportPropertyChanging("ApplicationId");
-                    _ApplicationId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ApplicationId");
-                    OnApplicationIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _ApplicationId;
-        partial void OnApplicationIdChanging(global::System.Int32 value);
-        partial void OnApplicationIdChanged();
-
-        #endregion
-
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="my_aspnet_sessions")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class my_aspnet_sessions : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new my_aspnet_sessions object.
-        /// </summary>
-        /// <param name="sessionId">Initial value of the SessionId property.</param>
-        /// <param name="applicationId">Initial value of the ApplicationId property.</param>
-        /// <param name="created">Initial value of the Created property.</param>
-        /// <param name="expires">Initial value of the Expires property.</param>
-        /// <param name="lockDate">Initial value of the LockDate property.</param>
-        /// <param name="lockId">Initial value of the LockId property.</param>
-        /// <param name="timeout">Initial value of the Timeout property.</param>
-        /// <param name="locked">Initial value of the Locked property.</param>
-        /// <param name="flags">Initial value of the Flags property.</param>
-        public static my_aspnet_sessions Createmy_aspnet_sessions(global::System.String sessionId, global::System.Int32 applicationId, global::System.DateTime created, global::System.DateTime expires, global::System.DateTime lockDate, global::System.Int32 lockId, global::System.Int32 timeout, global::System.Boolean locked, global::System.Int32 flags)
-        {
-            my_aspnet_sessions my_aspnet_sessions = new my_aspnet_sessions();
-            my_aspnet_sessions.SessionId = sessionId;
-            my_aspnet_sessions.ApplicationId = applicationId;
-            my_aspnet_sessions.Created = created;
-            my_aspnet_sessions.Expires = expires;
-            my_aspnet_sessions.LockDate = lockDate;
-            my_aspnet_sessions.LockId = lockId;
-            my_aspnet_sessions.Timeout = timeout;
-            my_aspnet_sessions.Locked = locked;
-            my_aspnet_sessions.Flags = flags;
-            return my_aspnet_sessions;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String SessionId
-        {
-            get
-            {
-                return _SessionId;
-            }
-            set
-            {
-                if (_SessionId != value)
-                {
-                    OnSessionIdChanging(value);
-                    ReportPropertyChanging("SessionId");
-                    _SessionId = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("SessionId");
-                    OnSessionIdChanged();
-                }
-            }
-        }
-        private global::System.String _SessionId;
-        partial void OnSessionIdChanging(global::System.String value);
-        partial void OnSessionIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ApplicationId
-        {
-            get
-            {
-                return _ApplicationId;
-            }
-            set
-            {
-                if (_ApplicationId != value)
-                {
-                    OnApplicationIdChanging(value);
-                    ReportPropertyChanging("ApplicationId");
-                    _ApplicationId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ApplicationId");
-                    OnApplicationIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _ApplicationId;
-        partial void OnApplicationIdChanging(global::System.Int32 value);
-        partial void OnApplicationIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Created
-        {
-            get
-            {
-                return _Created;
-            }
-            set
-            {
-                OnCreatedChanging(value);
-                ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Created");
-                OnCreatedChanged();
-            }
-        }
-        private global::System.DateTime _Created;
-        partial void OnCreatedChanging(global::System.DateTime value);
-        partial void OnCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Expires
-        {
-            get
-            {
-                return _Expires;
-            }
-            set
-            {
-                OnExpiresChanging(value);
-                ReportPropertyChanging("Expires");
-                _Expires = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Expires");
-                OnExpiresChanged();
-            }
-        }
-        private global::System.DateTime _Expires;
-        partial void OnExpiresChanging(global::System.DateTime value);
-        partial void OnExpiresChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime LockDate
-        {
-            get
-            {
-                return _LockDate;
-            }
-            set
-            {
-                OnLockDateChanging(value);
-                ReportPropertyChanging("LockDate");
-                _LockDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LockDate");
-                OnLockDateChanged();
-            }
-        }
-        private global::System.DateTime _LockDate;
-        partial void OnLockDateChanging(global::System.DateTime value);
-        partial void OnLockDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 LockId
-        {
-            get
-            {
-                return _LockId;
-            }
-            set
-            {
-                OnLockIdChanging(value);
-                ReportPropertyChanging("LockId");
-                _LockId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LockId");
-                OnLockIdChanged();
-            }
-        }
-        private global::System.Int32 _LockId;
-        partial void OnLockIdChanging(global::System.Int32 value);
-        partial void OnLockIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Timeout
-        {
-            get
-            {
-                return _Timeout;
-            }
-            set
-            {
-                OnTimeoutChanging(value);
-                ReportPropertyChanging("Timeout");
-                _Timeout = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Timeout");
-                OnTimeoutChanged();
-            }
-        }
-        private global::System.Int32 _Timeout;
-        partial void OnTimeoutChanging(global::System.Int32 value);
-        partial void OnTimeoutChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean Locked
-        {
-            get
-            {
-                return _Locked;
-            }
-            set
-            {
-                OnLockedChanging(value);
-                ReportPropertyChanging("Locked");
-                _Locked = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Locked");
-                OnLockedChanged();
-            }
-        }
-        private global::System.Boolean _Locked;
-        partial void OnLockedChanging(global::System.Boolean value);
-        partial void OnLockedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.Byte[] SessionItems
-        {
-            get
-            {
-                return StructuralObject.GetValidValue(_SessionItems);
-            }
-            set
-            {
-                OnSessionItemsChanging(value);
-                ReportPropertyChanging("SessionItems");
-                _SessionItems = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("SessionItems");
-                OnSessionItemsChanged();
-            }
-        }
-        private global::System.Byte[] _SessionItems;
-        partial void OnSessionItemsChanging(global::System.Byte[] value);
-        partial void OnSessionItemsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Flags
-        {
-            get
-            {
-                return _Flags;
-            }
-            set
-            {
-                OnFlagsChanging(value);
-                ReportPropertyChanging("Flags");
-                _Flags = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Flags");
-                OnFlagsChanged();
-            }
-        }
-        private global::System.Int32 _Flags;
-        partial void OnFlagsChanging(global::System.Int32 value);
-        partial void OnFlagsChanged();
-
-        #endregion
-
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="my_aspnet_users")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class my_aspnet_users : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new my_aspnet_users object.
-        /// </summary>
-        /// <param name="id">Initial value of the id property.</param>
-        /// <param name="applicationId">Initial value of the applicationId property.</param>
-        /// <param name="name">Initial value of the name property.</param>
-        /// <param name="isAnonymous">Initial value of the isAnonymous property.</param>
-        public static my_aspnet_users Createmy_aspnet_users(global::System.Int32 id, global::System.Int32 applicationId, global::System.String name, global::System.Boolean isAnonymous)
-        {
-            my_aspnet_users my_aspnet_users = new my_aspnet_users();
-            my_aspnet_users.id = id;
-            my_aspnet_users.applicationId = applicationId;
-            my_aspnet_users.name = name;
-            my_aspnet_users.isAnonymous = isAnonymous;
-            return my_aspnet_users;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                if (_id != value)
-                {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("id");
-                    OnidChanged();
-                }
-            }
-        }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 applicationId
-        {
-            get
-            {
-                return _applicationId;
-            }
-            set
-            {
-                OnapplicationIdChanging(value);
-                ReportPropertyChanging("applicationId");
-                _applicationId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("applicationId");
-                OnapplicationIdChanged();
-            }
-        }
-        private global::System.Int32 _applicationId;
-        partial void OnapplicationIdChanging(global::System.Int32 value);
-        partial void OnapplicationIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                OnnameChanging(value);
-                ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("name");
-                OnnameChanged();
-            }
-        }
-        private global::System.String _name;
-        partial void OnnameChanging(global::System.String value);
-        partial void OnnameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean isAnonymous
-        {
-            get
-            {
-                return _isAnonymous;
-            }
-            set
-            {
-                OnisAnonymousChanging(value);
-                ReportPropertyChanging("isAnonymous");
-                _isAnonymous = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("isAnonymous");
-                OnisAnonymousChanged();
-            }
-        }
-        private global::System.Boolean _isAnonymous;
-        partial void OnisAnonymousChanging(global::System.Boolean value);
-        partial void OnisAnonymousChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> lastActivityDate
-        {
-            get
-            {
-                return _lastActivityDate;
-            }
-            set
-            {
-                OnlastActivityDateChanging(value);
-                ReportPropertyChanging("lastActivityDate");
-                _lastActivityDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("lastActivityDate");
-                OnlastActivityDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _lastActivityDate;
-        partial void OnlastActivityDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnlastActivityDateChanged();
-
-        #endregion
-
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="my_aspnet_usersinroles")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class my_aspnet_usersinroles : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new my_aspnet_usersinroles object.
-        /// </summary>
-        /// <param name="userId">Initial value of the userId property.</param>
-        /// <param name="roleId">Initial value of the roleId property.</param>
-        public static my_aspnet_usersinroles Createmy_aspnet_usersinroles(global::System.Int32 userId, global::System.Int32 roleId)
-        {
-            my_aspnet_usersinroles my_aspnet_usersinroles = new my_aspnet_usersinroles();
-            my_aspnet_usersinroles.userId = userId;
-            my_aspnet_usersinroles.roleId = roleId;
-            return my_aspnet_usersinroles;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 userId
-        {
-            get
-            {
-                return _userId;
-            }
-            set
-            {
-                if (_userId != value)
-                {
-                    OnuserIdChanging(value);
-                    ReportPropertyChanging("userId");
-                    _userId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("userId");
-                    OnuserIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _userId;
-        partial void OnuserIdChanging(global::System.Int32 value);
-        partial void OnuserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 roleId
-        {
-            get
-            {
-                return _roleId;
-            }
-            set
-            {
-                if (_roleId != value)
-                {
-                    OnroleIdChanging(value);
-                    ReportPropertyChanging("roleId");
-                    _roleId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("roleId");
-                    OnroleIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _roleId;
-        partial void OnroleIdChanging(global::System.Int32 value);
-        partial void OnroleIdChanged();
-
-        #endregion
-
-    
     }
     
     /// <summary>
@@ -2318,16 +772,16 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma")]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_matricula_tb_turma1", "tb_turma")]
         public tb_turma tb_turma
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_matricula_tb_turma1", "tb_turma").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_matricula_tb_turma1", "tb_turma").Value = value;
             }
         }
         /// <summary>
@@ -2339,13 +793,13 @@ namespace SQLEscola.Banco
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_matricula_tb_turma1", "tb_turma");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_turma>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_turma", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_turma>("sqlescolaModel.fk_tb_matricula_tb_turma1", "tb_turma", value);
                 }
             }
         }
@@ -2356,16 +810,16 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario")]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_matricula_tb_usuario1", "tb_usuario")]
         public tb_usuario tb_usuario
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_matricula_tb_usuario1", "tb_usuario").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_matricula_tb_usuario1", "tb_usuario").Value = value;
             }
         }
         /// <summary>
@@ -2377,122 +831,13 @@ namespace SQLEscola.Banco
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_matricula_tb_usuario1", "tb_usuario");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="tb_perfil")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class tb_perfil : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new tb_perfil object.
-        /// </summary>
-        /// <param name="id_Perfil">Initial value of the Id_Perfil property.</param>
-        /// <param name="perfil">Initial value of the Perfil property.</param>
-        public static tb_perfil Createtb_perfil(global::System.Int32 id_Perfil, global::System.String perfil)
-        {
-            tb_perfil tb_perfil = new tb_perfil();
-            tb_perfil.Id_Perfil = id_Perfil;
-            tb_perfil.Perfil = perfil;
-            return tb_perfil;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id_Perfil
-        {
-            get
-            {
-                return _Id_Perfil;
-            }
-            set
-            {
-                if (_Id_Perfil != value)
-                {
-                    OnId_PerfilChanging(value);
-                    ReportPropertyChanging("Id_Perfil");
-                    _Id_Perfil = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id_Perfil");
-                    OnId_PerfilChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id_Perfil;
-        partial void OnId_PerfilChanging(global::System.Int32 value);
-        partial void OnId_PerfilChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Perfil
-        {
-            get
-            {
-                return _Perfil;
-            }
-            set
-            {
-                OnPerfilChanging(value);
-                ReportPropertyChanging("Perfil");
-                _Perfil = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Perfil");
-                OnPerfilChanged();
-            }
-        }
-        private global::System.String _Perfil;
-        partial void OnPerfilChanging(global::System.String value);
-        partial void OnPerfilChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "tb_perfil_usuario", "tb_usuario")]
-        public EntityCollection<tb_usuario> tb_usuario
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_usuario>("sqlescolaModel.tb_perfil_usuario", "tb_usuario");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_usuario>("sqlescolaModel.tb_perfil_usuario", "tb_usuario", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_matricula_tb_usuario1", "tb_usuario", value);
                 }
             }
         }
@@ -3753,18 +2098,56 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_turma1", "tb_matricula")]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_matricula_tb_turma1", "tb_matricula")]
         public EntityCollection<tb_matricula> tb_matricula
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_matricula");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_matricula_tb_turma1", "tb_matricula");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_turma1", "tb_matricula", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_matricula_tb_turma1", "tb_matricula", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_turma_tb_usuario1", "tb_usuario")]
+        public tb_usuario tb_usuario
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_turma_tb_usuario1", "tb_usuario").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_turma_tb_usuario1", "tb_usuario").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_usuario> tb_usuarioReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_turma_tb_usuario1", "tb_usuario");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_turma_tb_usuario1", "tb_usuario", value);
                 }
             }
         }
@@ -3882,30 +2265,6 @@ namespace SQLEscola.Banco
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Senha
-        {
-            get
-            {
-                return _Senha;
-            }
-            set
-            {
-                OnSenhaChanging(value);
-                ReportPropertyChanging("Senha");
-                _Senha = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Senha");
-                OnSenhaChanged();
-            }
-        }
-        private global::System.String _Senha;
-        partial void OnSenhaChanging(global::System.String value);
-        partial void OnSenhaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public global::System.Byte[] Foto
         {
             get
@@ -3924,30 +2283,6 @@ namespace SQLEscola.Banco
         private global::System.Byte[] _Foto;
         partial void OnFotoChanging(global::System.Byte[] value);
         partial void OnFotoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Perfil
-        {
-            get
-            {
-                return _Perfil;
-            }
-            set
-            {
-                OnPerfilChanging(value);
-                ReportPropertyChanging("Perfil");
-                _Perfil = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Perfil");
-                OnPerfilChanged();
-            }
-        }
-        private global::System.String _Perfil;
-        partial void OnPerfilChanging(global::System.String value);
-        partial void OnPerfilChanged();
 
         #endregion
 
@@ -3960,18 +2295,40 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_matricula")]
-        public EntityCollection<tb_matricula> tb_matricula
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_ativar_perfil")]
+        public EntityCollection<tb_ativar_perfil> tb_ativar_perfil
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_matricula");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_ativar_perfil>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_ativar_perfil");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_matricula", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_ativar_perfil>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_ativar_perfil", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_matricula_tb_usuario1", "tb_matricula")]
+        public EntityCollection<tb_matricula> tb_matricula
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_matricula_tb_usuario1", "tb_matricula");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_matricula>("sqlescolaModel.fk_tb_matricula_tb_usuario1", "tb_matricula", value);
                 }
             }
         }
@@ -4004,18 +2361,18 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "tb_perfil_usuario", "tb_perfil")]
-        public EntityCollection<tb_perfil> tb_perfil
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_turma_tb_usuario1", "tb_turma")]
+        public EntityCollection<tb_turma> tb_turma
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_perfil>("sqlescolaModel.tb_perfil_usuario", "tb_perfil");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_turma>("sqlescolaModel.fk_tb_turma_tb_usuario1", "tb_turma");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_perfil>("sqlescolaModel.tb_perfil_usuario", "tb_perfil", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_turma>("sqlescolaModel.fk_tb_turma_tb_usuario1", "tb_turma", value);
                 }
             }
         }
