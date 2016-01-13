@@ -115,7 +115,6 @@ namespace SQLEscola.Gerenciadores
             PerfilModel perfil = lista.ElementAtOrDefault(0);
             if (perfil == null)
             {
-
                 return false;
             }
             else

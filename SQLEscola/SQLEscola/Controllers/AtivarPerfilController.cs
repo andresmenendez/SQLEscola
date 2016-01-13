@@ -35,8 +35,39 @@ namespace SQLEscola.Controllers
             }
             else
             {
-                return View(GerenciadorAtivarPerfil.GetInstance().ObterTodos());
+                List<PerfilModel> lista = GerenciadorAtivarPerfil.GetInstance().ObterPorUser(Convert.ToInt32(userId)).ToList();
+                PerfilModel perfil = lista.ElementAtOrDefault(0);
+                perfil.NomeUsuario = Session[Global.NomeUsuario].ToString();
+                perfil.NomeCompletoUsuario = Session[Global.NomeCompletoUsuario].ToString();
+                if (perfil.Status == "E")
+                {
+                    perfil.Status = "Solicitação enviada para o Administrador";
+                }
+                else
+                {
+                    perfil.Status = "Perfil de Professor Ativo";
+                }
+                IEnumerable<PerfilModel> listaTransformada = (IEnumerable<PerfilModel>)lista;
+                return View(listaTransformada);
             }
+        }
+
+
+        public ActionResult SolicitarPerfil(int id)
+        {
+            PerfilModel perfil = new PerfilModel();
+            perfil.Id_Usuario = id;
+            perfil.Status = "E";
+            try
+            {
+                GerenciadorAtivarPerfil.GetInstance().Inserir(perfil);
+                
+            }
+            catch (Exception)
+            {
+                ViewBag.Erro = "Não foi possível fazer a solicitação ao Administrador. Favor entrar em contato através do e-mail.";
+            }
+            return RedirectToAction("Index");
         }
 
         //

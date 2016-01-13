@@ -12,24 +12,43 @@
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
 
+@if (ViewBag.Erro == "")
+{
+    <ul style="color:Red">
+        <li>
+            @ViewBag.Erro
+        </li>
+    </ul>
+}
+
 
 <div class="box-content">
-    @Html.Grid(Model).Columns(columns =>
+@helper CustomRenderingOfColumn(SQLEscola.Models.PerfilModel perfil)
     {
-        columns.Add(ativar => ativar.NomeCompletoUsuario)
+        if (perfil.Status == "Não Solicitado")
+        {
+            @Html.ActionLink("Solicitar", "SolicitarPerfil", new { id = perfil.Id_Usuario }, new { @class = "modal-link", style = "font-size:small;", onclick = ("return exibirConfirmacoes()") })
+        }
+    }
+@Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(perfil => perfil.NomeCompletoUsuario)
                     .Titled("Nome Completo")
-                    .SetWidth(350)
-                    .Filterable(true);
-        
-        columns.Add(ativar => ativar.NomeUsuario)
+                    .Encoded(false)
+                    .Sanitized(false)
+                    .SetWidth(350);
+
+        columns.Add(perfil => perfil.NomeUsuario)
                 .Titled("Nome de Usuário")
                 .SetWidth(350)
-                .Filterable(true);
+                .Encoded(false)
+                .Sanitized(false);
 
-        columns.Add(ativar => ativar.Status)
+        columns.Add(perfil => perfil.Status).Css("font-weight:bolder")
                 .Titled("Status da Solicitação")
                 .SetWidth(350)
-                .Filterable(true);
+                .Encoded(false)
+                .Sanitized(false);
         
 
         columns.Add()
@@ -37,8 +56,22 @@
                 .Encoded(false)
                 .Sanitized(false)
                 .SetWidth(150)
-                .RenderValueAs(turma => Html.ActionLink("Solicitar", "Edit", new { id = turma.Id_Ativar_Perfil }, new { @class = "modal-link" }));
-
+                .RenderValueAs(perfil => CustomRenderingOfColumn(perfil));
+                        
 
     }).WithPaging(5).Sortable()
 </div>
+<!-- Código Javascript para confirmações do botão -->
+    <script type="text/javascript">
+        function exibirConfirmacoes() {
+            var x;
+            var r = confirm("Deseja realmente solicitar o perfil de PROFESSOR?\nSerá enviado um E-MAIL para o Administrador do sistema ativar sua solcitação.");
+            if (r == true) {
+                alert("Um e-mail será enviado para o Adm do Sistema. \nVocê pode acompanhar sua solicitação nesta mesma tela na coluna STATUS.");
+                return true;
+            } else {
+                alert("Solicitação cancelada.");
+                return false;
+            }
+        }
+    </script>

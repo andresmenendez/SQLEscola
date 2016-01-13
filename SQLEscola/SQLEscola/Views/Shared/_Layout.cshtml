@@ -26,8 +26,15 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (HttpContext.Current.Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Turmas", "Index", "Turma")</li>
-                        <li>@Html.ActionLink("Solicitar Perfil de Professor", "Index", "AtivarPerfil")</li>
+                        if (Session["Perfil"] == "Administrador")
+                        {
+                            
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Turmas", "Index", "Turma")</li>
+                            <li>@Html.ActionLink("Solicitar Perfil de Professor", "Index", "AtivarPerfil")</li> 
+                        }
                     }
                     <li>@Html.ActionLink("Sobre", "About", "Home")</li>
                 </ul>

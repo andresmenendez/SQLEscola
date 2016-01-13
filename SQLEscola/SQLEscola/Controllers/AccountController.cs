@@ -48,12 +48,24 @@ namespace SQLEscola.Controllers
                         }
                         else
                         {
-                            Session["Perfil"] = Global.PerfilUsuario;
-                            Session[Global.NomeUsuario] = model.UserName;
-                            MembershipUser mu = Membership.GetUser(model.UserName);
-                            string userId = mu.ProviderUserKey.ToString();
-                            Session[Global.NomeCompletoUsuario] = Gerenciadores.GerenciadorUsuario.GetInstance().
-                                Obter(Convert.ToInt32(userId)).Nome;
+                            if (model.UserName == "admin")
+                            {
+                                Session["Perfil"] = Global.PerfilAdm;
+                                Session[Global.NomeUsuario] = model.UserName;
+                                MembershipUser mu = Membership.GetUser(model.UserName);
+                                string userId = mu.ProviderUserKey.ToString();
+                                Session[Global.NomeCompletoUsuario] = Gerenciadores.GerenciadorUsuario.GetInstance().
+                                    Obter(Convert.ToInt32(userId)).Nome;
+                            }
+                            else
+                            {
+                                Session["Perfil"] = Global.PerfilUsuario;
+                                Session[Global.NomeUsuario] = model.UserName;
+                                MembershipUser mu = Membership.GetUser(model.UserName);
+                                string userId = mu.ProviderUserKey.ToString();
+                                Session[Global.NomeCompletoUsuario] = Gerenciadores.GerenciadorUsuario.GetInstance().
+                                    Obter(Convert.ToInt32(userId)).Nome;
+                            }
                             return RedirectToAction("Inicial", "Home");
                         }
                     }
