@@ -24,5 +24,6 @@ namespace SQLEscola.Models
 
         [Display(Name = "Foto")]
         public byte[] Foto { get; set; }
+
     }
 }

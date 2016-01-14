@@ -159,6 +159,7 @@
     <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="60" />
     <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Foto" Type="blob" />
+    <Property Name="UserName" Type="varchar" MaxLength="60" />
   </EntityType>
   <Association Name="fk_tb_atividade_tb_turma1">
     <End Role="tb_turma" Type="sqlescolaModel.Store.tb_turma" Multiplicity="1" />

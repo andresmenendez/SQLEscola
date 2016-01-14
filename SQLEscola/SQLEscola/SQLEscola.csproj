@@ -307,10 +307,8 @@
     <Content Include="Views\Matricula\Edit.cshtml" />
     <Content Include="Views\Matricula\Delete.cshtml" />
     <Content Include="Views\AtivarPerfil\Index.cshtml" />
-    <Content Include="Views\AtivarPerfil\Details.cshtml" />
-    <Content Include="Views\AtivarPerfil\Create.cshtml" />
-    <Content Include="Views\AtivarPerfil\Edit.cshtml" />
-    <Content Include="Views\AtivarPerfil\Delete.cshtml" />
+    <Content Include="Views\AtivarPerfil\IndexAdm.cshtml" />
+    <Content Include="Views\AtivarPerfil\SelecionarPerfil.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

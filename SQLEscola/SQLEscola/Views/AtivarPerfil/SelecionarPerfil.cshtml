@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SQLEscola.Models.PerfilModel>
+@{
+    ViewBag.Title = "Selecionar Perfil";
+}
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+<h2>Selecionar Perfil</h2>
+
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+
+<ul style="color:Red">
+        <li>
+            ATENÇÃO! Selecione um perfil que deseja utilizar.
+        </li>
+    </ul>
+
+<div class="box-content">
+@Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(perfil => perfil.NomeCompletoUsuario)
+                    .Titled("Nome Completo")
+                    .Encoded(false)
+                    .Sanitized(false)
+                    .SetWidth(350);
+
+        columns.Add(perfil => perfil.NomeUsuario)
+                .Titled("Nome de Usuário")
+                .SetWidth(350)
+                .Encoded(false)
+                .Sanitized(false);
+
+        columns.Add(perfil => perfil.Status).Css("font-weight:bolder")
+                .Titled("Perfil")
+                .SetWidth(350)
+                .Encoded(false)
+                .Sanitized(false);
+        
+
+        columns.Add()
+                .Titled("Opções")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(150)
+                .RenderValueAs(perfil => Html.ActionLink("Selecionar", "PerfilSelecionado", new { id = perfil.Status }, new { @class = "modal-link" }));
+                        
+
+    }).WithPaging(5).Sortable()
+</div>

@@ -95,7 +95,8 @@ namespace SQLEscola.Gerenciadores
                         {
                             Id_Usuario = user.Id_Usuario,
                             Nome = user.Nome,
-                            Email = user.Email
+                            Email = user.Email,
+                            UserName = user.UserName
                         };
             return query;
         }
@@ -145,7 +146,7 @@ namespace SQLEscola.Gerenciadores
             usuarioE.Id_Usuario = usuarioModel.Id_Usuario;
             usuarioE.Nome = usuarioModel.Nome;
             usuarioE.Email = usuarioModel.Email;
-            
+            usuarioE.UserName = usuarioModel.UserName;
         }
     }
 }

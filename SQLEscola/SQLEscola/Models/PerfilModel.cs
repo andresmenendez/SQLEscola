@@ -21,5 +21,6 @@ namespace SQLEscola.Models
 
         public string NomeUsuario { get; set; }
         public string NomeCompletoUsuario { get; set; }
+        public string Email { get; set; }
     }
 }

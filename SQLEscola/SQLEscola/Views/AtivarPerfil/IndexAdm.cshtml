@@ -1,0 +1,85 @@
+﻿@model IEnumerable<SQLEscola.Models.PerfilModel>
+@{
+    ViewBag.Title = "Ativar Solicitação de Professores";
+}
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+<h2>Ativar Solicitação de Professores</h2>
+
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+
+@if (ViewBag.Erro == "")
+{
+    <ul style="color:Red">
+        <li>
+            @ViewBag.Erro
+        </li>
+    </ul>
+}
+
+
+<div class="box-content">
+@Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(perfil => perfil.NomeUsuario)
+                .Titled("Nome")
+                .ThenSortByDescending(perfil => perfil.NomeUsuario)
+                .SetWidth(350)
+                .Filterable(true);
+
+        columns.Add(perfil => perfil.Email)
+                .Titled("E-mail do Usuário")
+                .ThenSortByDescending(perfil => perfil.Email)
+                .SetWidth(300)
+                .Filterable(true);
+
+        columns.Add(perfil => perfil.Status).Css("font-weight:bolder")
+                .Titled("Status da Solicitação")
+                .ThenSortByDescending(perfil => perfil.Status)
+                .SetWidth(250)
+                .Filterable(true);
+        
+
+        columns.Add()
+                .Titled("Ativar")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(100)
+                .RenderValueAs(perfil => Html.ActionLink("Ativar", "AtivarProfessor", new { id = perfil.Id_Usuario }, new { @class = "modal-link", onclick = ("return exibirConfirmacoes(1)") }));
+
+        columns.Add()
+                .Titled("Desativar")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(100)
+                .RenderValueAs(perfil => Html.ActionLink("Desativar", "DesativarProfessor", new { id = perfil.Id_Usuario }, new { @class = "modal-link", onclick = ("return exibirConfirmacoes(2)") }));
+                        
+
+    }).WithPaging(5).Sortable()
+</div>
+<!-- Código Javascript para confirmações do botão -->
+    <script type="text/javascript">
+        function exibirConfirmacoes(parametro) {
+            if (parametro == "1") {
+                var x;
+                var r = confirm("Deseja realmente ATIVAR o perfil de PROFESSOR para este usuário?");
+                if (r == true) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                var x;
+                var r = confirm("Deseja realmente DESATIVAR o perfil de PROFESSOR para este usuário?");
+                if (r == true) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+    </script>

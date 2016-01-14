@@ -70,78 +70,101 @@ namespace SQLEscola.Controllers
             return RedirectToAction("Index");
         }
 
-        //
-        // GET: /Turma/Details/5
-
-        public ViewResult Details(int id)
+        public ViewResult IndexAdm()
         {
-            PerfilModel turma = GerenciadorAtivarPerfil.GetInstance().Obter(id);
-            return View(turma);
-        }
-
-        //
-        // GET: /Turma/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Turma/Create
-
-        [HttpPost]
-        public ActionResult Create(PerfilModel model)
-        {
-            if (ModelState.IsValid)
+            List<PerfilModel> lista = GerenciadorAtivarPerfil.GetInstance().ObterTodos().ToList();
+            foreach (PerfilModel item in lista)
             {
-                
-                return RedirectToAction("Index");
+                item.NomeUsuario = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Nome;
+                item.Email = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Email;
+                if (item.Status == "E")
+                {
+                    item.Status = "Aguardando Ativação do Adm";
+                }
+                else if (item.Status == "A")
+                {
+                    item.Status = "Ativo";
+                }
             }
-
-            return View(model);
+            IEnumerable<PerfilModel> listaTransformada = (IEnumerable<PerfilModel>)lista;
+            return View(listaTransformada);
         }
 
-        //
-        // GET: /Turma/Edit/5
-
-        public ActionResult Edit(int id)
+        public ActionResult AtivarProfessor(int id)
         {
-            PerfilModel turma = GerenciadorAtivarPerfil.GetInstance().Obter(id);
-            return View(turma);
-        }
-
-        //
-        // POST: /Turma/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(PerfilModel model)
-        {
-            if (ModelState.IsValid)
+            PerfilModel perfil = GerenciadorAtivarPerfil.GetInstance().ObterPorUser(id).ElementAtOrDefault(0);
+            perfil.Status = "A";
+            try
             {
-                GerenciadorAtivarPerfil.GetInstance().Editar(model);
-                return RedirectToAction("Index");
+                GerenciadorAtivarPerfil.GetInstance().Editar(perfil);
+                //Adicionando Perfil de Professor ao usuário
+                Roles.AddUserToRole(GerenciadorUsuario.GetInstance().Obter(id).UserName, Global.RoleProf);
             }
-            return View(model);
+            catch (Exception)
+            {
+                ViewBag.Erro = "Não foi possível ativar o perfil de PROFESSOR deste usuário.";
+            }
+            return RedirectToAction("IndexAdm");
         }
 
-        //
-        // GET: /Turma/Delete/5
-
-        public ActionResult Delete(int id)
+        public ActionResult DesativarProfessor(int id)
         {
-            PerfilModel turma = GerenciadorAtivarPerfil.GetInstance().Obter(id);
-            return View(turma);
+            PerfilModel perfil = GerenciadorAtivarPerfil.GetInstance().ObterPorUser(id).ElementAtOrDefault(0);
+            try
+            {
+                GerenciadorAtivarPerfil.GetInstance().Remover(perfil.Id_Ativar_Perfil);
+                //Removendo Perfil de Professor do usuário
+                Roles.RemoveUserFromRole(GerenciadorUsuario.GetInstance().Obter(id).UserName, Global.RoleProf);
+            }
+            catch (Exception)
+            {
+                ViewBag.Erro = "Não foi possível desativar o perfil de PROFESSOR deste usuário.";
+            }
+            return RedirectToAction("IndexAdm");
         }
 
-        //
-        // POST: /Turma/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult SelecionarPerfil()
         {
-            GerenciadorAtivarPerfil.GetInstance().Remover(id);
-            return RedirectToAction("Index");
+            int userId = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString());
+            PerfilModel perfil = GerenciadorAtivarPerfil.GetInstance().ObterPorUser(userId).ElementAtOrDefault(0);
+            if (perfil.Status == "A")
+            {
+                perfil.Status = "Professor";
+                perfil.NomeCompletoUsuario = GerenciadorUsuario.GetInstance().Obter(userId).Nome;
+                perfil.NomeUsuario = GerenciadorUsuario.GetInstance().Obter(userId).UserName;
+                PerfilModel perfilUsuario = new PerfilModel();
+                perfilUsuario.NomeCompletoUsuario = perfil.NomeCompletoUsuario;
+                perfilUsuario.NomeUsuario = perfil.NomeUsuario;
+                perfilUsuario.Status = "Usuário";
+                List<PerfilModel> lista = new List<PerfilModel>();
+                lista.Add(perfil);
+                lista.Add(perfilUsuario);
+                IEnumerable<PerfilModel> listaTransformada = (IEnumerable<PerfilModel>)lista;
+                return View(listaTransformada);
+            }
+            else
+            {
+                return RedirectToAction("Inicial", "Home");
+            }
+            return View(GerenciadorAtivarPerfil.GetInstance().ObterTodos());
+        }
+
+        public ActionResult PerfilSelecionado(string id)
+        {
+            int userId = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString());
+            UsuarioModel model = GerenciadorUsuario.GetInstance().Obter(userId);
+            if (id == "Professor")
+            {
+                Session["Perfil"] = Global.PerfilProfessor;
+            }
+            else
+            {
+                Session["Perfil"] = Global.PerfilUsuario;
+            }
+            Session["TemPerfilPro"] = "True";
+            Session[Global.NomeUsuario] = model.UserName;
+            Session[Global.NomeCompletoUsuario] = model.Nome;
+            return RedirectToAction("Inicial", "Home");
         }
     }
 }

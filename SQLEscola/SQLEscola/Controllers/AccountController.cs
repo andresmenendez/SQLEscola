@@ -42,9 +42,10 @@ namespace SQLEscola.Controllers
                         //Roles.RemoveUserFromRole(model.UserName, Global.RoleUser);
                         if (Roles.IsUserInRole(model.UserName, Global.RoleProf))
                         {
-
+                            Session["Perfil"] = "A Definir";
+                            Session[Global.NomeUsuario] = model.UserName;
                             //TODO Alterar para levar a tela de selecionar perfil
-                            return RedirectToAction("Inicial", "Home");
+                            return RedirectToAction("SelecionarPerfil", "AtivarPerfil");
                         }
                         else
                         {
@@ -127,7 +128,7 @@ namespace SQLEscola.Controllers
                     Session["Perfil"] = Global.PerfilUsuario;
                     Session[Global.NomeUsuario] = model.UserName;
                     Session[Global.NomeCompletoUsuario] = model.Nome;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Inicial", "Home");
                 }
                 else
                 {
