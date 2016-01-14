@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<SQLEscola.Models.TurmaModel>
-
 @{
     ViewBag.Title = "Turmas";
 }
@@ -7,19 +6,17 @@
 @using GridMvc.Html
 @using GridMvc.Sorting
 
-<h2>Turma</h2>
-
+<h2>Turmas</h2>
 <p>
     @Html.ActionLink("Criar Nova Turma", "Create")
     &nbsp &nbsp
-    @Html.ActionLink("Minhas Turmas", "FiltrarPorUser")
+    @Html.ActionLink("Exibir Todas as Turmas", "Index")
 </p>
 
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
-
 
 <div class="box-content">
     @Html.Grid(Model).Columns(columns =>
@@ -34,15 +31,22 @@
         columns.Add(turma => turma.Usuario)
                 .Titled("Professor")
                 .ThenSortByDescending(turma => turma.Usuario)
-                .SetWidth(200)
+                .SetWidth(280)
                 .Filterable(true);
 
         columns.Add(turma => turma.QtdeAlunos)
                 .Titled("Alunos Matriculados")
                 .ThenSortByDescending(turma => turma.QtdeAlunos)
-                .SetWidth(100)
+                .SetWidth(150)
                 .Filterable(true);
 
+        columns.Add()
+                .Titled("Atividades")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(turma => Html.ActionLink("Atividades", "Edit", new { id = turma.Id_Turma }, new { @class = "modal-link" }));
+        
         /* Adding not mapped column, that renders body, using inline Razor html helper */
         columns.Add()
                 .Titled("Editar")

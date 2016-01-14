@@ -1,0 +1,85 @@
+﻿@model IEnumerable<SQLEscola.Models.TurmaModel>
+@{
+    ViewBag.Title = "Turmas";
+}
+
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+<h2>Turmas</h2>
+<p>
+    @Html.ActionLink("Minhas Turmas", "FiltrarPorUser")
+</p>
+
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+
+@if (ViewBag.InseriuCorreto == "False")
+{
+    <ul style="color:Red">
+        <li>
+            Erro! Não foi possível se matricular nesta turma. Entre em contato com o Administrador através do e-mail.
+        </li>
+    </ul>
+}
+
+<div class="box-content">
+    @helper CustomRenderingOfColumn(SQLEscola.Models.TurmaModel turma)
+    {
+        if (turma.AlunoMatriculado == true)
+        {
+            @Html.ActionLink("Visualizar", "VisualizarTurma", new { id = turma.Id_Turma }, new { @class = "modal-link", style = "font-size:small;" });
+        }
+        else
+        {
+            @Html.ActionLink("Matricular", "Matricular", new { idTurma = turma.Id_Turma }, new { @class = "modal-link", style = "font-size:small;", onclick = ("return exibirConfirmacoes()") });
+        }
+    }
+    @Html.Grid(Model).Columns(columns =>
+    {
+
+        columns.Add(turma => turma.Turma)
+                .Titled("Nome da Turma")
+                .ThenSortByDescending(turma => turma.Turma)
+                .SetWidth(400)
+                .Filterable(true);
+
+        columns.Add(turma => turma.Usuario)
+                .Titled("Professor")
+                .ThenSortByDescending(turma => turma.Usuario)
+                .SetWidth(350)
+                .Filterable(true);
+
+        columns.Add(turma => turma.QtdeAlunos)
+                .Titled("Alunos Matriculados")
+                .ThenSortByDescending(turma => turma.QtdeAlunos)
+                .SetWidth(250)
+                .Filterable(true);
+
+        columns.Add()
+                .Titled("Opções")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(150)
+                .RenderValueAs(turma => CustomRenderingOfColumn(turma));
+        
+        
+
+    }).WithPaging(5).Sortable()
+</div>
+<!-- Código Javascript para confirmações do botão -->
+    <script type="text/javascript">
+        function exibirConfirmacoes() {
+            var x;
+            var r = confirm("Deseja realmente se matricular nesta turma?");
+            if (r == true) {
+                alert("Você acaba de se matricular nesta turma. \nPara visualizar atividades postadas pelos professor dirija-se para aba de Turmas.");
+                return true;
+            } else {
+                alert("Matrícula cancelada.");
+                return false;
+            }
+        }
+    </script>

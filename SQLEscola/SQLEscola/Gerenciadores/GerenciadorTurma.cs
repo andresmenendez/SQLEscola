@@ -5,6 +5,7 @@ using System.Web;
 using Persistence;
 using SQLEscola.Models;
 using SQLEscola.Banco;
+using System.Web.Security;
 
 namespace SQLEscola.Gerenciadores
 {
@@ -103,10 +104,19 @@ namespace SQLEscola.Gerenciadores
         {
             IEnumerable<TurmaModel> turmas = GetQuery().OrderBy(turma => turma.Turma);
             List<TurmaModel> listaTurmas = turmas.ToList();
+            int userId = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString());
             foreach (TurmaModel item in listaTurmas)
             {
                 item.Usuario = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Nome;
-                //item.QtdeAlunos = GerenciadorMatricula.GetInstance().ObterPorTurma(item.Id_Turma).Count();
+                item.QtdeAlunos = GerenciadorMatricula.GetInstance().ObterPorTurma(item.Id_Turma).Count();
+                if (GerenciadorMatricula.GetInstance().AlunoMatriculadoTurma(userId, item.Id_Turma))
+                {
+                    item.AlunoMatriculado = true;
+                }
+                else
+                {
+                    item.AlunoMatriculado = false;
+                }
             }
             return listaTurmas;
         }

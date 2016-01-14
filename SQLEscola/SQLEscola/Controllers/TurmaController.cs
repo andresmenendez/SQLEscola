@@ -22,10 +22,15 @@ namespace SQLEscola.Controllers
             return View(GerenciadorTurma.GetInstance().ObterTodos());
         }
 
-        public ViewResult FiltrarPorUser()
+        public ActionResult FiltrarPorUser()
         {
-            string userId = Membership.GetUser().ProviderUserKey.ToString();
-            return View(GerenciadorTurma.GetInstance().ObterPorUsuario(Convert.ToInt32(userId)));
+            int userId = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString());
+            return View(GerenciadorTurma.GetInstance().ObterPorUsuario(userId));
+        }
+
+        public ViewResult IndexAluno()
+        {
+            return View(GerenciadorTurma.GetInstance().ObterTodos());
         }
 
         public ViewResult SolicitarMatricula()
@@ -49,7 +54,7 @@ namespace SQLEscola.Controllers
             {
                 ViewBag.InseriuCorreto = "False";
             }
-            return RedirectToAction("SolicitarMatricula");
+            return RedirectToAction("IndexAluno");
         }
 
         //
@@ -58,6 +63,16 @@ namespace SQLEscola.Controllers
         public ViewResult Details(int id)
         {
             TurmaModel turma = GerenciadorTurma.GetInstance().Obter(id);
+            turma.Usuario = GerenciadorUsuario.GetInstance().Obter(turma.Id_Usuario).Nome;
+            List<MatriculaModel> mats = GerenciadorMatricula.GetInstance().ObterPorTurma(id).ToList();
+            List<string> listaAlunos = new List<string>();
+            foreach (MatriculaModel mat in mats)
+            {
+                listaAlunos.Add(GerenciadorUsuario.GetInstance().Obter(mat.Id_Usuario).Nome);
+            }
+            listaAlunos.Sort();
+            Session["ListaAlunos"] = listaAlunos;
+            turma.QtdeAlunos = listaAlunos.Count;
             return View(turma);
         }
 

@@ -83,15 +83,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tb_turma">
-      <EntityTypeMapping TypeName="sqlescolaModel.tb_turma">
-        <MappingFragment StoreEntitySet="tb_turma">
-          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
-          <ScalarProperty Name="Nome" ColumnName="Nome" />
-          <ScalarProperty Name="Id_Turma" ColumnName="Id_Turma" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <AssociationSetMapping Name="tb_questao_restricoes" TypeName="sqlescolaModel.tb_questao_restricoes" StoreEntitySet="tb_questao_restricoes">
       <EndProperty Name="tb_restricao">
         <ScalarProperty Name="Id_Restricoes" ColumnName="Id_Restricoes" />
@@ -108,6 +99,15 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Nome" ColumnName="Nome" />
           <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_turma">
+      <EntityTypeMapping TypeName="sqlescolaModel.tb_turma">
+        <MappingFragment StoreEntitySet="tb_turma">
+          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Id_Turma" ColumnName="Id_Turma" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

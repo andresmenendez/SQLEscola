@@ -17,7 +17,9 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <p>
+            <input type="submit" value="Remover" class="but but-error but-small but-shadow but-rc" />
+        </p>
+        @Html.ActionLink("Voltar", "FiltrarPorUser")
     </p>
 }

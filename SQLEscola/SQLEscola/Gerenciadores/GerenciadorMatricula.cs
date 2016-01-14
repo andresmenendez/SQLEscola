@@ -126,6 +126,21 @@ namespace SQLEscola.Gerenciadores
             return mats;
         }
 
+        public bool AlunoMatriculadoTurma(int idUser, int idTurma)
+        {
+            IEnumerable<MatriculaModel> mats = GetQuery().Where(matriculaModel => matriculaModel.Id_Usuario == idUser &&
+                matriculaModel.Id_Turma == idTurma);
+            MatriculaModel mat = mats.ToList().FirstOrDefault();
+            if (mat == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         /// <summary>
         /// Atribui dados do Usuario Model para o Usuario Entity
         /// </summary>

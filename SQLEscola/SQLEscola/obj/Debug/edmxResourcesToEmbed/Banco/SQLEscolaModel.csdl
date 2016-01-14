@@ -9,18 +9,9 @@
     <EntitySet Name="tb_restricao" EntityType="sqlescolaModel.tb_restricao" />
     <EntitySet Name="tb_resultado" EntityType="sqlescolaModel.tb_resultado" />
     <EntitySet Name="tb_tecnologia" EntityType="sqlescolaModel.tb_tecnologia" />
-    <EntitySet Name="tb_turma" EntityType="sqlescolaModel.tb_turma" />
-    <AssociationSet Name="fk_tb_atividade_tb_turma1" Association="sqlescolaModel.fk_tb_atividade_tb_turma1">
-      <End Role="tb_turma" EntitySet="tb_turma" />
-      <End Role="tb_atividade" EntitySet="tb_atividade" />
-    </AssociationSet>
     <AssociationSet Name="fk_tb_questao_tb_atividade1" Association="sqlescolaModel.fk_tb_questao_tb_atividade1">
       <End Role="tb_atividade" EntitySet="tb_atividade" />
       <End Role="tb_questao" EntitySet="tb_questao" />
-    </AssociationSet>
-    <AssociationSet Name="fk_tb_matricula_tb_turma1" Association="sqlescolaModel.fk_tb_matricula_tb_turma1">
-      <End Role="tb_turma" EntitySet="tb_turma" />
-      <End Role="tb_matricula" EntitySet="tb_matricula" />
     </AssociationSet>
     <AssociationSet Name="fk_tb_questao_tb_tecnologia1" Association="sqlescolaModel.fk_tb_questao_tb_tecnologia1">
       <End Role="tb_tecnologia" EntitySet="tb_tecnologia" />
@@ -51,9 +42,14 @@
       <End Role="tb_usuario" EntitySet="tb_usuario" />
       <End Role="tb_resposta" EntitySet="tb_resposta" />
     </AssociationSet>
-    <AssociationSet Name="fk_tb_turma_tb_usuario1" Association="sqlescolaModel.fk_tb_turma_tb_usuario1">
-      <End Role="tb_usuario" EntitySet="tb_usuario" />
+    <EntitySet Name="tb_turma" EntityType="sqlescolaModel.tb_turma" />
+    <AssociationSet Name="fk_tb_atividade_tb_turma1" Association="sqlescolaModel.fk_tb_atividade_tb_turma1">
       <End Role="tb_turma" EntitySet="tb_turma" />
+      <End Role="tb_atividade" EntitySet="tb_atividade" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tb_matricula_tb_turma1" Association="sqlescolaModel.fk_tb_matricula_tb_turma1">
+      <End Role="tb_turma" EntitySet="tb_turma" />
+      <End Role="tb_matricula" EntitySet="tb_matricula" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="tb_ativar_perfil">
@@ -72,8 +68,8 @@
     <Property Type="Int32" Name="Id_Atividade" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="Int32" Name="Id_Turma" Nullable="false" />
     <Property Type="String" Name="Nome_Atividade" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_atividade_tb_turma1" FromRole="tb_atividade" ToRole="tb_turma" />
     <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_atividade" ToRole="tb_questao" />
+    <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_atividade_tb_turma1" FromRole="tb_atividade" ToRole="tb_turma" />
   </EntityType>
   <EntityType Name="tb_matricula">
     <Key>
@@ -82,8 +78,8 @@
     <Property Type="Int32" Name="Id_Matricula" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
     <Property Type="Int32" Name="Id_Turma" Nullable="false" />
-    <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_matricula_tb_turma1" FromRole="tb_matricula" ToRole="tb_turma" />
     <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_matricula_tb_usuario1" FromRole="tb_matricula" ToRole="tb_usuario" />
+    <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_matricula_tb_turma1" FromRole="tb_matricula" ToRole="tb_turma" />
   </EntityType>
   <EntityType Name="tb_questao">
     <Key>
@@ -145,29 +141,6 @@
     <Property Type="String" Name="Versao" MaxLength="10" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_questao_tb_tecnologia1" FromRole="tb_tecnologia" ToRole="tb_questao" />
   </EntityType>
-  <EntityType Name="tb_turma">
-    <Key>
-      <PropertyRef Name="Id_Turma" />
-    </Key>
-    <Property Type="Int32" Name="Id_Turma" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Nome" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
-    <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_atividade_tb_turma1" FromRole="tb_turma" ToRole="tb_atividade" />
-    <NavigationProperty Name="tb_matricula" Relationship="sqlescolaModel.fk_tb_matricula_tb_turma1" FromRole="tb_turma" ToRole="tb_matricula" />
-    <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_turma_tb_usuario1" FromRole="tb_turma" ToRole="tb_usuario" />
-  </EntityType>
-  <Association Name="fk_tb_atividade_tb_turma1">
-    <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="1" />
-    <End Type="sqlescolaModel.tb_atividade" Role="tb_atividade" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_turma">
-        <PropertyRef Name="Id_Turma" />
-      </Principal>
-      <Dependent Role="tb_atividade">
-        <PropertyRef Name="Id_Turma" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_tb_questao_tb_atividade1">
     <End Type="sqlescolaModel.tb_atividade" Role="tb_atividade" Multiplicity="1" />
     <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
@@ -177,18 +150,6 @@
       </Principal>
       <Dependent Role="tb_questao">
         <PropertyRef Name="Id_Atividade" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_tb_matricula_tb_turma1">
-    <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="1" />
-    <End Type="sqlescolaModel.tb_matricula" Role="tb_matricula" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_turma">
-        <PropertyRef Name="Id_Turma" />
-      </Principal>
-      <Dependent Role="tb_matricula">
-        <PropertyRef Name="Id_Turma" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -244,7 +205,6 @@
     <NavigationProperty Name="tb_ativar_perfil" Relationship="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" FromRole="tb_usuario" ToRole="tb_ativar_perfil" />
     <NavigationProperty Name="tb_matricula" Relationship="sqlescolaModel.fk_tb_matricula_tb_usuario1" FromRole="tb_usuario" ToRole="tb_matricula" />
     <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_usuario1" FromRole="tb_usuario" ToRole="tb_resposta" />
-    <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_turma_tb_usuario1" FromRole="tb_usuario" ToRole="tb_turma" />
   </EntityType>
   <Association Name="fk_tb_usuario_has_tb_turma_tb_usuario1">
     <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="1" />
@@ -282,15 +242,37 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_tb_turma_tb_usuario1">
-    <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="1" />
-    <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="*" />
+  <EntityType Name="tb_turma">
+    <Key>
+      <PropertyRef Name="Id_Turma" />
+    </Key>
+    <Property Type="Int32" Name="Id_Turma" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Nome" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
+    <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_atividade_tb_turma1" FromRole="tb_turma" ToRole="tb_atividade" />
+    <NavigationProperty Name="tb_matricula" Relationship="sqlescolaModel.fk_tb_matricula_tb_turma1" FromRole="tb_turma" ToRole="tb_matricula" />
+  </EntityType>
+  <Association Name="fk_tb_atividade_tb_turma1">
+    <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="1" />
+    <End Type="sqlescolaModel.tb_atividade" Role="tb_atividade" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tb_usuario">
-        <PropertyRef Name="Id_Usuario" />
+      <Principal Role="tb_turma">
+        <PropertyRef Name="Id_Turma" />
       </Principal>
-      <Dependent Role="tb_turma">
-        <PropertyRef Name="Id_Usuario" />
+      <Dependent Role="tb_atividade">
+        <PropertyRef Name="Id_Turma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tb_matricula_tb_turma1">
+    <End Type="sqlescolaModel.tb_turma" Role="tb_turma" Multiplicity="1" />
+    <End Type="sqlescolaModel.tb_matricula" Role="tb_matricula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_turma">
+        <PropertyRef Name="Id_Turma" />
+      </Principal>
+      <Dependent Role="tb_matricula">
+        <PropertyRef Name="Id_Turma" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -1,20 +1,22 @@
 ﻿@model SQLEscola.Models.TurmaModel
 
 @{
-    ViewBag.Title = "Detalhes";
+    ViewBag.Title = "Detalhes da Turma";
 }
 
-<h2>Details</h2>
+<h2>Turma: @Html.DisplayFor(model => model.Turma)</h2>
+<h3>Professor: @Html.DisplayFor(model => model.Usuario)</h3>
 
 <fieldset>
-    <legend>tb_turma</legend>
-
-    <div class="display-label">Nome</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Turma)
-    </div>
+    <legend>Alunos Matriculados</legend>
+    <br />
+    @foreach (string item in (List<string>)Session["ListaAlunos"])
+	{
+		<div class="display-label">&nbsp &nbsp @item</div>
+	}
+    <br />
+    <h5>Total de Alunos: @Html.DisplayFor(model => model.QtdeAlunos)</h5>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id_Turma }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar", "FiltrarPorUser")
 </p>

@@ -309,6 +309,7 @@
     <Content Include="Views\AtivarPerfil\Index.cshtml" />
     <Content Include="Views\AtivarPerfil\IndexAdm.cshtml" />
     <Content Include="Views\AtivarPerfil\SelecionarPerfil.cshtml" />
+    <Content Include="Views\Turma\IndexAluno.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

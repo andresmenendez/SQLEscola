@@ -21,5 +21,8 @@ namespace SQLEscola.Models
         public string Usuario { get; set; }
 
         public int QtdeAlunos { get; set; }
+
+        //Variável de controle para saber se o aluno está matriculado ou não na turma passada como parâmetro na tela de IndexAluno
+        public bool AlunoMatriculado { get; set; }
     }
 }
