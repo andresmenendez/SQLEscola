@@ -19,5 +19,7 @@ namespace SQLEscola.Models
 
         [Required]
         public int Id_Turma { get; set; }
+
+        public int QtdeQuestoes { get; set; }
     }
 }

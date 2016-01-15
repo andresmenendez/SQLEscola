@@ -30,7 +30,7 @@
     {
         if (turma.AlunoMatriculado == true)
         {
-            @Html.ActionLink("Visualizar", "VisualizarTurma", new { id = turma.Id_Turma }, new { @class = "modal-link", style = "font-size:small;" });
+            @Html.ActionLink("Visualizar", "IndexAluno", "Atividade", new { id = turma.Id_Turma }, new { @class = "modal-link", style = "font-size:small;" });
         }
         else
         {

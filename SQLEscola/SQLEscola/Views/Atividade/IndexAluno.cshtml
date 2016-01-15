@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SQLEscola.Models.AtividadeModel>
+
+@{
+    ViewBag.Title = "Atividades";
+}
+
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+<h2>Turma: @ViewBag.Turma</h2>
+<h3>Professor: @ViewBag.Professor</h3>
+
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+
+<div class="box-content">
+@Html.Grid(Model).Columns(columns =>
+    {
+
+        columns.Add(ativ => ativ.Nome_Atividade)
+                .Titled("Atividade")
+                .ThenSortByDescending(ativ => ativ.Nome_Atividade)
+                .SetWidth(400)
+                .Filterable(true);
+
+        columns.Add(ativ => ativ.QtdeQuestoes)
+                .Titled("Quantidade de Questões")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(150);
+
+        columns.Add(ativ => ativ.QtdeAlunos)
+                .Titled("Alunos Matriculados")
+                .ThenSortByDescending(ativ => ativ.QtdeAlunos)
+                .SetWidth(250)
+                .Filterable(true);
+
+        columns.Add()
+                .Titled("Opções")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(150)
+                .RenderValueAs(ativ => Html.ActionLink("Visualizar", "Edit", new { id = ativ.Id_Turma }, new { @class = "modal-link" }));
+        
+        
+
+    }).WithPaging(5).Sortable()
+</div>

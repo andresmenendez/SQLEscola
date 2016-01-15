@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SQLEscola.Models.AtividadeModel>
+
+@{
+    ViewBag.Title = "Atividades";
+}
+
+<h2>Turma: @ViewBag.Turma</h2>
+<h3>Professor: @ViewBag.Professor</h3>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            tb_turma
+        </th>
+        <th>
+            Nome_Atividade
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_turma.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome_Atividade)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id_Atividade }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id_Atividade }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id_Atividade })
+        </td>
+    </tr>
+}
+
+</table>

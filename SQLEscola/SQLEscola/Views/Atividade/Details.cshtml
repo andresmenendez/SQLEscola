@@ -1,0 +1,25 @@
+﻿@model SQLEscola.Banco.tb_atividade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>tb_atividade</legend>
+
+    <div class="display-label">tb_turma</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tb_turma.Nome)
+    </div>
+
+    <div class="display-label">Nome_Atividade</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nome_Atividade)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id_Atividade }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
