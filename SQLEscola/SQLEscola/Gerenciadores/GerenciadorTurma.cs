@@ -130,7 +130,7 @@ namespace SQLEscola.Gerenciadores
         public TurmaModel Obter(int idTurma)
         {
             IEnumerable<TurmaModel> users = GetQuery().Where(turmaModel => turmaModel.Id_Turma == idTurma);
-
+            //TODO Colocar a quantidade de questões no QtdeAlunos
             return users.ElementAtOrDefault(0);
         }
 

@@ -1,28 +1,26 @@
-﻿@model SQLEscola.Banco.tb_atividade
+﻿@model SQLEscola.Models.AtividadeModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Remover";
 }
 
-<h2>Delete</h2>
+<h2>Remover</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza que deseja remover esta atividade?</h3>
 <fieldset>
-    <legend>tb_atividade</legend>
+    <legend>Atividade</legend>
 
-    <div class="display-label">tb_turma</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tb_turma.Nome)
-    </div>
-
-    <div class="display-label">Nome_Atividade</div>
+    <div class="display-label">Nome da Atividade</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Nome_Atividade)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <p>
+            <input type="submit" value="Remover" class="but but-error but-small but-shadow but-rc" />
+        </p>
+        @Html.ActionLink("Voltar", "Index")
     </p>
 }
+

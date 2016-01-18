@@ -7,34 +7,57 @@
 <h2>Turma: @ViewBag.Turma</h2>
 <h3>Professor: @ViewBag.Professor</h3>
 
+
+@using GridMvc.Html
+@using GridMvc.Sorting
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar Nova Atividade", "Create")
 </p>
-<table>
-    <tr>
-        <th>
-            tb_turma
-        </th>
-        <th>
-            Nome_Atividade
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.tb_turma.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome_Atividade)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id_Atividade }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id_Atividade }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id_Atividade })
-        </td>
-    </tr>
-}
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
 
-</table>
+<div class="box-content">
+    @Html.Grid(Model).Columns(columns =>
+    {
+
+        columns.Add(ativ => ativ.Nome_Atividade)
+                .Titled("Nome da Atividade")
+                .ThenSortByDescending(ativ => ativ.Nome_Atividade)
+                .SetWidth(400)
+                .Filterable(true);
+
+        columns.Add(ativ => ativ.QtdeQuestoes)
+                .Titled("Quantidade de Questões")
+                .ThenSortByDescending(ativ => ativ.QtdeQuestoes)
+                .SetWidth(350);
+
+        columns.Add()
+                .Titled("Questões")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(ativ => Html.ActionLink("Atividades", "Edit", new { id = ativ.Id_Turma }, new { @class = "modal-link" }));
+
+        /* Adding not mapped column, that renders body, using inline Razor html helper */
+        columns.Add()
+                .Titled("Editar")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(ativ => Html.ActionLink("Editar", "Edit", new { id = ativ.Id_Atividade }, new { @class = "modal-link" }));
+
+        columns.Add()
+                .Titled("Remover")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(ativ => Html.ActionLink("Remover", "Delete", new { id = ativ.Id_Atividade }, new { @class = "modal-link" }));
+  
+
+    }).WithPaging(5).Sortable()
+</div>
+

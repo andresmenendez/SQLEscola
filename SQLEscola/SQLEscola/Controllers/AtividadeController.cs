@@ -16,6 +16,9 @@ namespace SQLEscola.Controllers
         // GET: /Atividade/
         public ViewResult Index(int id)
         {
+            TurmaModel turma = GerenciadorTurma.GetInstance().Obter(id);
+            ViewBag.Turma = turma.Turma;
+            ViewBag.Professor = GerenciadorUsuario.GetInstance().Obter(turma.Id_Usuario).Nome;
             return View(GerenciadorAtividade.GetInstance().ObterPorTurma(id));
         }
 
@@ -26,6 +29,7 @@ namespace SQLEscola.Controllers
             ViewBag.Professor = GerenciadorUsuario.GetInstance().Obter(turma.Id_Usuario).Nome;
             return View(GerenciadorAtividade.GetInstance().ObterPorTurma(id));
         }
+
         //
         // GET: /Atividade/Details/5
 

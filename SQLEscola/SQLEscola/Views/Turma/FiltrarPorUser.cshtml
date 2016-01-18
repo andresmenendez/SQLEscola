@@ -45,7 +45,7 @@
                 .Encoded(false)
                 .Sanitized(false)
                 .SetWidth(30)
-                .RenderValueAs(turma => Html.ActionLink("Atividades", "Edit", new { id = turma.Id_Turma }, new { @class = "modal-link" }));
+                .RenderValueAs(turma => Html.ActionLink("Atividades", "Index", "Atividade",new { id = turma.Id_Turma }, new { @class = "modal-link" }));
         
         /* Adding not mapped column, that renders body, using inline Razor html helper */
         columns.Add()

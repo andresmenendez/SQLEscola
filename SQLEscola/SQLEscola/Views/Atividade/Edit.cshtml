@@ -1,10 +1,10 @@
-﻿@model SQLEscola.Banco.tb_atividade
+﻿@model SQLEscola.Models.AtividadeModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Atividade";
 }
 
-<h2>Edit</h2>
+<h2>Editar Atividade</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -12,32 +12,24 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>tb_atividade</legend>
-
-        @Html.HiddenFor(model => model.Id_Atividade)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Id_Turma, "tb_turma")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("Id_Turma", String.Empty)
-            @Html.ValidationMessageFor(model => model.Id_Turma)
-        </div>
+        <legend>Editar</legend>
+        
+        @Html.HiddenFor(model => model.Id_Turma)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Nome_Atividade)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Nome_Atividade)
+            @Html.TextBoxFor(model => model.Nome_Atividade, new { style = "width:400px", Maxlength = "100" })
             @Html.ValidationMessageFor(model => model.Nome_Atividade)
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Salvar Atividade" class="but but-success but-small but-shadow but-rc" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar", "Index")
 </div>

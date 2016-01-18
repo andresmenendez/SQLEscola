@@ -31,12 +31,6 @@
                 .Sanitized(false)
                 .SetWidth(150);
 
-        columns.Add(ativ => ativ.QtdeAlunos)
-                .Titled("Alunos Matriculados")
-                .ThenSortByDescending(ativ => ativ.QtdeAlunos)
-                .SetWidth(250)
-                .Filterable(true);
-
         columns.Add()
                 .Titled("Opções")
                 .Encoded(false)
