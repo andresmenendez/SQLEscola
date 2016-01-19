@@ -12,7 +12,7 @@
 @using GridMvc.Sorting
 
 <p>
-    @Html.ActionLink("Criar Nova Atividade", "Create")
+    @Html.ActionLink("Criar Nova Atividade", "Create", new { id = ViewBag.IdTurma })
 </p>
 
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>

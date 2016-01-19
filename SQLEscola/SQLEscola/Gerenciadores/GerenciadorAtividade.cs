@@ -112,9 +112,26 @@ namespace SQLEscola.Gerenciadores
             return mats.ElementAtOrDefault(0);
         }
 
+        public bool ExisteAtividade(string atividade, int idTurma)
+        {
+            IEnumerable<AtividadeModel> mats = GetQuery().Where(mat => mat.Nome_Atividade.Equals(atividade) && 
+                mat.Id_Turma == idTurma);
+            List<AtividadeModel> listaAtivs = mats.ToList();
+            AtividadeModel ativ = listaAtivs.FirstOrDefault();
+            if (ativ == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public IEnumerable<AtividadeModel> ObterPorTurma(int idTurma)
         {
-            IEnumerable<AtividadeModel> ativs = GetQuery().Where(atividadeModel => atividadeModel.Id_Turma == idTurma);
+            IEnumerable<AtividadeModel> ativs = GetQuery().Where(atividadeModel => atividadeModel.Id_Turma == idTurma).
+                OrderBy(atividadeModel => atividadeModel.Nome_Atividade);
             //TODO loop em cada atividade buscando a qtde de questões.
             return ativs;
         }

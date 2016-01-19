@@ -17,6 +17,7 @@ namespace SQLEscola.Controllers
         public ViewResult Index(int id)
         {
             TurmaModel turma = GerenciadorTurma.GetInstance().Obter(id);
+            ViewBag.IdTurma = turma.Id_Turma;
             ViewBag.Turma = turma.Turma;
             ViewBag.Professor = GerenciadorUsuario.GetInstance().Obter(turma.Id_Usuario).Nome;
             return View(GerenciadorAtividade.GetInstance().ObterPorTurma(id));
@@ -42,9 +43,13 @@ namespace SQLEscola.Controllers
         //
         // GET: /Atividade/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            AtividadeModel model = new AtividadeModel();
+            model.Id_Turma = id;
+            ViewBag.Id_Turma = id;
+            ViewBag.Error = "";
+            return View(model);
         }
 
         //
@@ -53,10 +58,19 @@ namespace SQLEscola.Controllers
         [HttpPost]
         public ActionResult Create(AtividadeModel model)
         {
+            ViewBag.Id_Turma = model.Id_Turma;
             if (ModelState.IsValid)
             {
-                GerenciadorAtividade.GetInstance().Inserir(model);
-                return RedirectToAction("Index");
+                if (GerenciadorAtividade.GetInstance().ExisteAtividade(model.Nome_Atividade, model.Id_Turma))
+                {
+                    GerenciadorAtividade.GetInstance().Inserir(model);
+                }
+                else
+                {
+                    ViewBag.Error = "Já existe uma Atividade com este nome para esta turma.";
+                    return View(model);
+                }
+                return RedirectToAction("Index", new { id = model.Id_Turma});
             }
 
             return View(model);
