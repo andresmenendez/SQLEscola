@@ -1,0 +1,74 @@
+﻿@model IEnumerable<SQLEscola.Models.QuestaoModel>
+
+@{
+    ViewBag.Title = "Questões";
+}
+
+<h2>Questões</h2>
+<h3>Turma: @ViewBag.Turma</h3>
+<h3>Professor: @ViewBag.Professor</h3>
+<h3>Atividade: @ViewBag.Atividade</h3>
+
+
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+<p>
+    @Html.ActionLink("Criar Nova Questão", "Create", new { id = ViewBag.IdAtividade })
+</p>
+
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+
+<div class="box-content">
+    @Html.Grid(Model).Columns(columns =>
+    {
+
+        columns.Add(quest => quest.Ordem)
+                .Titled("Ordem")
+                .SetWidth(100)
+                .Encoded(false)
+                .Sanitized(false);
+
+        columns.Add(quest => quest.Descricao)
+                .Titled("Descrição da Questão")
+                .ThenSortByDescending(quest => quest.Descricao)
+                .SetWidth(400)
+                .Filterable(true);
+
+        
+
+        /* Adding not mapped column, that renders body, using inline Razor html helper */
+        columns.Add()
+                .Titled("Respostas dos Alunos")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(ativ => Html.ActionLink("Visualizar", "Edit", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+        
+        columns.Add()
+                .Titled("Visualizar")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(ativ => Html.ActionLink("Editar", "Edit", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+        
+        columns.Add()
+                .Titled("Editar")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(ativ => Html.ActionLink("Editar", "Edit", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+
+        columns.Add()
+                .Titled("Remover")
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(ativ => Html.ActionLink("Remover", "Delete", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+  
+
+    }).WithPaging(5).Sortable()
+</div>

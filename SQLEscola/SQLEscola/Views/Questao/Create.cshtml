@@ -1,0 +1,67 @@
+﻿@model SQLEscola.Models.QuestaoModel
+
+@{
+    ViewBag.Title = "Nova Questão";
+}
+
+<h2>Nova Questão</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Criar Questão</legend>
+
+        @Html.HiddenFor(model => model.Id_Atividade)
+        @Html.HiddenFor(model => model.Ordem)
+
+        <div class="editor-label">
+            @Html.Label("Número de Ordem")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Ordem, new { style = "width:20px", disabled = "disabled" })
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Descrição")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Descricao, new { style = "width:400px" })
+            @Html.ValidationMessageFor(model => model.Descricao)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Script de Criação")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptCriacao, new { style = "width:400px;height:150px;" })
+            @Html.ValidationMessageFor(model => model.ScriptCriacao)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Script de Povoamento")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptPovoamento, new { style = "width:400px;height:150px;" })
+            @Html.ValidationMessageFor(model => model.ScriptPovoamento)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Script de Resolução")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptResultado, new { style = "width:400px;height:150px;" })
+            @Html.ValidationMessageFor(model => model.ScriptResultado)
+        </div>
+
+        <p>
+            <input type="submit" value="Criar Questão" class="but but-success but-small but-shadow but-rc" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Retornar", "Index", "Questao", new { id = @ViewBag.Id_Atividade }, new { @class = "modal-link" })
+</div>

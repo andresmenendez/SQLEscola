@@ -1,0 +1,99 @@
+﻿@model SQLEscola.Banco.tb_questao
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>tb_questao</legend>
+
+        @Html.HiddenFor(model => model.Id_Questao)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Id_Tecnologia, "tb_tecnologia")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Id_Tecnologia", String.Empty)
+            @Html.ValidationMessageFor(model => model.Id_Tecnologia)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Id_Atividade, "tb_atividade")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Id_Atividade", String.Empty)
+            @Html.ValidationMessageFor(model => model.Id_Atividade)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Descricao)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Descricao)
+            @Html.ValidationMessageFor(model => model.Descricao)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ScriptCriacao)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ScriptCriacao)
+            @Html.ValidationMessageFor(model => model.ScriptCriacao)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ScriptPovoamento)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ScriptPovoamento)
+            @Html.ValidationMessageFor(model => model.ScriptPovoamento)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ScriptResolucao)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ScriptResolucao)
+            @Html.ValidationMessageFor(model => model.ScriptResolucao)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ordem)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ordem)
+            @Html.ValidationMessageFor(model => model.Ordem)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Data_Criacao)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Data_Criacao)
+            @Html.ValidationMessageFor(model => model.Data_Criacao)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Data_Alteracao)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Data_Alteracao)
+            @Html.ValidationMessageFor(model => model.Data_Alteracao)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -12,10 +12,6 @@
     <EntitySet Name="tb_tecnologia" EntityType="sqlescolaModel.Store.tb_tecnologia" store:Type="Tables" Schema="sqlescola" />
     <EntitySet Name="tb_turma" EntityType="sqlescolaModel.Store.tb_turma" store:Type="Tables" Schema="sqlescola" />
     <EntitySet Name="tb_usuario" EntityType="sqlescolaModel.Store.tb_usuario" store:Type="Tables" Schema="sqlescola" />
-    <AssociationSet Name="fk_tb_atividade_tb_turma1" Association="sqlescolaModel.Store.fk_tb_atividade_tb_turma1">
-      <End Role="tb_turma" EntitySet="tb_turma" />
-      <End Role="tb_atividade" EntitySet="tb_atividade" />
-    </AssociationSet>
     <AssociationSet Name="fk_tb_matricula_tb_turma1" Association="sqlescolaModel.Store.fk_tb_matricula_tb_turma1">
       <End Role="tb_turma" EntitySet="tb_turma" />
       <End Role="tb_matricula" EntitySet="tb_matricula" />
@@ -157,18 +153,6 @@
     <Property Name="Foto" Type="blob" />
     <Property Name="UserName" Type="varchar" MaxLength="60" />
   </EntityType>
-  <Association Name="fk_tb_atividade_tb_turma1">
-    <End Role="tb_turma" Type="sqlescolaModel.Store.tb_turma" Multiplicity="1" />
-    <End Role="tb_atividade" Type="sqlescolaModel.Store.tb_atividade" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_turma">
-        <PropertyRef Name="Id_Turma" />
-      </Principal>
-      <Dependent Role="tb_atividade">
-        <PropertyRef Name="Id_Turma" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_tb_matricula_tb_turma1">
     <End Role="tb_turma" Type="sqlescolaModel.Store.tb_turma" Multiplicity="1" />
     <End Role="tb_matricula" Type="sqlescolaModel.Store.tb_matricula" Multiplicity="*" />

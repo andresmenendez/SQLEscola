@@ -19,7 +19,6 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_atividade1", "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_atividade), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_tecnologia1", "tb_tecnologia", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_tecnologia), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_questao1", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_questao), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_resposta), "tb_resultado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resultado), true)]
@@ -27,8 +26,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_ativar_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_ativar_perfil), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_atividade_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_atividade), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_atividade1", "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_atividade), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
 
 #endregion
 
@@ -95,22 +94,6 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_ativar_perfil> _tb_ativar_perfil;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<tb_atividade> tb_atividade
-        {
-            get
-            {
-                if ((_tb_atividade == null))
-                {
-                    _tb_atividade = base.CreateObjectSet<tb_atividade>("tb_atividade");
-                }
-                return _tb_atividade;
-            }
-        }
-        private ObjectSet<tb_atividade> _tb_atividade;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -239,6 +222,22 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_turma> _tb_turma;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_atividade> tb_atividade
+        {
+            get
+            {
+                if ((_tb_atividade == null))
+                {
+                    _tb_atividade = base.CreateObjectSet<tb_atividade>("tb_atividade");
+                }
+                return _tb_atividade;
+            }
+        }
+        private ObjectSet<tb_atividade> _tb_atividade;
 
         #endregion
 
@@ -250,14 +249,6 @@ namespace SQLEscola.Banco
         public void AddTotb_ativar_perfil(tb_ativar_perfil tb_ativar_perfil)
         {
             base.AddObject("tb_ativar_perfil", tb_ativar_perfil);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the tb_atividade EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_atividade(tb_atividade tb_atividade)
-        {
-            base.AddObject("tb_atividade", tb_atividade);
         }
     
         /// <summary>
@@ -322,6 +313,14 @@ namespace SQLEscola.Banco
         public void AddTotb_turma(tb_turma tb_turma)
         {
             base.AddObject("tb_turma", tb_turma);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_atividade EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_atividade(tb_atividade tb_atividade)
+        {
+            base.AddObject("tb_atividade", tb_atividade);
         }
 
         #endregion
@@ -610,44 +609,6 @@ namespace SQLEscola.Banco
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_questao>("sqlescolaModel.fk_tb_questao_tb_atividade1", "tb_questao", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_atividade_tb_turma1", "tb_turma")]
-        public tb_turma tb_turma
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_atividade_tb_turma1", "tb_turma").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_atividade_tb_turma1", "tb_turma").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<tb_turma> tb_turmaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_turma>("sqlescolaModel.fk_tb_atividade_tb_turma1", "tb_turma");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_turma>("sqlescolaModel.fk_tb_atividade_tb_turma1", "tb_turma", value);
                 }
             }
         }
@@ -1138,44 +1099,6 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_questao_tb_atividade1", "tb_atividade")]
-        public tb_atividade tb_atividade
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_atividade>("sqlescolaModel.fk_tb_questao_tb_atividade1", "tb_atividade").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_atividade>("sqlescolaModel.fk_tb_questao_tb_atividade1", "tb_atividade").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<tb_atividade> tb_atividadeReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_atividade>("sqlescolaModel.fk_tb_questao_tb_atividade1", "tb_atividade");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_atividade>("sqlescolaModel.fk_tb_questao_tb_atividade1", "tb_atividade", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_questao_tb_tecnologia1", "tb_tecnologia")]
         public tb_tecnologia tb_tecnologia
         {
@@ -1248,6 +1171,44 @@ namespace SQLEscola.Banco
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_restricao>("sqlescolaModel.tb_questao_restricoes", "tb_restricao", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_questao_tb_atividade1", "tb_atividade")]
+        public tb_atividade tb_atividade
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_atividade>("sqlescolaModel.fk_tb_questao_tb_atividade1", "tb_atividade").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_atividade>("sqlescolaModel.fk_tb_questao_tb_atividade1", "tb_atividade").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_atividade> tb_atividadeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_atividade>("sqlescolaModel.fk_tb_questao_tb_atividade1", "tb_atividade");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_atividade>("sqlescolaModel.fk_tb_questao_tb_atividade1", "tb_atividade", value);
                 }
             }
         }
@@ -2068,28 +2029,6 @@ namespace SQLEscola.Banco
 
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_atividade_tb_turma1", "tb_atividade")]
-        public EntityCollection<tb_atividade> tb_atividade
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_atividade>("sqlescolaModel.fk_tb_atividade_tb_turma1", "tb_atividade");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_atividade>("sqlescolaModel.fk_tb_atividade_tb_turma1", "tb_atividade", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.

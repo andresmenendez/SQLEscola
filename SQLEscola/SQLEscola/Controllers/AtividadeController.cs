@@ -94,7 +94,7 @@ namespace SQLEscola.Controllers
             if (ModelState.IsValid)
             {
                 GerenciadorAtividade.GetInstance().Editar(model);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = model.Id_Turma });
             }
             return View(model);
         }
@@ -114,8 +114,9 @@ namespace SQLEscola.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
+            AtividadeModel ativ = GerenciadorAtividade.GetInstance().Obter(id);
             GerenciadorAtividade.GetInstance().Remover(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = ativ.Id_Turma });
         }
     }
 }

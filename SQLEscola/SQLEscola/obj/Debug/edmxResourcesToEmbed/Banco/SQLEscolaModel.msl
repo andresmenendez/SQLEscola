@@ -10,15 +10,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tb_atividade">
-      <EntityTypeMapping TypeName="sqlescolaModel.tb_atividade">
-        <MappingFragment StoreEntitySet="tb_atividade">
-          <ScalarProperty Name="Nome_Atividade" ColumnName="Nome_Atividade" />
-          <ScalarProperty Name="Id_Turma" ColumnName="Id_Turma" />
-          <ScalarProperty Name="Id_Atividade" ColumnName="Id_Atividade" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tb_matricula">
       <EntityTypeMapping TypeName="sqlescolaModel.tb_matricula">
         <MappingFragment StoreEntitySet="tb_matricula">
@@ -108,6 +99,15 @@
           <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
           <ScalarProperty Name="Nome" ColumnName="Nome" />
           <ScalarProperty Name="Id_Turma" ColumnName="Id_Turma" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_atividade">
+      <EntityTypeMapping TypeName="sqlescolaModel.tb_atividade">
+        <MappingFragment StoreEntitySet="tb_atividade">
+          <ScalarProperty Name="Nome_Atividade" ColumnName="Nome_Atividade" />
+          <ScalarProperty Name="Id_Turma" ColumnName="Id_Turma" />
+          <ScalarProperty Name="Id_Atividade" ColumnName="Id_Atividade" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
