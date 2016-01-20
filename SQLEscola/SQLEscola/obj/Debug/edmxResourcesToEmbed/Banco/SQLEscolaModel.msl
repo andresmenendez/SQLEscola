@@ -19,22 +19,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tb_questao">
-      <EntityTypeMapping TypeName="sqlescolaModel.tb_questao">
-        <MappingFragment StoreEntitySet="tb_questao">
-          <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
-          <ScalarProperty Name="Data_Criacao" ColumnName="Data_Criacao" />
-          <ScalarProperty Name="Ordem" ColumnName="Ordem" />
-          <ScalarProperty Name="ScriptResolucao" ColumnName="ScriptResolucao" />
-          <ScalarProperty Name="ScriptPovoamento" ColumnName="ScriptPovoamento" />
-          <ScalarProperty Name="ScriptCriacao" ColumnName="ScriptCriacao" />
-          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-          <ScalarProperty Name="Id_Atividade" ColumnName="Id_Atividade" />
-          <ScalarProperty Name="Id_Tecnologia" ColumnName="Id_Tecnologia" />
-          <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tb_resposta">
       <EntityTypeMapping TypeName="sqlescolaModel.tb_resposta">
         <MappingFragment StoreEntitySet="tb_resposta">
@@ -74,14 +58,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="tb_questao_restricoes" TypeName="sqlescolaModel.tb_questao_restricoes" StoreEntitySet="tb_questao_restricoes">
-      <EndProperty Name="tb_restricao">
-        <ScalarProperty Name="Id_Restricoes" ColumnName="Id_Restricoes" />
-      </EndProperty>
-      <EndProperty Name="tb_questao">
-        <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
-      </EndProperty>
-    </AssociationSetMapping>
     <EntitySetMapping Name="tb_usuario">
       <EntityTypeMapping TypeName="sqlescolaModel.tb_usuario">
         <MappingFragment StoreEntitySet="tb_usuario">
@@ -111,5 +87,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tb_questao">
+      <EntityTypeMapping TypeName="sqlescolaModel.tb_questao">
+        <MappingFragment StoreEntitySet="tb_questao">
+          <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
+          <ScalarProperty Name="Data_Criacao" ColumnName="Data_Criacao" />
+          <ScalarProperty Name="Ordem" ColumnName="Ordem" />
+          <ScalarProperty Name="ScriptResolucao" ColumnName="ScriptResolucao" />
+          <ScalarProperty Name="ScriptPovoamento" ColumnName="ScriptPovoamento" />
+          <ScalarProperty Name="ScriptCriacao" ColumnName="ScriptCriacao" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="Id_Atividade" ColumnName="Id_Atividade" />
+          <ScalarProperty Name="Id_Tecnologia" ColumnName="Id_Tecnologia" />
+          <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="tb_questao_restricoes" TypeName="sqlescolaModel.tb_questao_restricoes" StoreEntitySet="tb_questao_restricoes">
+      <EndProperty Name="tb_restricao">
+        <ScalarProperty Name="Id_Restricoes" ColumnName="Id_Restricoes" />
+      </EndProperty>
+      <EndProperty Name="tb_questao">
+        <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

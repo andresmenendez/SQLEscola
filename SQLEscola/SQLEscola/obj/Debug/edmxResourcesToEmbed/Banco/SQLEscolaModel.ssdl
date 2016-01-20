@@ -32,10 +32,6 @@
       <End Role="tb_atividade" EntitySet="tb_atividade" />
       <End Role="tb_questao" EntitySet="tb_questao" />
     </AssociationSet>
-    <AssociationSet Name="fk_tb_questao_tb_tecnologia1" Association="sqlescolaModel.Store.fk_tb_questao_tb_tecnologia1">
-      <End Role="tb_tecnologia" EntitySet="tb_tecnologia" />
-      <End Role="tb_questao" EntitySet="tb_questao" />
-    </AssociationSet>
     <AssociationSet Name="fk_tb_resposta_tb_questao1" Association="sqlescolaModel.Store.fk_tb_resposta_tb_questao1">
       <End Role="tb_questao" EntitySet="tb_questao" />
       <End Role="tb_resposta" EntitySet="tb_resposta" />
@@ -210,18 +206,6 @@
       </Principal>
       <Dependent Role="tb_questao">
         <PropertyRef Name="Id_Atividade" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_tb_questao_tb_tecnologia1">
-    <End Role="tb_tecnologia" Type="sqlescolaModel.Store.tb_tecnologia" Multiplicity="1" />
-    <End Role="tb_questao" Type="sqlescolaModel.Store.tb_questao" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_tecnologia">
-        <PropertyRef Name="Id_Tecnologia" />
-      </Principal>
-      <Dependent Role="tb_questao">
-        <PropertyRef Name="Id_Tecnologia" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

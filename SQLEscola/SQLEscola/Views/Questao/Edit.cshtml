@@ -1,10 +1,9 @@
-﻿@model SQLEscola.Banco.tb_questao
+﻿@model SQLEscola.Models.QuestaoModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Questão";
 }
-
-<h2>Edit</h2>
+<h2>Editar</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -12,88 +11,59 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>tb_questao</legend>
+        <legend>Editar Questão</legend>
 
         @Html.HiddenFor(model => model.Id_Questao)
+        @Html.HiddenFor(model => model.Id_Atividade)
+        @Html.HiddenFor(model => model.Ordem)
+        @Html.HiddenFor(model => model.DataCriacao)
+        @Html.HiddenFor(model => model.Id_Tecnologia)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Id_Tecnologia, "tb_tecnologia")
+            @Html.Label("Número de Ordem")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("Id_Tecnologia", String.Empty)
-            @Html.ValidationMessageFor(model => model.Id_Tecnologia)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Id_Atividade, "tb_atividade")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("Id_Atividade", String.Empty)
-            @Html.ValidationMessageFor(model => model.Id_Atividade)
+            @Html.TextBoxFor(model => model.Ordem, new { style = "width:30px", disabled = "disabled" })
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Descricao)
+            @Html.Label("Descrição")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Descricao)
+            @Html.TextBoxFor(model => model.Descricao, new { style = "width:400px" })
             @Html.ValidationMessageFor(model => model.Descricao)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ScriptCriacao)
+            @Html.Label("Script de Criação")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ScriptCriacao)
+            @Html.TextAreaFor(model => model.ScriptCriacao, new { style = "width:400px;height:150px;" })
             @Html.ValidationMessageFor(model => model.ScriptCriacao)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ScriptPovoamento)
+            @Html.Label("Script de Povoamento")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ScriptPovoamento)
+            @Html.TextAreaFor(model => model.ScriptPovoamento, new { style = "width:400px;height:150px;" })
             @Html.ValidationMessageFor(model => model.ScriptPovoamento)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ScriptResolucao)
+            @Html.Label("Script de Resolução")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ScriptResolucao)
-            @Html.ValidationMessageFor(model => model.ScriptResolucao)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Ordem)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Ordem)
-            @Html.ValidationMessageFor(model => model.Ordem)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Data_Criacao)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Data_Criacao)
-            @Html.ValidationMessageFor(model => model.Data_Criacao)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Data_Alteracao)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Data_Alteracao)
-            @Html.ValidationMessageFor(model => model.Data_Alteracao)
+            @Html.TextAreaFor(model => model.ScriptResultado, new { style = "width:400px;height:150px;" })
+            @Html.ValidationMessageFor(model => model.ScriptResultado)
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Editar Questão" class="but but-success but-small but-shadow but-rc" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retornar", "Index", "Questao", new { id = @ViewBag.Id_Atividade }, new { @class = "modal-link" })
 </div>

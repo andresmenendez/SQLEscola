@@ -15,5 +15,6 @@ namespace SQLEscola.Models
         public const string PerfilUsuario = "Usuário";
         public const string PerfilProfessor = "Professor";
         public const string PerfilAdm = "Administrador";
+        public const int IdTecnologiaSQLServer = 1;
     }
 }

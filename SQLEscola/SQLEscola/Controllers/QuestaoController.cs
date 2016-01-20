@@ -39,6 +39,7 @@ namespace SQLEscola.Controllers
         public ViewResult Details(int id)
         {
             QuestaoModel matricula = GerenciadorQuestao.GetInstance().Obter(id);
+            ViewBag.DataAlteracao = Convert.ToDateTime(matricula.DataAlteracao).ToShortDateString();
             return View(matricula);
         }
 
@@ -66,7 +67,8 @@ namespace SQLEscola.Controllers
             {
                 model.DataCriacao = DateTime.Now;
                 model.DataAlteracao = DateTime.Now;
-                model.Id_Tecnologia = 1;
+                model.Id_Tecnologia = Global.IdTecnologiaSQLServer;
+                ViewBag.Id_Atividade = model.Id_Atividade;
                 GerenciadorQuestao.GetInstance().Inserir(model);
                 return RedirectToAction("Index", new { id = model.Id_Atividade });
             }
@@ -79,8 +81,9 @@ namespace SQLEscola.Controllers
 
         public ActionResult Edit(int id)
         {
-            QuestaoModel matricula = GerenciadorQuestao.GetInstance().Obter(id);
-            return View(matricula);
+            QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(id);
+            ViewBag.Id_Atividade = id;
+            return View(qust);
         }
 
         //
@@ -91,8 +94,9 @@ namespace SQLEscola.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.DataAlteracao = DateTime.Now;
                 GerenciadorQuestao.GetInstance().Editar(model);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = model.Id_Atividade });
             }
             return View(model);
         }

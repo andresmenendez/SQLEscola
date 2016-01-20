@@ -1,60 +1,128 @@
-﻿@model SQLEscola.Banco.tb_questao
+﻿@model SQLEscola.Models.QuestaoModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Visualizar Questão";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <fieldset>
-    <legend>tb_questao</legend>
+    <legend>Visualizar</legend>
 
-    <div class="display-label">tb_tecnologia</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tb_tecnologia.Descricao)
-    </div>
+        <div class="editor-label">
+            @Html.Label("Número de Ordem")
+        </div>
+        <div class="editor-field" style="font-weight:bolder">
+            @Html.DisplayFor(model => model.Ordem)
+        </div>
 
-    <div class="display-label">tb_atividade</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tb_atividade.Nome_Atividade)
-    </div>
+        <div class="editor-label">
+            @Html.Label("Descrição")
+        </div>
+        <div class="editor-field" style="font-weight:bolder">
+            @Html.DisplayFor(model => model.Descricao)
+        </div>
 
-    <div class="display-label">Descricao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Descricao)
-    </div>
+        <input type="submit" id="Criacao" value="0" style="display:none;" />
+        <div id="show" class="editor-label" style="cursor:pointer">
+            <img id="imgLado" alt="logo" src="../../Content/themes/base/images/setaLado.png" width="15px" height="15px" />
+            <img id="imgBaixo" alt="logo" src="../../Content/themes/base/images/setaBaixo.png" width="15px" height="15px" />
+            Script de Criação
+        </div>
+        <div id="panel" class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptCriacao, new { id = "SCriacao",style = "width:750px;height:350px;", disabled = "disabled" })
+        </div>
 
-    <div class="display-label">ScriptCriacao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ScriptCriacao)
-    </div>
+        <input type="submit" id="Criacao2" value="0" style="display:none;" />
+        <div id="show2" class="editor-label" style="cursor:pointer">
+            <img id="imgLado2" alt="logo" src="../../Content/themes/base/images/setaLado.png" width="15px" height="15px" />
+            <img id="imgBaixo2" alt="logo" src="../../Content/themes/base/images/setaBaixo.png" width="15px" height="15px" />
+            Script de Povoamento
+        </div>
+        <div id="panel2" class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptPovoamento, new { style = "width:750px;height:350px;", disabled = "disabled" })
+        </div>
 
-    <div class="display-label">ScriptPovoamento</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ScriptPovoamento)
-    </div>
+        <input type="submit" id="Criacao3" value="0" style="display:none;" />
+        <div id="show3" class="editor-label" style="cursor:pointer">
+            <img id="imgLado3" alt="logo" src="../../Content/themes/base/images/setaLado.png" width="15px" height="15px" />
+            <img id="imgBaixo3" alt="logo" src="../../Content/themes/base/images/setaBaixo.png" width="15px" height="15px" />
+            Script de Resolução
+        </div>
+        <div id="panel3" class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptResultado, new { style = "width:750px;height:350px;", disabled = "disabled" })
+        </div>
 
-    <div class="display-label">ScriptResolucao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ScriptResolucao)
-    </div>
+        <div class="editor-label">
+            @Html.Label("Data da Última Alteração")
+        </div>
+        <div class="editor-field" style="font-weight:bolder">
+            @ViewBag.DataAlteracao
+        </div>
 
-    <div class="display-label">Ordem</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Ordem)
-    </div>
-
-    <div class="display-label">Data_Criacao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Data_Criacao)
-    </div>
-
-    <div class="display-label">Data_Alteracao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Data_Alteracao)
-    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id_Questao }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar Questão", "Edit", new { id=Model.Id_Questao })
+    <br />
+    @Html.ActionLink("Retornar", "Index", new { id = Model.Id_Atividade })
 </p>
+<script type="text/javascript">
+    document.getElementById('panel').style.display = 'none';
+    document.getElementById('imgBaixo').style.display = 'none';
+    $("#show").click(function () {
+        $("#panel").slideToggle("slow", function teste() {
+            var n = $("#Criacao").val();
+
+            if (n % 2 == 0) {
+                document.getElementById('imgBaixo').style.display = 'inline';
+                document.getElementById('imgLado').style.display = 'none';
+            } else {
+                document.getElementById('imgBaixo').style.display = 'none';
+                document.getElementById('imgLado').style.display = 'inline';
+            }
+            var num = parseInt(n, 10);
+            num = num + 1;
+            document.querySelector("[id='Criacao']").value = num;
+        });
+    });
+
+    document.getElementById('panel2').style.display = 'none';
+    document.getElementById('imgBaixo2').style.display = 'none';
+    $("#show2").click(function () {
+        $("#panel2").slideToggle("slow", function teste() {
+            var n = $("#Criacao2").val();
+
+            if (n % 2 == 0) {
+                document.getElementById('imgBaixo2').style.display = 'inline';
+                document.getElementById('imgLado2').style.display = 'none';
+            } else {
+                document.getElementById('imgBaixo2').style.display = 'none';
+                document.getElementById('imgLado2').style.display = 'inline';
+            }
+            var num = parseInt(n, 10);
+            num = num + 1;
+            document.querySelector("[id='Criacao2']").value = num;
+        });
+    });
+
+    document.getElementById('panel3').style.display = 'none';
+    document.getElementById('imgBaixo3').style.display = 'none';
+    $("#show3").click(function () {
+        $("#panel3").slideToggle("slow", function teste() {
+            var n = $("#Criacao3").val();
+
+            if (n % 2 == 0) {
+                document.getElementById('imgBaixo3').style.display = 'inline';
+                document.getElementById('imgLado3').style.display = 'none';
+            } else {
+                document.getElementById('imgBaixo3').style.display = 'none';
+                document.getElementById('imgLado3').style.display = 'inline';
+            }
+            var num = parseInt(n, 10);
+            num = num + 1;
+            document.querySelector("[id='Criacao3']").value = num;
+        });
+    });
+</script>

@@ -3,26 +3,13 @@
   <EntityContainer Name="sqlescolaEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="tb_ativar_perfil" EntityType="sqlescolaModel.tb_ativar_perfil" />
     <EntitySet Name="tb_matricula" EntityType="sqlescolaModel.tb_matricula" />
-    <EntitySet Name="tb_questao" EntityType="sqlescolaModel.tb_questao" />
     <EntitySet Name="tb_resposta" EntityType="sqlescolaModel.tb_resposta" />
     <EntitySet Name="tb_restricao" EntityType="sqlescolaModel.tb_restricao" />
     <EntitySet Name="tb_resultado" EntityType="sqlescolaModel.tb_resultado" />
     <EntitySet Name="tb_tecnologia" EntityType="sqlescolaModel.tb_tecnologia" />
-    <AssociationSet Name="fk_tb_questao_tb_tecnologia1" Association="sqlescolaModel.fk_tb_questao_tb_tecnologia1">
-      <End Role="tb_tecnologia" EntitySet="tb_tecnologia" />
-      <End Role="tb_questao" EntitySet="tb_questao" />
-    </AssociationSet>
-    <AssociationSet Name="fk_tb_resposta_tb_questao1" Association="sqlescolaModel.fk_tb_resposta_tb_questao1">
-      <End Role="tb_questao" EntitySet="tb_questao" />
-      <End Role="tb_resposta" EntitySet="tb_resposta" />
-    </AssociationSet>
     <AssociationSet Name="fk_tb_resultado_tb_resposta1" Association="sqlescolaModel.fk_tb_resultado_tb_resposta1">
       <End Role="tb_resposta" EntitySet="tb_resposta" />
       <End Role="tb_resultado" EntitySet="tb_resultado" />
-    </AssociationSet>
-    <AssociationSet Name="tb_questao_restricoes" Association="sqlescolaModel.tb_questao_restricoes">
-      <End Role="tb_questao" EntitySet="tb_questao" />
-      <End Role="tb_restricao" EntitySet="tb_restricao" />
     </AssociationSet>
     <EntitySet Name="tb_usuario" EntityType="sqlescolaModel.tb_usuario" />
     <AssociationSet Name="fk_tb_usuario_has_tb_turma_tb_usuario1" Association="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1">
@@ -43,9 +30,18 @@
       <End Role="tb_matricula" EntitySet="tb_matricula" />
     </AssociationSet>
     <EntitySet Name="tb_atividade" EntityType="sqlescolaModel.tb_atividade" />
+    <EntitySet Name="tb_questao" EntityType="sqlescolaModel.tb_questao" />
     <AssociationSet Name="fk_tb_questao_tb_atividade1" Association="sqlescolaModel.fk_tb_questao_tb_atividade1">
       <End Role="tb_atividade" EntitySet="tb_atividade" />
       <End Role="tb_questao" EntitySet="tb_questao" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tb_resposta_tb_questao1" Association="sqlescolaModel.fk_tb_resposta_tb_questao1">
+      <End Role="tb_questao" EntitySet="tb_questao" />
+      <End Role="tb_resposta" EntitySet="tb_resposta" />
+    </AssociationSet>
+    <AssociationSet Name="tb_questao_restricoes" Association="sqlescolaModel.tb_questao_restricoes">
+      <End Role="tb_questao" EntitySet="tb_questao" />
+      <End Role="tb_restricao" EntitySet="tb_restricao" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="tb_ativar_perfil">
@@ -67,25 +63,6 @@
     <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_matricula_tb_usuario1" FromRole="tb_matricula" ToRole="tb_usuario" />
     <NavigationProperty Name="tb_turma" Relationship="sqlescolaModel.fk_tb_matricula_tb_turma1" FromRole="tb_matricula" ToRole="tb_turma" />
   </EntityType>
-  <EntityType Name="tb_questao">
-    <Key>
-      <PropertyRef Name="Id_Questao" />
-    </Key>
-    <Property Type="Int32" Name="Id_Questao" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int32" Name="Id_Tecnologia" Nullable="false" />
-    <Property Type="Int32" Name="Id_Atividade" Nullable="false" />
-    <Property Type="String" Name="Descricao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="ScriptCriacao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="ScriptPovoamento" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="ScriptResolucao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="Ordem" Nullable="false" />
-    <Property Type="DateTime" Name="Data_Criacao" />
-    <Property Type="DateTime" Name="Data_Alteracao" />
-    <NavigationProperty Name="tb_tecnologia" Relationship="sqlescolaModel.fk_tb_questao_tb_tecnologia1" FromRole="tb_questao" ToRole="tb_tecnologia" />
-    <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_questao1" FromRole="tb_questao" ToRole="tb_resposta" />
-    <NavigationProperty Name="tb_restricao" Relationship="sqlescolaModel.tb_questao_restricoes" FromRole="tb_questao" ToRole="tb_restricao" />
-    <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_questao" ToRole="tb_atividade" />
-  </EntityType>
   <EntityType Name="tb_resposta">
     <Key>
       <PropertyRef Name="Id_Resposta" />
@@ -95,9 +72,9 @@
     <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
     <Property Type="DateTime" Name="Data_Resposta" Nullable="false" />
     <Property Type="Int32" Name="Id_Questao" Nullable="false" />
-    <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_resposta_tb_questao1" FromRole="tb_resposta" ToRole="tb_questao" />
     <NavigationProperty Name="tb_resultado" Relationship="sqlescolaModel.fk_tb_resultado_tb_resposta1" FromRole="tb_resposta" ToRole="tb_resultado" />
     <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_resposta_tb_usuario1" FromRole="tb_resposta" ToRole="tb_usuario" />
+    <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_resposta_tb_questao1" FromRole="tb_resposta" ToRole="tb_questao" />
   </EntityType>
   <EntityType Name="tb_restricao">
     <Key>
@@ -125,32 +102,7 @@
     <Property Type="Int32" Name="Id_Tecnologia" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="Descricao" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Versao" MaxLength="10" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_questao_tb_tecnologia1" FromRole="tb_tecnologia" ToRole="tb_questao" />
   </EntityType>
-  <Association Name="fk_tb_questao_tb_tecnologia1">
-    <End Type="sqlescolaModel.tb_tecnologia" Role="tb_tecnologia" Multiplicity="1" />
-    <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_tecnologia">
-        <PropertyRef Name="Id_Tecnologia" />
-      </Principal>
-      <Dependent Role="tb_questao">
-        <PropertyRef Name="Id_Tecnologia" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_tb_resposta_tb_questao1">
-    <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="1" />
-    <End Type="sqlescolaModel.tb_resposta" Role="tb_resposta" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_questao">
-        <PropertyRef Name="Id_Questao" />
-      </Principal>
-      <Dependent Role="tb_resposta">
-        <PropertyRef Name="Id_Questao" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_tb_resultado_tb_resposta1">
     <End Type="sqlescolaModel.tb_resposta" Role="tb_resposta" Multiplicity="1" />
     <End Type="sqlescolaModel.tb_resultado" Role="tb_resultado" Multiplicity="*" />
@@ -162,10 +114,6 @@
         <PropertyRef Name="Id_Resposta" />
       </Dependent>
     </ReferentialConstraint>
-  </Association>
-  <Association Name="tb_questao_restricoes">
-    <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
-    <End Type="sqlescolaModel.tb_restricao" Role="tb_restricao" Multiplicity="*" />
   </Association>
   <EntityType Name="tb_usuario">
     <Key>
@@ -246,6 +194,24 @@
     <Property Type="String" Name="Nome_Atividade" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_atividade" ToRole="tb_questao" />
   </EntityType>
+  <EntityType Name="tb_questao">
+    <Key>
+      <PropertyRef Name="Id_Questao" />
+    </Key>
+    <Property Type="Int32" Name="Id_Questao" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id_Tecnologia" Nullable="false" />
+    <Property Type="Int32" Name="Id_Atividade" Nullable="false" />
+    <Property Type="String" Name="Descricao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ScriptCriacao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ScriptPovoamento" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ScriptResolucao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Ordem" Nullable="false" />
+    <Property Type="DateTime" Name="Data_Criacao" />
+    <Property Type="DateTime" Name="Data_Alteracao" />
+    <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_questao" ToRole="tb_atividade" />
+    <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_questao1" FromRole="tb_questao" ToRole="tb_resposta" />
+    <NavigationProperty Name="tb_restricao" Relationship="sqlescolaModel.tb_questao_restricoes" FromRole="tb_questao" ToRole="tb_restricao" />
+  </EntityType>
   <Association Name="fk_tb_questao_tb_atividade1">
     <End Type="sqlescolaModel.tb_atividade" Role="tb_atividade" Multiplicity="1" />
     <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
@@ -257,5 +223,21 @@
         <PropertyRef Name="Id_Atividade" />
       </Dependent>
     </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tb_resposta_tb_questao1">
+    <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="1" />
+    <End Type="sqlescolaModel.tb_resposta" Role="tb_resposta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_questao">
+        <PropertyRef Name="Id_Questao" />
+      </Principal>
+      <Dependent Role="tb_resposta">
+        <PropertyRef Name="Id_Questao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tb_questao_restricoes">
+    <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
+    <End Type="sqlescolaModel.tb_restricao" Role="tb_restricao" Multiplicity="*" />
   </Association>
 </Schema>
