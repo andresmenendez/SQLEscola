@@ -1,63 +1,25 @@
-﻿@model SQLEscola.Banco.tb_questao
+﻿@model SQLEscola.Models.QuestaoModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Remover";
 }
 
-<h2>Delete</h2>
+<h2>Remover</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza que deseja remover esta questão?</h3>
 <fieldset>
-    <legend>tb_questao</legend>
+    <legend>Atividade</legend>
 
-    <div class="display-label">tb_tecnologia</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tb_tecnologia.Descricao)
-    </div>
-
-    <div class="display-label">tb_atividade</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tb_atividade.Nome_Atividade)
-    </div>
-
-    <div class="display-label">Descricao</div>
+    <div class="display-label">Descrição da Questão</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Descricao)
-    </div>
-
-    <div class="display-label">ScriptCriacao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ScriptCriacao)
-    </div>
-
-    <div class="display-label">ScriptPovoamento</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ScriptPovoamento)
-    </div>
-
-    <div class="display-label">ScriptResolucao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ScriptResolucao)
-    </div>
-
-    <div class="display-label">Ordem</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Ordem)
-    </div>
-
-    <div class="display-label">Data_Criacao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Data_Criacao)
-    </div>
-
-    <div class="display-label">Data_Alteracao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Data_Alteracao)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <p>
+            <input type="submit" value="Remover" class="but but-error but-small but-shadow but-rc" />
+        </p>
+        @Html.ActionLink("Voltar", "Index", new { id = Model.Id_Atividade })
     </p>
 }

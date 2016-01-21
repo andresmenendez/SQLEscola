@@ -130,7 +130,12 @@ namespace SQLEscola.Gerenciadores
         public TurmaModel Obter(int idTurma)
         {
             IEnumerable<TurmaModel> users = GetQuery().Where(turmaModel => turmaModel.Id_Turma == idTurma);
-            //TODO Colocar a quantidade de questões no QtdeAlunos
+            //TODO Colocar a quantidade de questões no QtdeAlunos INCOMPLETO
+            List<TurmaModel> listaTurmas = users.ToList();
+            foreach (TurmaModel item in listaTurmas)
+            {
+                
+            }
             return users.ElementAtOrDefault(0);
         }
 
@@ -154,6 +159,7 @@ namespace SQLEscola.Gerenciadores
             foreach (TurmaModel item in listaTurmas)
             {
                 item.Usuario = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Nome;
+                item.QtdeAlunos = GerenciadorMatricula.GetInstance().ObterPorTurma(item.Id_Turma).Count();
             }
             return listaTurmas;
         }

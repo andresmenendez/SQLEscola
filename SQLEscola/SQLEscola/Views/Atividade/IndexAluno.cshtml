@@ -36,7 +36,7 @@
                 .Encoded(false)
                 .Sanitized(false)
                 .SetWidth(150)
-                .RenderValueAs(ativ => Html.ActionLink("Visualizar", "Edit", new { id = ativ.Id_Turma }, new { @class = "modal-link" }));
+                .RenderValueAs(ativ => Html.ActionLink("Visualizar", "IndexAluno", "Questao",new { id = ativ.Id_Atividade }, new { @class = "modal-link" }));
         
         
 

@@ -18,6 +18,7 @@ namespace SQLEscola.Controllers
         {
             AtividadeModel ativ = GerenciadorAtividade.GetInstance().Obter(id);
             TurmaModel turma = GerenciadorTurma.GetInstance().Obter(ativ.Id_Turma);
+            ViewBag.IdTurma = turma.Id_Turma;
             ViewBag.Turma = turma.Turma;
             ViewBag.Professor = GerenciadorUsuario.GetInstance().Obter(turma.Id_Usuario).Nome;
             ViewBag.IdAtividade = ativ.Id_Atividade;
@@ -25,13 +26,17 @@ namespace SQLEscola.Controllers
             return View(GerenciadorQuestao.GetInstance().ObterPorAtividade(id));
         }
 
-        /*public ViewResult IndexAluno(int id)
+        public ViewResult IndexAluno(int id)
         {
-            QuestaoModel turma = GerenciadorQuestao.GetInstance().Obter(id);
+            AtividadeModel ativ = GerenciadorAtividade.GetInstance().Obter(id);
+            TurmaModel turma = GerenciadorTurma.GetInstance().Obter(ativ.Id_Turma);
+            ViewBag.IdTurma = turma.Id_Turma;
             ViewBag.Turma = turma.Turma;
             ViewBag.Professor = GerenciadorUsuario.GetInstance().Obter(turma.Id_Usuario).Nome;
-            return View(GerenciadorQuestao.GetInstance().ObterPorTurma(id));
-        }*/
+            ViewBag.IdAtividade = ativ.Id_Atividade;
+            ViewBag.Atividade = ativ.Nome_Atividade;
+            return View(GerenciadorQuestao.GetInstance().ObterPorAtividade(id));
+        }
 
         //
         // GET: /Questao/Details/5
@@ -82,7 +87,7 @@ namespace SQLEscola.Controllers
         public ActionResult Edit(int id)
         {
             QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(id);
-            ViewBag.Id_Atividade = id;
+            ViewBag.Id_Atividade = qust.Id_Atividade;
             return View(qust);
         }
 
@@ -106,8 +111,8 @@ namespace SQLEscola.Controllers
 
         public ActionResult Delete(int id)
         {
-            QuestaoModel matricula = GerenciadorQuestao.GetInstance().Obter(id);
-            return View(matricula);
+            QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(id);
+            return View(quest);
         }
 
         //
@@ -116,10 +121,9 @@ namespace SQLEscola.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            QuestaoModel ativ = GerenciadorQuestao.GetInstance().Obter(id);
+            QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(id);
             GerenciadorQuestao.GetInstance().Remover(id);
-            //return RedirectToAction("Index", new { id = ativ.Id_Turma });
-            return null;
+            return RedirectToAction("Index", new { id = quest.Id_Atividade });
         }
     }
 }

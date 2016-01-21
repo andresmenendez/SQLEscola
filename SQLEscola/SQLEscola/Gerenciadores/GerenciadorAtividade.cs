@@ -133,7 +133,12 @@ namespace SQLEscola.Gerenciadores
             IEnumerable<AtividadeModel> ativs = GetQuery().Where(atividadeModel => atividadeModel.Id_Turma == idTurma).
                 OrderBy(atividadeModel => atividadeModel.Nome_Atividade);
             //TODO loop em cada atividade buscando a qtde de questões.
-            return ativs;
+            List<AtividadeModel> listaAtiv = ativs.ToList();
+            foreach (AtividadeModel item in listaAtiv)
+            {
+                item.QtdeQuestoes = GerenciadorQuestao.GetInstance().ObterPorAtividade(item.Id_Atividade).Count();
+            }
+            return listaAtiv;
         }
 
         /// <summary>

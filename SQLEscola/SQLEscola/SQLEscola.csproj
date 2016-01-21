@@ -79,6 +79,7 @@
     <Compile Include="Controllers\MatriculaController.cs" />
     <Compile Include="Controllers\QuestaoController.cs" />
     <Compile Include="Controllers\TurmaController.cs" />
+    <Compile Include="Gerenciadores\GerenciadorResposta.cs" />
     <Compile Include="Gerenciadores\GerenciadorQuestao.cs" />
     <Compile Include="Gerenciadores\GerenciadorAtividade.cs" />
     <Compile Include="Gerenciadores\GerenciadorAtivarPerfil.cs" />
@@ -307,11 +308,6 @@
   <ItemGroup>
     <None Include="Grid.mvc.readme" />
     <None Include="Scripts\jquery-2.1.4.min.map" />
-    <Content Include="Views\Matricula\Index.cshtml" />
-    <Content Include="Views\Matricula\Details.cshtml" />
-    <Content Include="Views\Matricula\Create.cshtml" />
-    <Content Include="Views\Matricula\Edit.cshtml" />
-    <Content Include="Views\Matricula\Delete.cshtml" />
     <Content Include="Views\AtivarPerfil\Index.cshtml" />
     <Content Include="Views\AtivarPerfil\IndexAdm.cshtml" />
     <Content Include="Views\AtivarPerfil\SelecionarPerfil.cshtml" />
@@ -327,6 +323,10 @@
     <Content Include="Views\Questao\Create.cshtml" />
     <Content Include="Views\Questao\Edit.cshtml" />
     <Content Include="Views\Questao\Delete.cshtml" />
+    <Content Include="Views\Questao\IndexAluno.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
