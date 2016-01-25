@@ -1,0 +1,38 @@
+﻿@model SQLEscola.Banco.tb_resposta
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>tb_resposta</legend>
+
+    <div class="display-label">ScriptResposta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ScriptResposta)
+    </div>
+
+    <div class="display-label">tb_usuario</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tb_usuario.Nome)
+    </div>
+
+    <div class="display-label">Data_Resposta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Data_Resposta)
+    </div>
+
+    <div class="display-label">tb_questao</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tb_questao.Descricao)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

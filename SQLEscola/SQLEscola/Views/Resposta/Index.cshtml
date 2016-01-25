@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SQLEscola.Models.RespostaModel>
+
+@{
+    ViewBag.Title = "Histórico de Respostas";
+}
+
+<h2>Histórico de Respostas</h2>
+<h3>Questão: @ViewBag.NomeQuestao</h3>
+<h3>Ordem: @ViewBag.Ordem</h3>
+
+
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+
+<div class="box-content">
+    @Html.Grid(Model).Columns(columns =>
+    {
+
+        columns.Add(resp => resp.DataResposta)
+                .Titled("Data")
+                .SetWidth(150)
+                .Encoded(false)
+                .Sanitized(false);
+        
+        columns.Add()
+                .Titled("Script Resposta")
+                .SetWidth(200)
+                .Encoded(false)
+                .Sanitized(false)
+                .RenderValueAs(ativ => Html.ActionLink("Visualizar", "Details", "Resposta", new { id = ativ.Id_Resposta }, new { @class = "modal-link" }));
+
+        columns.Add()
+                .Titled("Resultado")
+                .SetWidth(200)
+                .Encoded(false)
+                .Sanitized(false)
+                .RenderValueAs(ativ => Html.ActionLink("Visualizar Resultado", "ListaRespostas", "Resposta", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+
+        
+    }).WithPaging(5).Sortable()
+</div>
+<br />
+<div>
+    @Html.ActionLink("Retornar para Questões", "Index", "Atividade", new { id = @ViewBag.IdTurma }, new { @class = "modal-link" })
+</div>

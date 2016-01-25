@@ -146,7 +146,6 @@ namespace SQLEscola.Controllers
             {
                 return RedirectToAction("Inicial", "Home");
             }
-            return View(GerenciadorAtivarPerfil.GetInstance().ObterTodos());
         }
 
         public ActionResult PerfilSelecionado(string id)

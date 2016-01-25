@@ -136,6 +136,27 @@ namespace SQLEscola.Gerenciadores
             return resps;
         }
 
+        public IEnumerable<RespostaModel> ObterPorQuestaoUsuario(int idQuestao, int idUser)
+        {
+            IEnumerable<RespostaModel> resps = GetQuery().Where(resp => resp.Id_Questao == idQuestao
+                & resp.Id_Usuario == idUser).OrderByDescending(quest => quest.DataResposta);
+
+            return resps;
+        }
+
+        public IEnumerable<RespostaModel> ObterApenasUsuarioResposta(int idQuestao)
+        {
+            IEnumerable<RespostaModel> resps = GetQuery().Where(resp => resp.Id_Questao == idQuestao)
+                .OrderBy(quest => quest.Id_Usuario);
+            List<RespostaModel> lista = resps.ToList();
+            //Realizando um DISTINCT por Id_Usuario
+            var DistinctItems = lista.GroupBy(x => x.Id_Usuario).Select(y => y.First());
+            foreach (var item in DistinctItems)
+            {
+                item.Usuario = GerenciadorUsuario.GetInstance().Obter(item.Id_Usuario).Nome;
+            }
+            return DistinctItems;
+        }
 
         /// <summary>
         /// Atribui dados do Usuario Model para o Usuario Entity
@@ -145,7 +166,7 @@ namespace SQLEscola.Gerenciadores
         private void Atribuir(RespostaModel resp, tb_resposta respostaE)
         {
             respostaE.Id_Questao = resp.Id_Questao;
-            respostaE.Data_Resposta = resp.DataResposta;
+            respostaE.Data_Resposta = resp.DataResposta.Value;
             respostaE.Id_Resposta = resp.Id_Resposta;
             respostaE.Id_Usuario = resp.Id_Usuario;
             respostaE.ScriptResposta = resp.ScriptResposta;

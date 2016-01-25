@@ -1,0 +1,35 @@
+﻿@model SQLEscola.Banco.tb_resposta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>tb_resposta</legend>
+
+    <div class="display-label">ScriptResposta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ScriptResposta)
+    </div>
+
+    <div class="display-label">tb_usuario</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tb_usuario.Nome)
+    </div>
+
+    <div class="display-label">Data_Resposta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Data_Resposta)
+    </div>
+
+    <div class="display-label">tb_questao</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tb_questao.Descricao)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id_Resposta }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

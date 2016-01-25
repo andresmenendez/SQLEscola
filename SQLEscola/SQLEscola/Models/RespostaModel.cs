@@ -25,5 +25,7 @@ namespace SQLEscola.Models
 
         [Required]
         public int Id_Questao { get; set; }
+
+        public string Usuario { get; set; }
     }
 }

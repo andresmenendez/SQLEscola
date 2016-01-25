@@ -5,3 +5,10 @@ c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\bin\E
 c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\obj\Debug\SQLEscola.csprojResolveAssemblyReference.cache
 c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\obj\Debug\SQLEscola.dll
 c:\users\andrés\documents\visual studio 2010\Projects\SQLEscola\SQLEscola\obj\Debug\SQLEscola.pdb
+C:\Users\Andrés\Desktop\SQLEscola\SQLEscola\SQLEscola\SQLEscola\bin\SQLEscola.dll
+C:\Users\Andrés\Desktop\SQLEscola\SQLEscola\SQLEscola\SQLEscola\bin\SQLEscola.pdb
+C:\Users\Andrés\Desktop\SQLEscola\SQLEscola\SQLEscola\SQLEscola\bin\EntityFramework.dll
+C:\Users\Andrés\Desktop\SQLEscola\SQLEscola\SQLEscola\SQLEscola\bin\GridMvc.dll
+C:\Users\Andrés\Desktop\SQLEscola\SQLEscola\SQLEscola\SQLEscola\bin\EntityFramework.xml
+C:\Users\Andrés\Desktop\SQLEscola\SQLEscola\SQLEscola\SQLEscola\obj\Debug\SQLEscola.dll
+C:\Users\Andrés\Desktop\SQLEscola\SQLEscola\SQLEscola\SQLEscola\obj\Debug\SQLEscola.pdb

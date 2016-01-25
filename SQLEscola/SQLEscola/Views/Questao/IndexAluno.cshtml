@@ -13,10 +13,6 @@
 @using GridMvc.Html
 @using GridMvc.Sorting
 
-<p>
-    @Html.ActionLink("Criar Nova Questão", "Create", new { id = ViewBag.IdAtividade })
-</p>
-
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
@@ -61,5 +57,5 @@
 </div>
 <br />
 <div>
-    @Html.ActionLink("Retornar para Atividades", "Index", "Atividade", new { id = @ViewBag.IdTurma }, new { @class = "modal-link" })
+    @Html.ActionLink("Retornar para Atividades", "IndexAluno", "Atividade", new { id = @ViewBag.IdTurma }, new { @class = "modal-link" })
 </div>
