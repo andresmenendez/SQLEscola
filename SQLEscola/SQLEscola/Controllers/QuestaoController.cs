@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using SQLEscola.Banco;
 using SQLEscola.Models;
 using SQLEscola.Gerenciadores;
+using System.Web.Security;
 
 namespace SQLEscola.Controllers
 { 
@@ -35,7 +36,22 @@ namespace SQLEscola.Controllers
             ViewBag.Professor = GerenciadorUsuario.GetInstance().Obter(turma.Id_Usuario).Nome;
             ViewBag.IdAtividade = ativ.Id_Atividade;
             ViewBag.Atividade = ativ.Nome_Atividade;
-            return View(GerenciadorQuestao.GetInstance().ObterPorAtividade(id));
+            MembershipUser mu = Membership.GetUser(Session[Global.NomeUsuario].ToString());
+            int userId = Convert.ToInt32(mu.ProviderUserKey.ToString());
+            List<QuestaoModel> lista = GerenciadorQuestao.GetInstance().ObterPorAtividade(id).ToList();
+            foreach (QuestaoModel item in lista)
+            {
+                if (GerenciadorResposta.GetInstance().ObterPorQuestaoUsuario(item.Id_Questao, userId).FirstOrDefault() == null)
+                {
+                    item.QuestaoRespondida = false;
+                }
+                else
+                {
+                    item.QuestaoRespondida = true;
+                }
+            }
+            IEnumerable<QuestaoModel> listaTransformada = (IEnumerable<QuestaoModel>)lista;
+            return View(listaTransformada);
         }
 
         //

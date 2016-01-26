@@ -32,8 +32,19 @@
                 .SetWidth(200)
                 .Encoded(false)
                 .Sanitized(false)
-                .RenderValueAs(ativ => Html.ActionLink("Visualizar", "Details", "Resposta", new { id = ativ.Id_Resposta }, new { @class = "modal-link" }));
+                .RenderValueAs(ativ => Html.ActionLink("Visualizar", "Details", "Resposta", new { id = ativ.Id_Resposta, idUser = ViewBag.IdUser }, new { @class = "modal-link" }));
 
+        if (Session["Perfil"] == "Usuário")
+        {
+            columns.Add()
+                .Titled("Editar Script")
+                .SetWidth(200)
+                .Encoded(false)
+                .Sanitized(false)
+                .RenderValueAs(ativ => Html.ActionLink("Editar", "Edit", "Resposta", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+
+        }
+        
         columns.Add()
                 .Titled("Resultado")
                 .SetWidth(200)
@@ -45,6 +56,9 @@
     }).WithPaging(5).Sortable()
 </div>
 <br />
+@if (Session["Perfil"] != "Usuário")
+{
 <div>
-    @Html.ActionLink("Retornar para Questões", "Index", "Atividade", new { id = @ViewBag.IdTurma }, new { @class = "modal-link" })
+    @Html.ActionLink("Retornar para Respostas", "ListaRespostas", "Resposta", new { id = @ViewBag.IdQuestao }, new { @class = "modal-link" })
 </div>
+}

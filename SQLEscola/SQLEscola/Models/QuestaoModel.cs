@@ -45,5 +45,7 @@ namespace SQLEscola.Models
 
         [Required]
         public int Id_Atividade { get; set; }
+
+        public bool QuestaoRespondida { get; set; }
     }
 }

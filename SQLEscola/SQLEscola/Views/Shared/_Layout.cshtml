@@ -36,7 +36,7 @@
                             <li>@Html.ActionLink("Minhas Turmas", "FiltrarPorUser", "Turma")</li>
                             <li>@Html.ActionLink("Alternar Perfil", "SelecionarPerfil", "AtivarPerfil")</li> 
                         }
-                        else if (Session["Perfil"] == "Usuário" & Session["TemPerfilPro"] == "True")
+                        else if (Session["TemPerfilPro"] == "True" & Session["Perfil"] == "Usuário")
                         {
                             <li>@Html.ActionLink("Turmas", "IndexAluno", "Turma")</li>
                             <li>@Html.ActionLink("Alternar Perfil", "SelecionarPerfil", "AtivarPerfil")</li> 

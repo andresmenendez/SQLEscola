@@ -44,7 +44,6 @@ namespace SQLEscola.Controllers
                         {
                             Session["Perfil"] = "A Definir";
                             Session[Global.NomeUsuario] = model.UserName;
-                            //TODO Alterar para levar a tela de selecionar perfil
                             return RedirectToAction("SelecionarPerfil", "AtivarPerfil");
                         }
                         else
@@ -66,6 +65,7 @@ namespace SQLEscola.Controllers
                                 string userId = mu.ProviderUserKey.ToString();
                                 Session[Global.NomeCompletoUsuario] = Gerenciadores.GerenciadorUsuario.GetInstance().
                                     Obter(Convert.ToInt32(userId)).Nome;
+                                Session["TemPerfilPro"] = "False";
                             }
                             return RedirectToAction("Inicial", "Home");
                         }

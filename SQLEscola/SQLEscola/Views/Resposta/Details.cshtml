@@ -1,35 +1,27 @@
-﻿@model SQLEscola.Banco.tb_resposta
+﻿@model SQLEscola.Models.RespostaModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Visualizar Resposta";
 }
 
-<h2>Details</h2>
+<h2>Visualizar Resposta</h2>
+<h3>Questão: @ViewBag.NomeQuestao</h3>
+<h3>Ordem: @ViewBag.Ordem</h3>
 
 <fieldset>
-    <legend>tb_resposta</legend>
+    <legend>Resposta</legend>
 
-    <div class="display-label">ScriptResposta</div>
+    <div class="display-label">Data da Resposta</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ScriptResposta)
+        @Html.DisplayFor(model => model.DataResposta, new { disabled = "disabled" })
     </div>
 
-    <div class="display-label">tb_usuario</div>
+    <div class="display-label">Script Resposta</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.tb_usuario.Nome)
+        @Html.TextAreaFor(model => model.ScriptResposta, new { style = "width:750px;height:350px;", disabled = "disabled" })
     </div>
 
-    <div class="display-label">Data_Resposta</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Data_Resposta)
-    </div>
-
-    <div class="display-label">tb_questao</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tb_questao.Descricao)
-    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id_Resposta }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retornar para Histórico de Questões", "Index", new { id = Model.Id_Questao, idUser = ViewBag.IdUser })
 </p>

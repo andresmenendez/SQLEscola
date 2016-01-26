@@ -6,6 +6,7 @@ using Persistence;
 using SQLEscola.Models;
 using SQLEscola.Banco;
 using System.Web.Security;
+using System.Web.Routing;
 
 namespace SQLEscola.Gerenciadores
 {
@@ -135,8 +136,9 @@ namespace SQLEscola.Gerenciadores
         /// <returns>Usuario model</returns>
         public IEnumerable<QuestaoModel> ObterPorAtividade(int idAtividade)
         {
-            IEnumerable<QuestaoModel> questoes = GetQuery().Where(questaoModel => questaoModel.Id_Atividade == idAtividade).OrderBy(quest => quest.Ordem);
-
+            IEnumerable<QuestaoModel> questoes = GetQuery().Where(questaoModel => questaoModel.Id_Atividade == idAtividade).
+                OrderBy(quest => quest.Ordem);
+            
             return questoes;
         }
 

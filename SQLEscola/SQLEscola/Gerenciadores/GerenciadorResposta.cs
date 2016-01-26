@@ -109,15 +109,9 @@ namespace SQLEscola.Gerenciadores
             return resp;
         }
 
-        
-        /// <summary>
-        /// Obtém um autor
-        /// </summary>
-        /// <param name="idTurma">Identificador do autor na base de dados</param>
-        /// <returns>Usuario model</returns>
         public RespostaModel Obter(int idResposta)
         {
-            IEnumerable<RespostaModel> users = GetQuery().Where(respostaModel => respostaModel.Id_Questao == idResposta);
+            IEnumerable<RespostaModel> users = GetQuery().Where(respostaModel => respostaModel.Id_Resposta == idResposta);
             
             return users.ElementAtOrDefault(0);
         }

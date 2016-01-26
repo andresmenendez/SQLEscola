@@ -37,6 +37,8 @@ namespace SQLEscola.Controllers
             QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(id);
             ViewBag.Ordem = quest.Ordem;
             ViewBag.NomeQuestao = quest.Descricao;
+            ViewBag.IdQuestao = quest.Id_Questao;
+            ViewBag.IdUser = idUser;
             return View(GerenciadorResposta.GetInstance().ObterPorQuestaoUsuario(id, idUser));
         }
 
@@ -55,10 +57,12 @@ namespace SQLEscola.Controllers
         //
         // GET: /Resposta/Details/5
 
-        public ViewResult Details(int id)
+        public ViewResult Details(int id, int IdUser)
         {
             RespostaModel resp = GerenciadorResposta.GetInstance().Obter(id);
-            ViewBag.DataAlteracao = Convert.ToDateTime(resp.DataResposta).ToShortDateString();
+            ViewBag.NomeQuestao = GerenciadorQuestao.GetInstance().Obter(resp.Id_Questao).Descricao;
+            ViewBag.Ordem = GerenciadorQuestao.GetInstance().Obter(resp.Id_Questao).Ordem;
+            ViewBag.IdUser = IdUser;
             return View(resp);
         }
 

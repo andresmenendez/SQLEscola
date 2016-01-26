@@ -131,11 +131,11 @@ namespace SQLEscola.Gerenciadores
         {
             IEnumerable<TurmaModel> users = GetQuery().Where(turmaModel => turmaModel.Id_Turma == idTurma);
             //TODO Colocar a quantidade de questões no QtdeAlunos INCOMPLETO
-            List<TurmaModel> listaTurmas = users.ToList();
-            foreach (TurmaModel item in listaTurmas)
-            {
+            //List<TurmaModel> listaTurmas = users.ToList();
+            //foreach (TurmaModel item in listaTurmas)
+            //{
                 
-            }
+            //}
             return users.ElementAtOrDefault(0);
         }
 
