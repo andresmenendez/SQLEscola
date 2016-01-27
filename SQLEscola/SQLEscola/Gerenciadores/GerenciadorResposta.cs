@@ -123,6 +123,13 @@ namespace SQLEscola.Gerenciadores
             return resps.FirstOrDefault();
         }
 
+        public RespostaModel ObterPorData(DateTime data)
+        {
+            IEnumerable<RespostaModel> resps = GetQuery().Where(resp => resp.DataResposta == data).OrderBy(quest => quest.Id_Usuario);
+
+            return resps.FirstOrDefault();
+        }
+
         public IEnumerable<RespostaModel> ObterPorQuestao(int idQuestao)
         {
             IEnumerable<RespostaModel> resps = GetQuery().Where(resp => resp.Id_Questao == idQuestao).OrderBy(quest => quest.Id_Usuario);

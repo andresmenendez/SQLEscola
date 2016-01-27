@@ -1,10 +1,12 @@
-﻿@model SQLEscola.Banco.tb_resposta
+﻿@model SQLEscola.Models.RespostaModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Responder Questão";
 }
 
-<h2>Create</h2>
+<h2>Responder Questão</h2>
+<h3>Questão: @ViewBag.NomeQuestao</h3>
+<h3>Ordem: @ViewBag.Ordem</h3>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -12,46 +14,26 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>tb_resposta</legend>
+        <legend>Submeter Questão</legend>
+
+        @Html.HiddenFor(resp => resp.Id_Resposta)
+        @Html.HiddenFor(resp => resp.Id_Questao)
+        @Html.HiddenFor(resp => resp.Id_Usuario)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ScriptResposta)
+            @Html.Label("Script de Resposta")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ScriptResposta)
+            @Html.TextAreaFor(model => model.ScriptResposta, new { style = "width:700px;height:250px;" })
             @Html.ValidationMessageFor(model => model.ScriptResposta)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Id_Usuario, "tb_usuario")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("Id_Usuario", String.Empty)
-            @Html.ValidationMessageFor(model => model.Id_Usuario)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Data_Resposta)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Data_Resposta)
-            @Html.ValidationMessageFor(model => model.Data_Resposta)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Id_Questao, "tb_questao")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("Id_Questao", String.Empty)
-            @Html.ValidationMessageFor(model => model.Id_Questao)
-        </div>
-
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Submeter Resposta para Avaliação Automática" class="but but-success but-small but-shadow but-rc" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retornar", "Index", new { id = Model.Id_Questao, idUser = Model.Id_Usuario }, new { @class = "modal-link" })
 </div>

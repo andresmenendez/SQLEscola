@@ -41,7 +41,7 @@
                 .SetWidth(200)
                 .Encoded(false)
                 .Sanitized(false)
-                .RenderValueAs(ativ => Html.ActionLink("Editar", "Edit", "Resposta", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+                .RenderValueAs(ativ => Html.ActionLink("Editar", "Edit", "Resposta", new { id = ativ.Id_Resposta }, new { @class = "modal-link" }));
 
         }
         
@@ -50,8 +50,17 @@
                 .SetWidth(200)
                 .Encoded(false)
                 .Sanitized(false)
-                .RenderValueAs(ativ => Html.ActionLink("Visualizar Resultado", "ListaRespostas", "Resposta", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+                .RenderValueAs(ativ => Html.ActionLink("Visualizar Resultado", "Details", "Resultado", new { id = ativ.Id_Resposta, idUser = ViewBag.IdUser }, new { @class = "modal-link" }));
 
+        if (Session["Perfil"] == "Professor")
+        {
+            columns.Add()
+                    .Titled("Comentar Resultado")
+                    .SetWidth(200)
+                    .Encoded(false)
+                    .Sanitized(false)
+                    .RenderValueAs(ativ => Html.ActionLink("Fazer Comentário", "Edit", "Resultado", new { id = ativ.Id_Resposta, idUser = ViewBag.IdUser }, new { @class = "modal-link" }));
+        }
         
     }).WithPaging(5).Sortable()
 </div>

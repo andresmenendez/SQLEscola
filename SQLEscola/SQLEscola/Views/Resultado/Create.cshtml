@@ -1,0 +1,49 @@
+﻿@model SQLEscola.Banco.tb_resultado
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>tb_resultado</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Erros)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Erros)
+            @Html.ValidationMessageFor(model => model.Erros)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Comentarios_Prof)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Comentarios_Prof)
+            @Html.ValidationMessageFor(model => model.Comentarios_Prof)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Id_Resposta, "tb_resposta")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Id_Resposta", String.Empty)
+            @Html.ValidationMessageFor(model => model.Id_Resposta)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

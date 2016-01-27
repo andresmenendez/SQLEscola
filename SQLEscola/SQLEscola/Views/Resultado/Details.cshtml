@@ -1,0 +1,34 @@
+﻿@model SQLEscola.Models.ResultadoModel
+
+@{
+    ViewBag.Title = "Resultado";
+}
+
+<h2>Visualizar Resultado</h2>
+<h3>Questão: @ViewBag.NomeQuestao</h3>
+<h3>Ordem: @ViewBag.Ordem</h3>
+<h5>Data e Hora da Resposta: @ViewBag.Data</h5>
+
+<fieldset>
+    <legend>Resultado</legend>
+
+    <div class="display-label">Script Resposta</div>
+    <div class="display-field">
+        @Html.TextAreaFor(model => model.ScriptResposta, new { style = "width:750px;height:350px;", disabled = "disabled" })
+    </div>
+
+    <div class="display-label">Erros</div>
+    <div class="display-field">
+        @Html.TextAreaFor(model => model.Erros, new { style = "width:750px;height:350px;", disabled = "disabled" })
+    </div>
+
+    <div class="display-label">Comentários do Professor</div>
+    <div class="display-field">
+        @Html.TextAreaFor(model => model.Comentarios_Prof, new { style = "width:550px;height:150px;", disabled = "disabled" })
+    </div>
+
+    
+</fieldset>
+<p>
+    @Html.ActionLink("Retornar para Histórico de Questões", "Index", "Resposta", new { id = ViewBag.Id_Questao, idUser = ViewBag.IdUser }, null)
+</p>

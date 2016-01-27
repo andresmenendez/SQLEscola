@@ -79,7 +79,9 @@
     <Compile Include="Controllers\MatriculaController.cs" />
     <Compile Include="Controllers\QuestaoController.cs" />
     <Compile Include="Controllers\RespostaController.cs" />
+    <Compile Include="Controllers\ResultadoController.cs" />
     <Compile Include="Controllers\TurmaController.cs" />
+    <Compile Include="Gerenciadores\GerenciadorResultado.cs" />
     <Compile Include="Gerenciadores\GerenciadorResposta.cs" />
     <Compile Include="Gerenciadores\GerenciadorQuestao.cs" />
     <Compile Include="Gerenciadores\GerenciadorAtividade.cs" />
@@ -331,6 +333,11 @@
     <Content Include="Views\Resposta\Edit.cshtml" />
     <Content Include="Views\Resposta\Delete.cshtml" />
     <Content Include="Views\Resposta\ListaRespostas.cshtml" />
+    <Content Include="Views\Resultado\Index.cshtml" />
+    <Content Include="Views\Resultado\Details.cshtml" />
+    <Content Include="Views\Resultado\Create.cshtml" />
+    <Content Include="Views\Resultado\Edit.cshtml" />
+    <Content Include="Views\Resultado\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

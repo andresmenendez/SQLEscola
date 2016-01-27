@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using SQLEscola.Banco;
 using SQLEscola.Models;
 using SQLEscola.Gerenciadores;
+using System.Web.Security;
 
 namespace SQLEscola.Controllers
 { 
@@ -71,8 +72,14 @@ namespace SQLEscola.Controllers
 
         public ActionResult Create(int id)
         {
-            RespostaModel quest = new RespostaModel();
-            return View(quest);
+            RespostaModel resp = new RespostaModel();
+            resp.Id_Questao = id;
+            MembershipUser mu = Membership.GetUser(Session[Global.NomeUsuario].ToString());
+            int userId = Convert.ToInt32(mu.ProviderUserKey.ToString());
+            resp.Id_Usuario = userId;
+            ViewBag.NomeQuestao = GerenciadorQuestao.GetInstance().Obter(id).Descricao;
+            ViewBag.Ordem = GerenciadorQuestao.GetInstance().Obter(id).Ordem;
+            return View(resp);
         }
 
         //
@@ -83,9 +90,13 @@ namespace SQLEscola.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.DataResposta = DateTime.Now;
                 GerenciadorResposta.GetInstance().Inserir(model);
-                //return RedirectToAction("Index", new { id = model.Id_Atividade });
-                return null;
+                ResultadoModel result = new ResultadoModel();
+                result.Erros = "OK";
+                result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
+                GerenciadorResultado.GetInstance().Inserir(result);
+                return RedirectToAction("IndexAluno", "Questao", new { id = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao).Id_Atividade });
             }
 
             return View(model);
@@ -96,9 +107,10 @@ namespace SQLEscola.Controllers
 
         public ActionResult Edit(int id)
         {
-            RespostaModel qust = GerenciadorResposta.GetInstance().Obter(id);
-            //ViewBag.Id_Atividade = qust.Id_Atividade;
-            return View(qust);
+            RespostaModel resp = GerenciadorResposta.GetInstance().Obter(id);
+            ViewBag.NomeQuestao = GerenciadorQuestao.GetInstance().Obter(resp.Id_Questao).Descricao;
+            ViewBag.Ordem = GerenciadorQuestao.GetInstance().Obter(resp.Id_Questao).Ordem;
+            return View(resp);
         }
 
         //
@@ -109,9 +121,13 @@ namespace SQLEscola.Controllers
         {
             if (ModelState.IsValid)
             {
-                //model.DataAlteracao = DateTime.Now;
-                GerenciadorResposta.GetInstance().Editar(model);
-                //return RedirectToAction("Index", new { id = model.Id_Atividade });
+                model.DataResposta = DateTime.Now;
+                GerenciadorResposta.GetInstance().Inserir(model);
+                ResultadoModel result = new ResultadoModel();
+                result.Erros = "OK";
+                result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
+                GerenciadorResultado.GetInstance().Inserir(result);
+                return RedirectToAction("Index", "Resposta", new { id = model.Id_Questao, idUser = model.Id_Usuario });
             }
             return View(model);
         }

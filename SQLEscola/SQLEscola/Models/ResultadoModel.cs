@@ -22,5 +22,7 @@ namespace SQLEscola.Models
 
         [Required]
         public int Id_Resposta { get; set; }
+
+        public string ScriptResposta { get; set; }
     }
 }
