@@ -49,10 +49,6 @@
             <End Role="tb_resposta" EntitySet="tb_resposta" />
             <End Role="tb_resultado" EntitySet="tb_resultado" />
           </AssociationSet>
-          <AssociationSet Name="fk_tb_usuario_has_tb_turma_tb_usuario1" Association="sqlescolaModel.Store.fk_tb_usuario_has_tb_turma_tb_usuario1">
-            <End Role="tb_usuario" EntitySet="tb_usuario" />
-            <End Role="tb_ativar_perfil" EntitySet="tb_ativar_perfil" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tb_ativar_perfil">
           <Key>
@@ -250,24 +246,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_tb_usuario_has_tb_turma_tb_usuario1">
-          <End Role="tb_usuario" Type="sqlescolaModel.Store.tb_usuario" Multiplicity="1" />
-          <End Role="tb_ativar_perfil" Type="sqlescolaModel.Store.tb_ativar_perfil" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_usuario">
-              <PropertyRef Name="Id_Usuario" />
-            </Principal>
-            <Dependent Role="tb_ativar_perfil">
-              <PropertyRef Name="Id_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="sqlescolaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="sqlescolaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tb_ativar_perfil" EntityType="sqlescolaModel.tb_ativar_perfil" />
           <EntitySet Name="tb_matricula" EntityType="sqlescolaModel.tb_matricula" />
           <EntitySet Name="tb_resposta" EntityType="sqlescolaModel.tb_resposta" />
           <EntitySet Name="tb_restricao" EntityType="sqlescolaModel.tb_restricao" />
@@ -278,10 +261,6 @@
             <End Role="tb_resultado" EntitySet="tb_resultado" />
           </AssociationSet>
           <EntitySet Name="tb_usuario" EntityType="sqlescolaModel.tb_usuario" />
-          <AssociationSet Name="fk_tb_usuario_has_tb_turma_tb_usuario1" Association="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1">
-            <End Role="tb_usuario" EntitySet="tb_usuario" />
-            <End Role="tb_ativar_perfil" EntitySet="tb_ativar_perfil" />
-          </AssociationSet>
           <AssociationSet Name="fk_tb_matricula_tb_usuario1" Association="sqlescolaModel.fk_tb_matricula_tb_usuario1">
             <End Role="tb_usuario" EntitySet="tb_usuario" />
             <End Role="tb_matricula" EntitySet="tb_matricula" />
@@ -309,16 +288,8 @@
             <End Role="tb_questao" EntitySet="tb_questao" />
             <End Role="tb_restricao" EntitySet="tb_restricao" />
           </AssociationSet>
+          <EntitySet Name="tb_ativar_perfil" EntityType="sqlescolaModel.tb_ativar_perfil" />
           </EntityContainer>
-        <EntityType Name="tb_ativar_perfil">
-          <Key>
-            <PropertyRef Name="Id_Ativar_Perfil" />
-          </Key>
-          <Property Type="Int32" Name="Id_Ativar_Perfil" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
-          <Property Type="String" Name="Status" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tb_usuario" Relationship="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" FromRole="tb_ativar_perfil" ToRole="tb_usuario" />
-        </EntityType>
         <EntityType Name="tb_matricula">
           <Key>
             <PropertyRef Name="Id_Matricula" />
@@ -390,22 +361,9 @@
           <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Binary" Name="Foto" MaxLength="Max" FixedLength="false" />
           <Property Type="String" Name="UserName" MaxLength="60" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tb_ativar_perfil" Relationship="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" FromRole="tb_usuario" ToRole="tb_ativar_perfil" />
           <NavigationProperty Name="tb_matricula" Relationship="sqlescolaModel.fk_tb_matricula_tb_usuario1" FromRole="tb_usuario" ToRole="tb_matricula" />
           <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_usuario1" FromRole="tb_usuario" ToRole="tb_resposta" />
         </EntityType>
-        <Association Name="fk_tb_usuario_has_tb_turma_tb_usuario1">
-          <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="1" />
-          <End Type="sqlescolaModel.tb_ativar_perfil" Role="tb_ativar_perfil" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_usuario">
-              <PropertyRef Name="Id_Usuario" />
-            </Principal>
-            <Dependent Role="tb_ativar_perfil">
-              <PropertyRef Name="Id_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_tb_matricula_tb_usuario1">
           <End Type="sqlescolaModel.tb_usuario" Role="tb_usuario" Multiplicity="1" />
           <End Type="sqlescolaModel.tb_matricula" Role="tb_matricula" Multiplicity="*" />
@@ -506,21 +464,20 @@
           <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
           <End Type="sqlescolaModel.tb_restricao" Role="tb_restricao" Multiplicity="*" />
         </Association>
+        <EntityType Name="tb_ativar_perfil">
+          <Key>
+            <PropertyRef Name="Id_Ativar_Perfil" />
+          </Key>
+          <Property Type="Int32" Name="Id_Ativar_Perfil" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="sqlescolaModelStoreContainer" CdmEntityContainer="sqlescolaEntities">
-          <EntitySetMapping Name="tb_ativar_perfil">
-            <EntityTypeMapping TypeName="sqlescolaModel.tb_ativar_perfil">
-              <MappingFragment StoreEntitySet="tb_ativar_perfil">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
-                <ScalarProperty Name="Id_Ativar_Perfil" ColumnName="Id_Ativar_Perfil" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tb_matricula">
             <EntityTypeMapping TypeName="sqlescolaModel.tb_matricula">
               <MappingFragment StoreEntitySet="tb_matricula">
@@ -622,6 +579,15 @@
               <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tb_ativar_perfil">
+            <EntityTypeMapping TypeName="sqlescolaModel.tb_ativar_perfil">
+              <MappingFragment StoreEntitySet="tb_ativar_perfil">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+                <ScalarProperty Name="Id_Ativar_Perfil" ColumnName="Id_Ativar_Perfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -643,7 +609,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="SQLEscolaModel">
-        <EntityTypeShape EntityType="sqlescolaModel.tb_ativar_perfil" Width="1.5" PointX="3" PointY="5.25" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_matricula" Width="1.5" PointX="5.25" PointY="10.125" Height="1.9802864583333388" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_resposta" Width="1.5" PointX="3" PointY="8.25" Height="2.5571907552083282" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_restricao" Width="1.5" PointX="9.75" PointY="14" Height="1.7879850260416674" />
@@ -654,11 +619,6 @@
           <ConnectorPoint PointX="5.25" PointY="8.4276432291666623" />
         </AssociationConnector>
         <EntityTypeShape EntityType="sqlescolaModel.tb_usuario" Width="1.5" PointX="0.75" PointY="9.25" Height="2.7494921875000031" />
-        <AssociationConnector Association="sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1" >
-          <ConnectorPoint PointX="1.5" PointY="9.25" />
-          <ConnectorPoint PointX="1.5" PointY="6.1439925130208337" />
-          <ConnectorPoint PointX="3" PointY="6.1439925130208337" />
-        </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_matricula_tb_usuario1" >
           <ConnectorPoint PointX="2.25" PointY="11.33844075520833" />
           <ConnectorPoint PointX="5.25" PointY="11.33844075520833" />
@@ -688,6 +648,7 @@
           <ConnectorPoint PointX="9" PointY="14.893992513020834" />
           <ConnectorPoint PointX="9.75" PointY="14.893992513020834" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="sqlescolaModel.tb_ativar_perfil" Width="1.5" PointX="2.5" PointY="4.5" Height="1.5956835937500031" />
         </Diagram>
     </Diagrams>
   </Designer>

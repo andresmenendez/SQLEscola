@@ -16,5 +16,13 @@ namespace SQLEscola.Models
         public const string PerfilProfessor = "Professor";
         public const string PerfilAdm = "Administrador";
         public const int IdTecnologiaSQLServer = 1;
+        /*
+            E - Solicitacao de matricula para professor enviada
+            A - Aprovação de matricula
+            R - Recusada de matricula
+        */
+        public const string StatusSolicitacaoEnviada = "E";
+        public const string StatusAprovacao = "A";
+        public const string StatusRejeicao = "R";
     }
 }

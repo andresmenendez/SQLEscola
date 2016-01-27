@@ -23,6 +23,7 @@ namespace SQLEscola.Controllers
             if (!GerenciadorAtivarPerfil.GetInstance().SolicitacaoFeita(Convert.ToInt32(userId)))
             {
                 List<PerfilModel> lista = GerenciadorAtivarPerfil.GetInstance().ObterPorUser(Convert.ToInt32(userId)).ToList();
+                //Constrói um perfil apaenas para ter o Status de Não Solicitado
                 PerfilModel perfil = new PerfilModel();
                 perfil.Id_Ativar_Perfil = 1;
                 perfil.Id_Usuario = Convert.ToInt32(userId);
@@ -43,9 +44,13 @@ namespace SQLEscola.Controllers
                 {
                     perfil.Status = "Solicitação enviada para o Administrador";
                 }
-                else
+                else if (perfil.Status == "A")
                 {
                     perfil.Status = "Perfil de Professor Ativo";
+                }
+                else
+                {
+                    perfil.Status = "Rejeitado";
                 }
                 IEnumerable<PerfilModel> listaTransformada = (IEnumerable<PerfilModel>)lista;
                 return View(listaTransformada);
@@ -85,6 +90,10 @@ namespace SQLEscola.Controllers
                 {
                     item.Status = "Ativo";
                 }
+                else
+                {
+                    item.Status = "Rejeitado";
+                }
             }
             IEnumerable<PerfilModel> listaTransformada = (IEnumerable<PerfilModel>)lista;
             return View(listaTransformada);
@@ -92,29 +101,35 @@ namespace SQLEscola.Controllers
 
         public ActionResult AtivarProfessor(int id)
         {
-            PerfilModel perfil = GerenciadorAtivarPerfil.GetInstance().ObterPorUser(id).ElementAtOrDefault(0);
+            PerfilModel perfil = GerenciadorAtivarPerfil.GetInstance().ObterPorUser(id).FirstOrDefault();
             perfil.Status = "A";
             try
             {
-                GerenciadorAtivarPerfil.GetInstance().Editar(perfil);
+                GerenciadorAtivarPerfil.GetInstance().Remover(perfil.Id_Ativar_Perfil);
+                GerenciadorAtivarPerfil.GetInstance().Inserir(perfil);
                 //Adicionando Perfil de Professor ao usuário
                 Roles.AddUserToRole(GerenciadorUsuario.GetInstance().Obter(id).UserName, Global.RoleProf);
             }
             catch (Exception)
             {
-                ViewBag.Erro = "Não foi possível ativar o perfil de PROFESSOR deste usuário.";
+                Session["Erro"] = "Não foi possível ativar o perfil de PROFESSOR deste usuário.";
             }
             return RedirectToAction("IndexAdm");
         }
 
         public ActionResult DesativarProfessor(int id)
         {
-            PerfilModel perfil = GerenciadorAtivarPerfil.GetInstance().ObterPorUser(id).ElementAtOrDefault(0);
+            PerfilModel perfil = GerenciadorAtivarPerfil.GetInstance().ObterPorUser(id).FirstOrDefault();
+            perfil.Status = "R";
             try
             {
                 GerenciadorAtivarPerfil.GetInstance().Remover(perfil.Id_Ativar_Perfil);
-                //Removendo Perfil de Professor do usuário
-                Roles.RemoveUserFromRole(GerenciadorUsuario.GetInstance().Obter(id).UserName, Global.RoleProf);
+                GerenciadorAtivarPerfil.GetInstance().Inserir(perfil);
+                if (Roles.IsUserInRole(GerenciadorUsuario.GetInstance().Obter(id).UserName, Global.RoleProf))
+                {
+                     //Removendo Perfil de Professor do usuário
+                    Roles.RemoveUserFromRole(GerenciadorUsuario.GetInstance().Obter(id).UserName, Global.RoleProf);   
+                }
             }
             catch (Exception)
             {

@@ -12,11 +12,11 @@
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
 
-@if (ViewBag.Erro == "")
+@if ((string)Session["Erro"] == "")
 {
     <ul style="color:Red">
         <li>
-            @ViewBag.Erro
+            @Session["Erro"]
         </li>
     </ul>
 }
@@ -49,37 +49,36 @@
                 .Encoded(false)
                 .Sanitized(false)
                 .SetWidth(100)
-                .RenderValueAs(perfil => Html.ActionLink("Ativar", "AtivarProfessor", new { id = perfil.Id_Usuario }, new { @class = "modal-link", onclick = ("return exibirConfirmacoes(1)") }));
+                .RenderValueAs(perfil => Html.ActionLink("Ativar", "AtivarProfessor", new { id = perfil.Id_Usuario }, new { @class = "modal-link", onclick = ("return exibirConfirmacoesAtivar()") }));
 
         columns.Add()
                 .Titled("Desativar")
                 .Encoded(false)
                 .Sanitized(false)
                 .SetWidth(100)
-                .RenderValueAs(perfil => Html.ActionLink("Desativar", "DesativarProfessor", new { id = perfil.Id_Usuario }, new { @class = "modal-link", onclick = ("return exibirConfirmacoes(2)") }));
+                .RenderValueAs(perfil => Html.ActionLink("Desativar", "DesativarProfessor", new { id = perfil.Id_Usuario }, new { @class = "modal-link", onclick = ("return exibirConfirmacoesDesativar()") }));
                         
 
     }).WithPaging(5).Sortable()
 </div>
 <!-- Código Javascript para confirmações do botão -->
     <script type="text/javascript">
-        function exibirConfirmacoes(parametro) {
-            if (parametro == "1") {
-                var x;
-                var r = confirm("Deseja realmente ATIVAR o perfil de PROFESSOR para este usuário?");
-                if (r == true) {
-                    return true;
-                } else {
-                    return false;
-                }
+        function exibirConfirmacoesAtivar() {
+            var x;
+            var r = confirm("Deseja realmente ATIVAR o perfil de PROFESSOR para este usuário?");
+            if (r == true) {
+                return true;
             } else {
-                var x;
-                var r = confirm("Deseja realmente DESATIVAR o perfil de PROFESSOR para este usuário?");
-                if (r == true) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return false;
+            }
+        }
+        function exibirConfirmacoesDesativar() {
+            var x;
+            var r = confirm("Deseja realmente DESATIVAR o perfil de PROFESSOR para este usuário?");
+            if (r == true) {
+                return true;
+            } else {
+                return false;
             }
         }
     </script>

@@ -20,7 +20,6 @@ using System.Xml.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_resposta), "tb_resultado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resultado), true)]
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_ativar_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_ativar_perfil), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
@@ -77,22 +76,6 @@ namespace SQLEscola.Banco
         #endregion
     
         #region ObjectSet Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<tb_ativar_perfil> tb_ativar_perfil
-        {
-            get
-            {
-                if ((_tb_ativar_perfil == null))
-                {
-                    _tb_ativar_perfil = base.CreateObjectSet<tb_ativar_perfil>("tb_ativar_perfil");
-                }
-                return _tb_ativar_perfil;
-            }
-        }
-        private ObjectSet<tb_ativar_perfil> _tb_ativar_perfil;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -237,18 +220,26 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_questao> _tb_questao;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_ativar_perfil> tb_ativar_perfil
+        {
+            get
+            {
+                if ((_tb_ativar_perfil == null))
+                {
+                    _tb_ativar_perfil = base.CreateObjectSet<tb_ativar_perfil>("tb_ativar_perfil");
+                }
+                return _tb_ativar_perfil;
+            }
+        }
+        private ObjectSet<tb_ativar_perfil> _tb_ativar_perfil;
 
         #endregion
 
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the tb_ativar_perfil EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_ativar_perfil(tb_ativar_perfil tb_ativar_perfil)
-        {
-            base.AddObject("tb_ativar_perfil", tb_ativar_perfil);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the tb_matricula EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -320,6 +311,14 @@ namespace SQLEscola.Banco
         public void AddTotb_questao(tb_questao tb_questao)
         {
             base.AddObject("tb_questao", tb_questao);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_ativar_perfil EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_ativar_perfil(tb_ativar_perfil tb_ativar_perfil)
+        {
+            base.AddObject("tb_ativar_perfil", tb_ativar_perfil);
         }
 
         #endregion
@@ -437,48 +436,6 @@ namespace SQLEscola.Banco
         #endregion
 
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario")]
-        public tb_usuario tb_usuario
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<tb_usuario> tb_usuarioReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_usuario>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_usuario", value);
-                }
-            }
-        }
-
-        #endregion
-
     }
     
     /// <summary>
@@ -2147,28 +2104,6 @@ namespace SQLEscola.Banco
 
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_ativar_perfil")]
-        public EntityCollection<tb_ativar_perfil> tb_ativar_perfil
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_ativar_perfil>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_ativar_perfil");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_ativar_perfil>("sqlescolaModel.fk_tb_usuario_has_tb_turma_tb_usuario1", "tb_ativar_perfil", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.

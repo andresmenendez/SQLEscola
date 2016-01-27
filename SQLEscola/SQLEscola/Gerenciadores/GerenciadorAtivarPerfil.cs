@@ -106,7 +106,9 @@ namespace SQLEscola.Gerenciadores
 
         public IEnumerable<PerfilModel> ObterPorUser(int idUsuario)
         {
-            return GetQuery().Where(ativar => ativar.Id_Usuario == idUsuario);
+            IEnumerable<PerfilModel> lista =  GetQuery().Where(ativar => ativar.Id_Usuario == idUsuario);
+
+            return lista;
         }
 
         public bool SolicitacaoFeita(int idUsuario)

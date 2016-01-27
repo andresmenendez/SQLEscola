@@ -1,15 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="sqlescolaModelStoreContainer" CdmEntityContainer="sqlescolaEntities">
-    <EntitySetMapping Name="tb_ativar_perfil">
-      <EntityTypeMapping TypeName="sqlescolaModel.tb_ativar_perfil">
-        <MappingFragment StoreEntitySet="tb_ativar_perfil">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
-          <ScalarProperty Name="Id_Ativar_Perfil" ColumnName="Id_Ativar_Perfil" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tb_matricula">
       <EntityTypeMapping TypeName="sqlescolaModel.tb_matricula">
         <MappingFragment StoreEntitySet="tb_matricula">
@@ -111,5 +102,14 @@
         <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="tb_ativar_perfil">
+      <EntityTypeMapping TypeName="sqlescolaModel.tb_ativar_perfil">
+        <MappingFragment StoreEntitySet="tb_ativar_perfil">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+          <ScalarProperty Name="Id_Ativar_Perfil" ColumnName="Id_Ativar_Perfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

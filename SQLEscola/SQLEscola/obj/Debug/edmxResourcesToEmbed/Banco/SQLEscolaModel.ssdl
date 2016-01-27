@@ -44,10 +44,6 @@
       <End Role="tb_resposta" EntitySet="tb_resposta" />
       <End Role="tb_resultado" EntitySet="tb_resultado" />
     </AssociationSet>
-    <AssociationSet Name="fk_tb_usuario_has_tb_turma_tb_usuario1" Association="sqlescolaModel.Store.fk_tb_usuario_has_tb_turma_tb_usuario1">
-      <End Role="tb_usuario" EntitySet="tb_usuario" />
-      <End Role="tb_ativar_perfil" EntitySet="tb_ativar_perfil" />
-    </AssociationSet>
   </EntityContainer>
   <EntityType Name="tb_ativar_perfil">
     <Key>
@@ -242,18 +238,6 @@
       </Principal>
       <Dependent Role="tb_resultado">
         <PropertyRef Name="Id_Resposta" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_tb_usuario_has_tb_turma_tb_usuario1">
-    <End Role="tb_usuario" Type="sqlescolaModel.Store.tb_usuario" Multiplicity="1" />
-    <End Role="tb_ativar_perfil" Type="sqlescolaModel.Store.tb_ativar_perfil" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_usuario">
-        <PropertyRef Name="Id_Usuario" />
-      </Principal>
-      <Dependent Role="tb_ativar_perfil">
-        <PropertyRef Name="Id_Usuario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
