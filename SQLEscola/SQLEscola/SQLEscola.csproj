@@ -338,6 +338,7 @@
     <Content Include="Views\Resultado\Create.cshtml" />
     <Content Include="Views\Resultado\Edit.cshtml" />
     <Content Include="Views\Resultado\Delete.cshtml" />
+    <Content Include="Views\Resposta\CreateAtalho.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

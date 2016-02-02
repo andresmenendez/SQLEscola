@@ -208,22 +208,6 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<tb_questao> tb_questao
-        {
-            get
-            {
-                if ((_tb_questao == null))
-                {
-                    _tb_questao = base.CreateObjectSet<tb_questao>("tb_questao");
-                }
-                return _tb_questao;
-            }
-        }
-        private ObjectSet<tb_questao> _tb_questao;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<tb_ativar_perfil> tb_ativar_perfil
         {
             get
@@ -236,6 +220,22 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_ativar_perfil> _tb_ativar_perfil;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_questao> tb_questao
+        {
+            get
+            {
+                if ((_tb_questao == null))
+                {
+                    _tb_questao = base.CreateObjectSet<tb_questao>("tb_questao");
+                }
+                return _tb_questao;
+            }
+        }
+        private ObjectSet<tb_questao> _tb_questao;
 
         #endregion
 
@@ -306,19 +306,19 @@ namespace SQLEscola.Banco
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the tb_questao EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_questao(tb_questao tb_questao)
-        {
-            base.AddObject("tb_questao", tb_questao);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the tb_ativar_perfil EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTotb_ativar_perfil(tb_ativar_perfil tb_ativar_perfil)
         {
             base.AddObject("tb_ativar_perfil", tb_ativar_perfil);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_questao EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_questao(tb_questao tb_questao)
+        {
+            base.AddObject("tb_questao", tb_questao);
         }
 
         #endregion
@@ -780,10 +780,8 @@ namespace SQLEscola.Banco
         /// <param name="id_Atividade">Initial value of the Id_Atividade property.</param>
         /// <param name="descricao">Initial value of the Descricao property.</param>
         /// <param name="scriptCriacao">Initial value of the ScriptCriacao property.</param>
-        /// <param name="scriptPovoamento">Initial value of the ScriptPovoamento property.</param>
-        /// <param name="scriptResolucao">Initial value of the ScriptResolucao property.</param>
         /// <param name="ordem">Initial value of the Ordem property.</param>
-        public static tb_questao Createtb_questao(global::System.Int32 id_Questao, global::System.Int32 id_Tecnologia, global::System.Int32 id_Atividade, global::System.String descricao, global::System.String scriptCriacao, global::System.String scriptPovoamento, global::System.String scriptResolucao, global::System.Int32 ordem)
+        public static tb_questao Createtb_questao(global::System.Int32 id_Questao, global::System.Int32 id_Tecnologia, global::System.Int32 id_Atividade, global::System.String descricao, global::System.String scriptCriacao, global::System.Int32 ordem)
         {
             tb_questao tb_questao = new tb_questao();
             tb_questao.Id_Questao = id_Questao;
@@ -791,8 +789,6 @@ namespace SQLEscola.Banco
             tb_questao.Id_Atividade = id_Atividade;
             tb_questao.Descricao = descricao;
             tb_questao.ScriptCriacao = scriptCriacao;
-            tb_questao.ScriptPovoamento = scriptPovoamento;
-            tb_questao.ScriptResolucao = scriptResolucao;
             tb_questao.Ordem = ordem;
             return tb_questao;
         }
@@ -927,7 +923,7 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String ScriptPovoamento
         {
@@ -939,7 +935,7 @@ namespace SQLEscola.Banco
             {
                 OnScriptPovoamentoChanging(value);
                 ReportPropertyChanging("ScriptPovoamento");
-                _ScriptPovoamento = StructuralObject.SetValidValue(value, false);
+                _ScriptPovoamento = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("ScriptPovoamento");
                 OnScriptPovoamentoChanged();
             }
@@ -951,7 +947,7 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String ScriptResolucao
         {
@@ -963,7 +959,7 @@ namespace SQLEscola.Banco
             {
                 OnScriptResolucaoChanging(value);
                 ReportPropertyChanging("ScriptResolucao");
-                _ScriptResolucao = StructuralObject.SetValidValue(value, false);
+                _ScriptResolucao = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("ScriptResolucao");
                 OnScriptResolucaoChanged();
             }

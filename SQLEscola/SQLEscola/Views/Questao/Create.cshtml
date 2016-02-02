@@ -28,7 +28,7 @@
             @Html.Label("Descrição")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Descricao, new { style = "width:400px" })
+            @Html.TextAreaFor(model => model.Descricao, new { style = "width:400px;height:100px;" })
             @Html.ValidationMessageFor(model => model.Descricao)
         </div>
 

@@ -39,11 +39,13 @@
                         else if (Session["TemPerfilPro"] == "True" & Session["Perfil"] == "Usuário")
                         {
                             <li>@Html.ActionLink("Turmas", "IndexAluno", "Turma")</li>
+                            <li>@Html.ActionLink("Responder Questão", "Teste", "Responder")</li>
                             <li>@Html.ActionLink("Alternar Perfil", "SelecionarPerfil", "AtivarPerfil")</li> 
                         }
                         else if (Session["Perfil"] == "Usuário")
                         {
                             <li>@Html.ActionLink("Turmas", "IndexAluno", "Turma")</li>
+                            <li>@Html.ActionLink("Responder Questão", "Teste", "Responder")</li>
                             <li>@Html.ActionLink("Solicitar Perfil de Professor", "Index", "AtivarPerfil")</li> 
                         }
                     }

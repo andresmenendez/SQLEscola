@@ -79,6 +79,7 @@ namespace SQLEscola.Controllers
             resp.Id_Usuario = userId;
             ViewBag.NomeQuestao = GerenciadorQuestao.GetInstance().Obter(id).Descricao;
             ViewBag.Ordem = GerenciadorQuestao.GetInstance().Obter(id).Ordem;
+            ViewBag.Id_Atividade = GerenciadorQuestao.GetInstance().Obter(id).Id_Atividade;
             return View(resp);
         }
 
@@ -96,7 +97,8 @@ namespace SQLEscola.Controllers
                 result.Erros = "OK";
                 result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
                 GerenciadorResultado.GetInstance().Inserir(result);
-                return RedirectToAction("IndexAluno", "Questao", new { id = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao).Id_Atividade });
+                return RedirectToAction("Index", "Resposta",
+                    new { id = model.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });
             }
 
             return View(model);

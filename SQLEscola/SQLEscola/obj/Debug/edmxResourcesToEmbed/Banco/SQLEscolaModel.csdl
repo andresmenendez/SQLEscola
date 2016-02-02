@@ -25,6 +25,7 @@
       <End Role="tb_matricula" EntitySet="tb_matricula" />
     </AssociationSet>
     <EntitySet Name="tb_atividade" EntityType="sqlescolaModel.tb_atividade" />
+    <EntitySet Name="tb_ativar_perfil" EntityType="sqlescolaModel.tb_ativar_perfil" />
     <EntitySet Name="tb_questao" EntityType="sqlescolaModel.tb_questao" />
     <AssociationSet Name="fk_tb_questao_tb_atividade1" Association="sqlescolaModel.fk_tb_questao_tb_atividade1">
       <End Role="tb_atividade" EntitySet="tb_atividade" />
@@ -38,7 +39,6 @@
       <End Role="tb_questao" EntitySet="tb_questao" />
       <End Role="tb_restricao" EntitySet="tb_restricao" />
     </AssociationSet>
-    <EntitySet Name="tb_ativar_perfil" EntityType="sqlescolaModel.tb_ativar_perfil" />
   </EntityContainer>
   <EntityType Name="tb_matricula">
     <Key>
@@ -168,6 +168,14 @@
     <Property Type="String" Name="Nome_Atividade" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_atividade" ToRole="tb_questao" />
   </EntityType>
+  <EntityType Name="tb_ativar_perfil">
+    <Key>
+      <PropertyRef Name="Id_Ativar_Perfil" />
+    </Key>
+    <Property Type="Int32" Name="Id_Ativar_Perfil" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="tb_questao">
     <Key>
       <PropertyRef Name="Id_Questao" />
@@ -177,8 +185,8 @@
     <Property Type="Int32" Name="Id_Atividade" Nullable="false" />
     <Property Type="String" Name="Descricao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="ScriptCriacao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="ScriptPovoamento" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="ScriptResolucao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ScriptPovoamento" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ScriptResolucao" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="Ordem" Nullable="false" />
     <Property Type="DateTime" Name="Data_Criacao" />
     <Property Type="DateTime" Name="Data_Alteracao" />
@@ -214,12 +222,4 @@
     <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
     <End Type="sqlescolaModel.tb_restricao" Role="tb_restricao" Multiplicity="*" />
   </Association>
-  <EntityType Name="tb_ativar_perfil">
-    <Key>
-      <PropertyRef Name="Id_Ativar_Perfil" />
-    </Key>
-    <Property Type="Int32" Name="Id_Ativar_Perfil" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int32" Name="Id_Usuario" Nullable="false" />
-    <Property Type="String" Name="Status" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-  </EntityType>
 </Schema>

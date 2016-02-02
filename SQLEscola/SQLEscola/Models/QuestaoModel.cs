@@ -20,11 +20,9 @@ namespace SQLEscola.Models
         [Display(Name = "Script de Criação")]
         public string ScriptCriacao { get; set; }
 
-        [Required]
         [Display(Name = "Script de Povoamento")]
         public string ScriptPovoamento { get; set; }
 
-        [Required]
         [Display(Name = "Script de Resultado")]
         public string ScriptResultado { get; set; }
 

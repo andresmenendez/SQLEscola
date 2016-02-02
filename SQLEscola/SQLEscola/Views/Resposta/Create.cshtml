@@ -35,5 +35,9 @@
 }
 
 <div>
-    @Html.ActionLink("Retornar", "Index", new { id = Model.Id_Questao, idUser = Model.Id_Usuario }, new { @class = "modal-link" })
+    @Html.ActionLink("Retornar", "IndexAluno", "Questao", new { id = ViewBag.Id_Atividade }, new { @class = "modal-link" })
 </div>
+
+<!--div>
+    @Html.ActionLink("Retornar", "Index", new { id = Model.Id_Questao, idUser = Model.Id_Usuario }, new { @class = "modal-link" })
+</div-->

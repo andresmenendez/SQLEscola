@@ -78,8 +78,8 @@
     <Property Name="Id_Atividade" Type="int" Nullable="false" />
     <Property Name="Descricao" Type="text" Nullable="false" />
     <Property Name="ScriptCriacao" Type="text" Nullable="false" />
-    <Property Name="ScriptPovoamento" Type="text" Nullable="false" />
-    <Property Name="ScriptResolucao" Type="text" Nullable="false" />
+    <Property Name="ScriptPovoamento" Type="text" />
+    <Property Name="ScriptResolucao" Type="text" />
     <Property Name="Ordem" Type="int" Nullable="false" />
     <Property Name="Data_Criacao" Type="datetime" />
     <Property Name="Data_Alteracao" Type="datetime" />
