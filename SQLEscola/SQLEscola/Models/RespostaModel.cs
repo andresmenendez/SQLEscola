@@ -23,9 +23,13 @@ namespace SQLEscola.Models
         [Required]
         public int Id_Usuario { get; set; }
 
-        [Required]
         public int Id_Questao { get; set; }
 
         public string Usuario { get; set; }
+
+        //Para tela de CreateAtaho/Reposta
+        public int Turmas { get; set; }
+        public int Atividades { get; set; }
+        public int Questoes { get; set; }
     }
 }

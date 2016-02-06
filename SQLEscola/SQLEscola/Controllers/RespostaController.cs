@@ -67,6 +67,103 @@ namespace SQLEscola.Controllers
             return View(resp);
         }
 
+        public ActionResult CreateAtalho(RespostaModel resp)
+        {
+            int userId = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString());
+            List<MatriculaModel> mats = GerenciadorMatricula.GetInstance().ObterPorUser(userId).ToList();
+            List<TurmaModel> turmas = new List<TurmaModel>();
+            foreach (MatriculaModel item in mats)
+            {
+                turmas.Add(GerenciadorTurma.GetInstance().Obter(item.Id_Turma));
+            }
+            IEnumerable<TurmaModel> listaTurmas = (IEnumerable<TurmaModel>)turmas;
+            List<AtividadeModel> ativs = new List<AtividadeModel>();
+            IEnumerable<AtividadeModel> listaAtivVazia = (IEnumerable<AtividadeModel>)ativs;
+            List<QuestaoModel> quests = new List<QuestaoModel>();
+            IEnumerable<QuestaoModel> listaQuestVazia = (IEnumerable<QuestaoModel>)quests;
+            if (resp.Turmas == 0 & resp.Atividades == 0 & resp.Questoes == 0)
+            {
+                ViewBag.Turmas = new SelectList
+                    (
+                        listaTurmas,
+                        "Id_Turma",
+                        "Turma"
+                    );
+                ViewBag.Atividades = new SelectList
+                    (
+                        listaAtivVazia,
+                        "Id_Atividade",
+                        "Nome_Atividade"
+                    );
+                ViewBag.Questoes = new SelectList
+                    (
+                        listaQuestVazia,
+                        "Id_Questao",
+                        "Descricao"
+                    );
+            }
+            else if (resp.Turmas != 0 & resp.Atividades == 0 & resp.Questoes == 0)
+            {
+                ViewBag.Turmas = new SelectList
+                    (
+                        listaTurmas,
+                        "Id_Turma",
+                        "Turma", resp.Turmas
+                    );
+                Session["IdTurma"] = resp.Turmas;
+                ViewBag.Atividades = new SelectList
+                    (
+                        GerenciadorAtividade.GetInstance().ObterPorTurma(resp.Turmas),
+                        "Id_Atividade",
+                        "Nome_Atividade"
+                    );
+                ViewBag.Questoes = new SelectList
+                    (
+                        listaQuestVazia,
+                        "Id_Questao",
+                        "Descricao"
+                    );
+            }
+            else if (Convert.ToInt32(Session["IdTurma"].ToString()) != 0 & resp.Atividades != 0 & resp.Questoes == 0)
+            {
+                ViewBag.Turmas = new SelectList
+                    (
+                        listaTurmas,
+                        "Id_Turma",
+                        "Turma", Session["IdTurma"]
+                    );
+                ViewBag.Atividades = new SelectList
+                    (
+                        GerenciadorAtividade.GetInstance().ObterPorTurma(Convert.ToInt32(Session["IdTurma"].ToString())),
+                        "Id_Atividade",
+                        "Nome_Atividade",
+                        resp.Atividades
+                    );
+                Session["IdAtividade"] = resp.Atividades;
+                ViewBag.Questoes = new SelectList
+                    (
+                        GerenciadorQuestao.GetInstance().ObterPorAtividade(resp.Atividades),
+                        "Id_Questao",
+                        "Descricao"
+                    );
+            }
+            else if (Convert.ToInt32(Session["IdTurma"].ToString()) != 0
+                & Convert.ToInt32(Session["IdAtividade"].ToString()) != 0
+                & resp.Questoes != 0
+                & resp.ScriptResposta != null)
+            {
+                resp.DataResposta = DateTime.Now;
+                /*GerenciadorResposta.GetInstance().Inserir(resp);
+                ResultadoModel result = new ResultadoModel();
+                result.Erros = "OK";
+                result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(resp.DataResposta.Value).Id_Resposta;
+                GerenciadorResultado.GetInstance().Inserir(result);
+                return RedirectToAction("Index", "Resposta",
+                    new { id = resp.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });*/
+            }
+            return View(resp);
+        }
+
         //
         // GET: /Resposta/Create
 

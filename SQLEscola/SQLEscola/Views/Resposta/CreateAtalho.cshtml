@@ -1,49 +1,73 @@
 ﻿@model SQLEscola.Models.RespostaModel
 
 @{
-    ViewBag.Title = "CreateAtalho";
+    ViewBag.Title = "Responder Questão";
 }
 
-<h2>CreateAtalho</h2>
+<h2>Responder Questão</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("CreateAtalho", "Resposta"))
+{
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>tb_resposta</legend>
+        <legend>Resposta</legend>
+
+        @using (Ajax.BeginForm("CreateAtalho", "Resposta", FormMethod.Get, null))
+        {
+            <div class="editor-label">
+                @Html.Label("Turma")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("Turmas", null, "Selecione", new { onchange = "this.form.submit();" })
+            </div>
+        }
+
+        @using (Ajax.BeginForm("CreateAtalho", "Resposta", FormMethod.Get, null))
+        {
+            <div class="editor-label">
+                @Html.Label("Atividade")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("Atividades", null, "Selecione", new { onchange = "this.form.submit();" })
+            </div>
+        }
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ScriptResposta)
+            @Html.Label("Questão")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ScriptResposta)
+            @Html.DropDownList("Questoes", null, "Selecione", new { id = "ddlQuestoes" })
+        </div>
+
+        <h4 id="Enunciado" style="width:50%;"></h4>
+
+        <div class="editor-label">
+            @Html.Label("Script de Resposta")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptResposta, new { style = "width:700px;height:250px;" })
             @Html.ValidationMessageFor(model => model.ScriptResposta)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Id_Usuario)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Id_Usuario)
-            @Html.ValidationMessageFor(model => model.Id_Usuario)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Id_Questao)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Id_Questao)
-            @Html.ValidationMessageFor(model => model.Id_Questao)
-        </div>
-
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Submeter Resposta para Avaliação Automática" class="but but-success but-small but-shadow but-rc" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Cancelar", "Inicial", "Home", null, new { @class = "modal-link" })
 </div>
+
+<script type="text/javascript">
+    $('#ddlQuestoes').change(function () {
+        var sel = $('#ddlQuestoes').get(0);
+        var valueSelect = sel.options[sel.selectedIndex].text;
+        $('#Enunciado').text('Questão Selecionada: ' + valueSelect);
+    });
+
+    
+</script>
