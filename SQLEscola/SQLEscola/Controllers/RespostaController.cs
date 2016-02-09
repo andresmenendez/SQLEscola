@@ -81,14 +81,15 @@ namespace SQLEscola.Controllers
             IEnumerable<AtividadeModel> listaAtivVazia = (IEnumerable<AtividadeModel>)ativs;
             List<QuestaoModel> quests = new List<QuestaoModel>();
             IEnumerable<QuestaoModel> listaQuestVazia = (IEnumerable<QuestaoModel>)quests;
+            //Carregamento Inicial ao entrar na tela
             if (resp.Turmas == 0 & resp.Atividades == 0 & resp.Questoes == 0)
             {
                 ViewBag.Turmas = new SelectList
-                    (
-                        listaTurmas,
-                        "Id_Turma",
-                        "Turma"
-                    );
+                        (
+                            listaTurmas,
+                            "Id_Turma",
+                            "Turma"
+                        );
                 ViewBag.Atividades = new SelectList
                     (
                         listaAtivVazia,
@@ -102,7 +103,8 @@ namespace SQLEscola.Controllers
                         "Descricao"
                     );
             }
-            else if (resp.Turmas != 0 & resp.Atividades == 0 & resp.Questoes == 0)
+                //Carregamento após a turma ser selecionada
+            else  if (resp.Turmas != 0 & resp.Atividades == 0 & resp.Questoes == 0)
             {
                 ViewBag.Turmas = new SelectList
                     (
@@ -124,7 +126,8 @@ namespace SQLEscola.Controllers
                         "Descricao"
                     );
             }
-            else if (Convert.ToInt32(Session["IdTurma"].ToString()) != 0 & resp.Atividades != 0 & resp.Questoes == 0)
+                //Carregamento após atividade ser selecionada
+            else if (resp.Turmas == 0 & resp.Atividades != 0 & resp.Questoes == 0)
             {
                 ViewBag.Turmas = new SelectList
                     (
@@ -147,19 +150,45 @@ namespace SQLEscola.Controllers
                         "Descricao"
                     );
             }
+            //Quando todos os combos são selecionados e clica no botão de submeter
             else if (Convert.ToInt32(Session["IdTurma"].ToString()) != 0
-                & Convert.ToInt32(Session["IdAtividade"].ToString()) != 0
-                & resp.Questoes != 0
-                & resp.ScriptResposta != null)
+               & Convert.ToInt32(Session["IdAtividade"].ToString()) != 0
+               & resp.Questoes != 0
+               & resp.ScriptResposta != null)
             {
                 resp.DataResposta = DateTime.Now;
-                /*GerenciadorResposta.GetInstance().Inserir(resp);
+                resp.Id_Usuario = userId;
+                resp.Id_Questao = resp.Questoes;
+                GerenciadorResposta.GetInstance().Inserir(resp);
                 ResultadoModel result = new ResultadoModel();
                 result.Erros = "OK";
                 result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(resp.DataResposta.Value).Id_Resposta;
                 GerenciadorResultado.GetInstance().Inserir(result);
                 return RedirectToAction("Index", "Resposta",
-                    new { id = resp.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });*/
+                    new { id = resp.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });
+            }
+            //Quando o usuario altera o combo de questões e depois altera o combo de turmas
+            else if (resp.Turmas != 0 & resp.Atividades == 0 & resp.Questoes != 0)
+            {
+                ViewBag.Turmas = new SelectList
+                    (
+                        listaTurmas,
+                        "Id_Turma",
+                        "Turma", resp.Turmas
+                    );
+                Session["IdTurma"] = resp.Turmas;
+                ViewBag.Atividades = new SelectList
+                    (
+                        GerenciadorAtividade.GetInstance().ObterPorTurma(resp.Turmas),
+                        "Id_Atividade",
+                        "Nome_Atividade"
+                    );
+                ViewBag.Questoes = new SelectList
+                    (
+                        listaQuestVazia,
+                        "Id_Questao",
+                        "Descricao"
+                    );
             }
             return View(resp);
         }
