@@ -779,16 +779,14 @@ namespace SQLEscola.Banco
         /// <param name="id_Tecnologia">Initial value of the Id_Tecnologia property.</param>
         /// <param name="id_Atividade">Initial value of the Id_Atividade property.</param>
         /// <param name="descricao">Initial value of the Descricao property.</param>
-        /// <param name="scriptCriacao">Initial value of the ScriptCriacao property.</param>
         /// <param name="ordem">Initial value of the Ordem property.</param>
-        public static tb_questao Createtb_questao(global::System.Int32 id_Questao, global::System.Int32 id_Tecnologia, global::System.Int32 id_Atividade, global::System.String descricao, global::System.String scriptCriacao, global::System.Int32 ordem)
+        public static tb_questao Createtb_questao(global::System.Int32 id_Questao, global::System.Int32 id_Tecnologia, global::System.Int32 id_Atividade, global::System.String descricao, global::System.Int32 ordem)
         {
             tb_questao tb_questao = new tb_questao();
             tb_questao.Id_Questao = id_Questao;
             tb_questao.Id_Tecnologia = id_Tecnologia;
             tb_questao.Id_Atividade = id_Atividade;
             tb_questao.Descricao = descricao;
-            tb_questao.ScriptCriacao = scriptCriacao;
             tb_questao.Ordem = ordem;
             return tb_questao;
         }
@@ -899,7 +897,7 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String ScriptCriacao
         {
@@ -911,7 +909,7 @@ namespace SQLEscola.Banco
             {
                 OnScriptCriacaoChanging(value);
                 ReportPropertyChanging("ScriptCriacao");
-                _ScriptCriacao = StructuralObject.SetValidValue(value, false);
+                _ScriptCriacao = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("ScriptCriacao");
                 OnScriptCriacaoChanged();
             }
@@ -1039,6 +1037,30 @@ namespace SQLEscola.Banco
         private Nullable<global::System.DateTime> _Data_Alteracao;
         partial void OnData_AlteracaoChanging(Nullable<global::System.DateTime> value);
         partial void OnData_AlteracaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] Arquivo
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_Arquivo);
+            }
+            set
+            {
+                OnArquivoChanging(value);
+                ReportPropertyChanging("Arquivo");
+                _Arquivo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Arquivo");
+                OnArquivoChanged();
+            }
+        }
+        private global::System.Byte[] _Arquivo;
+        partial void OnArquivoChanging(global::System.Byte[] value);
+        partial void OnArquivoChanged();
 
         #endregion
 

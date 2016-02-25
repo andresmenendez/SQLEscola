@@ -16,7 +16,6 @@ namespace SQLEscola.Models
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
-        [Required]
         [Display(Name = "Script de Criação")]
         public string ScriptCriacao { get; set; }
 
@@ -37,6 +36,11 @@ namespace SQLEscola.Models
         [Display(Name = "Data da Alteração")]
         [DataType(DataType.Date)]
         public DateTime? DataAlteracao { get; set; }
+
+        [Display(Name = "Arquivo")]
+        public HttpPostedFileBase Arquivo { get; set; }
+
+        public byte[] ArrayBytes { get; set; }
 
         [Required]
         public int Id_Tecnologia { get; set; }

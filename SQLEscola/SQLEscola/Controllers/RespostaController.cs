@@ -217,14 +217,23 @@ namespace SQLEscola.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.DataResposta = DateTime.Now;
-                GerenciadorResposta.GetInstance().Inserir(model);
-                ResultadoModel result = new ResultadoModel();
-                result.Erros = "OK";
-                result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
-                GerenciadorResultado.GetInstance().Inserir(result);
-                return RedirectToAction("Index", "Resposta",
-                    new { id = model.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });
+                AcessandoSQL acesso = new AcessandoSQL();
+                string resultado = acesso.AcessandoSQLScript(model.ScriptResposta);
+                if (resultado == "OK")
+                {
+                    model.DataResposta = DateTime.Now;
+                    GerenciadorResposta.GetInstance().Inserir(model);
+                    ResultadoModel result = new ResultadoModel();
+                    result.Erros = "OK";
+                    result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
+                    GerenciadorResultado.GetInstance().Inserir(result);
+                    return RedirectToAction("Index", "Resposta",
+                        new { id = model.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });
+                }
+                else
+                {
+                    model.ScriptErros = resultado;
+                }
             }
 
             return View(model);

@@ -99,7 +99,8 @@ namespace SQLEscola.Gerenciadores
                             DataAlteracao = questao.Data_Alteracao,
                             ScriptCriacao = questao.ScriptCriacao,
                             ScriptPovoamento = questao.ScriptPovoamento,
-                            ScriptResultado = questao.ScriptResolucao
+                            ScriptResultado = questao.ScriptResolucao,
+                            ArrayBytes = questao.Arquivo
                         };
             return query;
         }
@@ -160,6 +161,8 @@ namespace SQLEscola.Gerenciadores
             questaoE.ScriptCriacao = questao.ScriptCriacao;
             questaoE.ScriptPovoamento = questao.ScriptPovoamento;
             questaoE.ScriptResolucao = questao.ScriptResultado;
+            Global global = new Global();
+            questaoE.Arquivo = global.ConvertToByte(questao.Arquivo);
         }
     }
 }

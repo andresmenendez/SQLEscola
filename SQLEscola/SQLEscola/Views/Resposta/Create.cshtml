@@ -28,6 +28,16 @@
             @Html.ValidationMessageFor(model => model.ScriptResposta)
         </div>
 
+        @if (Model.ScriptErros != "")
+        {
+            <div class="editor-label">
+            @Html.Label("Erros no Script")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptErros, new { style = "width:700px;height:250px;" })
+        </div>
+        }
+
         <p>
             <input type="submit" value="Submeter Resposta para Avaliação Automática" class="but but-success but-small but-shadow but-rc" />
         </p>

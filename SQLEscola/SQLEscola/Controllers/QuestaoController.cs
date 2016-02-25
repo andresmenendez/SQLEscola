@@ -9,6 +9,7 @@ using SQLEscola.Banco;
 using SQLEscola.Models;
 using SQLEscola.Gerenciadores;
 using System.Web.Security;
+using System.IO;
 
 namespace SQLEscola.Controllers
 { 
@@ -59,9 +60,15 @@ namespace SQLEscola.Controllers
 
         public ViewResult Details(int id)
         {
-            QuestaoModel matricula = GerenciadorQuestao.GetInstance().Obter(id);
-            ViewBag.DataAlteracao = Convert.ToDateTime(matricula.DataAlteracao).ToShortDateString();
-            return View(matricula);
+            QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(id);
+            ViewBag.DataAlteracao = Convert.ToDateTime(quest.DataAlteracao).ToShortDateString();
+            return View(quest);
+        }
+
+        public FileResult PDFDownload(int id)
+        {
+            QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(id);
+            return File(quest.ArrayBytes, "application/pdf", quest.Ordem.ToString()+".pdf");
         }
 
         //
@@ -81,7 +88,7 @@ namespace SQLEscola.Controllers
         // POST: /Questao/Create
 
         [HttpPost]
-        public ActionResult Create(QuestaoModel model)
+        public ActionResult Create(QuestaoModel model, HttpPostedFileBase file)
         {
             //ViewBag.Id_Turma = model.Id_Turma;
             if (ModelState.IsValid)
@@ -89,11 +96,14 @@ namespace SQLEscola.Controllers
                 model.DataCriacao = DateTime.Now;
                 model.DataAlteracao = DateTime.Now;
                 model.Id_Tecnologia = Global.IdTecnologiaSQLServer;
+                if (file != null && file.ContentLength > 0)
+                {
+                    model.Arquivo = file;
+                }
                 ViewBag.Id_Atividade = model.Id_Atividade;
                 GerenciadorQuestao.GetInstance().Inserir(model);
                 return RedirectToAction("Index", new { id = model.Id_Atividade });
             }
-
             return View(model);
         }
 

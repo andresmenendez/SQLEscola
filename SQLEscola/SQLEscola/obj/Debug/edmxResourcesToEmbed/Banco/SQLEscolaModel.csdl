@@ -184,12 +184,13 @@
     <Property Type="Int32" Name="Id_Tecnologia" Nullable="false" />
     <Property Type="Int32" Name="Id_Atividade" Nullable="false" />
     <Property Type="String" Name="Descricao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="ScriptCriacao" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ScriptCriacao" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="ScriptPovoamento" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="ScriptResolucao" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="Ordem" Nullable="false" />
     <Property Type="DateTime" Name="Data_Criacao" />
     <Property Type="DateTime" Name="Data_Alteracao" />
+    <Property Type="Binary" Name="Arquivo" MaxLength="Max" FixedLength="false" />
     <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_questao" ToRole="tb_atividade" />
     <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_questao1" FromRole="tb_questao" ToRole="tb_resposta" />
     <NavigationProperty Name="tb_restricao" Relationship="sqlescolaModel.tb_questao_restricoes" FromRole="tb_questao" ToRole="tb_restricao" />

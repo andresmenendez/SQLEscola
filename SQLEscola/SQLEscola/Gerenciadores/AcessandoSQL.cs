@@ -9,7 +9,11 @@ namespace SQLEscola.Gerenciadores
 {
     public class AcessandoSQL
     {
-        public AcessandoSQL(string script)
+        public AcessandoSQL()
+        {
+        }
+
+        public string AcessandoSQLScript(string script)
         {
             //definição da string de conexão
             SqlConnection conn = new SqlConnection(@"Data Source=pc-trabalho\SQLEXPRESS;Initial Catalog=TESTE;Integrated Security=True;Pooling=False");
@@ -32,18 +36,20 @@ namespace SQLEscola.Gerenciadores
                 //fecha a conexao
                 conn.Close();
                 //Abaixo temos a ultlização de javascript para apresentar ao usuário um alert
+                return "OK";
             }
             catch (Exception ex)
             {
                 string e = ex.Message;
                 //fecha a conexao
                 conn.Close();
+                return e;
             }
             finally
             {
                 conn.Close();
+                
             }
-
         }
     }
 }

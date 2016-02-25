@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\themes\base\images\arquivo.png" />
     <Content Include="Content\themes\base\images\setaBaixo.png" />
     <Content Include="Content\themes\base\images\setaLado.png" />
     <Content Include="Content\themes\base\images\sql.jpg" />

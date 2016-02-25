@@ -31,5 +31,8 @@ namespace SQLEscola.Models
         public int Turmas { get; set; }
         public int Atividades { get; set; }
         public int Questoes { get; set; }
+        //Para tela de Respostas
+        [Display(Name = "Erros no Script")]
+        public string ScriptErros { get; set; }
     }
 }

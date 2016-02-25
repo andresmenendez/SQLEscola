@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.IO;
 
 namespace SQLEscola.Models
 {
     public class Global
     {
+        public Global()
+        {
+        }
+
         public const string RoleAdm = "administrador";
         public const string RoleUser = "usuario";
         public const string RoleProf = "professor";
@@ -24,5 +29,14 @@ namespace SQLEscola.Models
         public const string StatusSolicitacaoEnviada = "E";
         public const string StatusAprovacao = "A";
         public const string StatusRejeicao = "R";
+
+        public byte[] ConvertToByte(HttpPostedFileBase file)
+        {
+            byte[] arq = null;
+            BinaryReader rdr = new BinaryReader(file.InputStream);
+            arq = rdr.ReadBytes((int)file.ContentLength);
+            return arq;
+        }
     }
+
 }

@@ -90,6 +90,7 @@
     <EntitySetMapping Name="tb_questao">
       <EntityTypeMapping TypeName="sqlescolaModel.tb_questao">
         <MappingFragment StoreEntitySet="tb_questao">
+          <ScalarProperty Name="Arquivo" ColumnName="Arquivo" />
           <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
           <ScalarProperty Name="Data_Criacao" ColumnName="Data_Criacao" />
           <ScalarProperty Name="Ordem" ColumnName="Ordem" />

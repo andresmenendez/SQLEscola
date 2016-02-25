@@ -12,7 +12,6 @@ namespace SQLEscola.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
-            Gerenciadores.AcessandoSQL acesso = new Gerenciadores.AcessandoSQL();
             return View();
         }
 
