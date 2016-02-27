@@ -87,10 +87,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tb_arquivo">
+      <EntityTypeMapping TypeName="sqlescolaModel.tb_arquivo">
+        <MappingFragment StoreEntitySet="tb_arquivo">
+          <ScalarProperty Name="Arquivo" ColumnName="Arquivo" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
+          <ScalarProperty Name="Id_Arquivo" ColumnName="Id_Arquivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tb_questao">
       <EntityTypeMapping TypeName="sqlescolaModel.tb_questao">
         <MappingFragment StoreEntitySet="tb_questao">
-          <ScalarProperty Name="Arquivo" ColumnName="Arquivo" />
           <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
           <ScalarProperty Name="Data_Criacao" ColumnName="Data_Criacao" />
           <ScalarProperty Name="Ordem" ColumnName="Ordem" />

@@ -62,13 +62,18 @@ namespace SQLEscola.Controllers
         {
             QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(id);
             ViewBag.DataAlteracao = Convert.ToDateTime(quest.DataAlteracao).ToShortDateString();
+            ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(id);
+            if (arq != null)
+            {
+                quest.ArrayBytes = arq.ArrayBytes; 
+            }
             return View(quest);
         }
 
         public FileResult PDFDownload(int id)
         {
-            QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(id);
-            return File(quest.ArrayBytes, "application/pdf", quest.Ordem.ToString()+".pdf");
+            ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(id);
+            return File(arq.ArrayBytes, "application/pdf", arq.Nome);
         }
 
         //
@@ -81,6 +86,7 @@ namespace SQLEscola.Controllers
             ViewBag.Id_Atividade = id;
             quest.Id_Atividade = id;
             quest.Ordem = NumOrdem + 1;
+            ViewBag.Error = "";
             return View(quest);
         }
 
@@ -93,16 +99,38 @@ namespace SQLEscola.Controllers
             //ViewBag.Id_Turma = model.Id_Turma;
             if (ModelState.IsValid)
             {
-                model.DataCriacao = DateTime.Now;
-                model.DataAlteracao = DateTime.Now;
-                model.Id_Tecnologia = Global.IdTecnologiaSQLServer;
-                if (file != null && file.ContentLength > 0)
+                if (file == null)
                 {
-                    model.Arquivo = file;
+                    model.DataCriacao = DateTime.Now;
+                    model.DataAlteracao = DateTime.Now;
+                    model.Id_Tecnologia = Global.IdTecnologiaSQLServer;
+                    ViewBag.Id_Atividade = model.Id_Atividade;
+                    GerenciadorQuestao.GetInstance().Inserir(model);
+                    return RedirectToAction("Index", new { id = model.Id_Atividade });
                 }
-                ViewBag.Id_Atividade = model.Id_Atividade;
-                GerenciadorQuestao.GetInstance().Inserir(model);
-                return RedirectToAction("Index", new { id = model.Id_Atividade });
+                else
+                {
+                    string[] tipo = file.FileName.Split('.');
+                    if (tipo[1].ToLower() == "pdf" | tipo[1].ToLower() == "doc" | tipo[1].ToLower() == "docx")
+                    {
+                        model.DataCriacao = DateTime.Now;
+                        model.DataAlteracao = DateTime.Now;
+                        model.Id_Tecnologia = Global.IdTecnologiaSQLServer;
+                        ViewBag.Id_Atividade = model.Id_Atividade;
+                        GerenciadorQuestao.GetInstance().Inserir(model);
+                        ArquivoModel arq = new ArquivoModel();
+                        arq.Arquivo = file;
+                        arq.Nome = file.FileName;
+                        arq.Tipo = tipo[1];
+                        arq.Id_Questao = GerenciadorQuestao.GetInstance().ObterPorData(model.DataCriacao.Value).Id_Questao;
+                        GerenciadorArquivo.GetInstance().Inserir(arq);
+                        return RedirectToAction("Index", new { id = model.Id_Atividade });
+                    }
+                    else
+                    {
+                        ViewBag.Error = "A ferramenta só permite carregamento de arquivo .PDF ou .DOC";
+                    }
+                }
             }
             return View(model);
         }
@@ -113,6 +141,7 @@ namespace SQLEscola.Controllers
         public ActionResult Edit(int id)
         {
             QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(id);
+            qust.ArrayBytes = GerenciadorArquivo.GetInstance().ObterPorQuestao(id).ArrayBytes;
             ViewBag.Id_Atividade = qust.Id_Atividade;
             return View(qust);
         }
@@ -121,13 +150,49 @@ namespace SQLEscola.Controllers
         // POST: /Questao/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(QuestaoModel model)
+        public ActionResult Edit(QuestaoModel model, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                model.DataAlteracao = DateTime.Now;
-                GerenciadorQuestao.GetInstance().Editar(model);
-                return RedirectToAction("Index", new { id = model.Id_Atividade });
+                if (file == null)
+                {
+                    model.DataAlteracao = DateTime.Now;
+                    GerenciadorQuestao.GetInstance().Editar(model);
+                    return RedirectToAction("Index", new { id = model.Id_Atividade });
+                }
+                else
+                {
+                    string[] tipo = file.FileName.Split('.');
+                    if (tipo[1].ToLower() == "pdf" | tipo[1].ToLower() == "doc" | tipo[1].ToLower() == "docx")
+                    {
+                        model.DataAlteracao = DateTime.Now;
+                        GerenciadorQuestao.GetInstance().Editar(model);
+                        ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(model.Id_Questao);
+                        bool novoArq = false;
+                        if (arq == null)
+                        {
+                            arq = new ArquivoModel();
+                            novoArq = true;
+                        }
+                        arq.Arquivo = file;
+                        arq.Nome = file.FileName;
+                        arq.Tipo = tipo[1];
+                        if (novoArq)
+                        {
+                            GerenciadorArquivo.GetInstance().Inserir(arq);
+                        }
+                        else
+                        {
+                            GerenciadorArquivo.GetInstance().Editar(arq);
+                        }
+                        return RedirectToAction("Index", new { id = model.Id_Atividade });
+                    }
+                    else
+                    {
+                        ViewBag.Error = "A ferramenta só permite carregamento de arquivo .PDF ou .DOC";
+                    }
+                }
+                
             }
             return View(model);
         }

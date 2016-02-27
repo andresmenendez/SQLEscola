@@ -82,6 +82,7 @@
     <Compile Include="Controllers\ResultadoController.cs" />
     <Compile Include="Controllers\TurmaController.cs" />
     <Compile Include="Gerenciadores\AcessandoSQL.cs" />
+    <Compile Include="Gerenciadores\GerenciadorArquivo.cs" />
     <Compile Include="Gerenciadores\GerenciadorResultado.cs" />
     <Compile Include="Gerenciadores\GerenciadorResposta.cs" />
     <Compile Include="Gerenciadores\GerenciadorQuestao.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ArquivoModel.cs" />
     <Compile Include="Models\Global.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AtividadeModel.cs" />

@@ -16,6 +16,7 @@ namespace Persistence
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private sqlescolaEntities _context;
+        private IRepositorioGenerico<tb_arquivo> _repArquivo;
         private IRepositorioGenerico<tb_atividade> _repAtividade;
         private IRepositorioGenerico<tb_ativar_perfil> _repAtivarPerfil;
         private IRepositorioGenerico<tb_matricula> _repMatricula;
@@ -36,6 +37,19 @@ namespace Persistence
         }
         
         #region IUnitOfWork Members
+
+        public IRepositorioGenerico<tb_arquivo> RepositorioArquivo
+        {
+            get
+            {
+                if (_repArquivo == null)
+                {
+                    _repArquivo = new RepositorioGenerico<tb_arquivo>(_context);
+                }
+
+                return _repArquivo;
+            }
+        }
 
         public IRepositorioGenerico<tb_ativar_perfil> RepositorioAtivarPerfil
         {

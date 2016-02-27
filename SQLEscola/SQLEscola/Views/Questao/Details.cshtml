@@ -26,10 +26,16 @@
             @Html.DisplayFor(model => model.Descricao)
         </div>
 
-        <div class="editor-field" style="font-weight:bolder">
-            <img alt="logo" src="../../Content/themes/base/images/arquivo.png" width="25px" height="25px" />
-            @Html.ActionLink("Baixar Arquivo", "PDFDownload", new { id = Model.Id_Questao })
-        </div>
+        @if (Model.ArrayBytes != null)
+        {
+            <br />
+            <div class="editor-field" style="font-weight:bolder">
+                <a href="@Url.Action("PDFDownload", "Questao", new { id = Model.Id_Questao })">
+                    <img alt="logo" src="../../Content/themes/base/images/arquivo.png" width="25px" height="25px" />
+                </a>
+                @Html.ActionLink("Baixar Arquivo", "PDFDownload", new { id = Model.Id_Questao })
+            </div>
+        }
 
         <input type="submit" id="Criacao" value="0" style="display:none;" />
         <div id="show" class="editor-label" style="cursor:pointer" title="Clique para exibir o Script de Criação">
@@ -38,7 +44,7 @@
             Script de Criação
         </div>
         <div id="panel" class="editor-field">
-            @Html.TextAreaFor(model => model.ScriptCriacao, new { id = "SCriacao",style = "width:750px;height:350px;", disabled = "disabled" })
+            @Html.TextAreaFor(model => model.ScriptCriacao, new { id = "SCriacao", style = "width:750px;height:350px;", disabled = "disabled" })
         </div>
 
         <input type="submit" id="Criacao2" value="0" style="display:none;" />
@@ -70,7 +76,7 @@
 
 </fieldset>
 <p>
-    @Html.ActionLink("Editar Questão", "Edit", new { id=Model.Id_Questao })
+    @Html.ActionLink("Editar Questão", "Edit", new { id = Model.Id_Questao })
     <br />
     @Html.ActionLink("Retornar", "Index", new { id = Model.Id_Atividade })
 </p>

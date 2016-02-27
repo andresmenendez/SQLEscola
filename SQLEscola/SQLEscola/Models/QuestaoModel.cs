@@ -37,11 +37,6 @@ namespace SQLEscola.Models
         [DataType(DataType.Date)]
         public DateTime? DataAlteracao { get; set; }
 
-        [Display(Name = "Arquivo")]
-        public HttpPostedFileBase Arquivo { get; set; }
-
-        public byte[] ArrayBytes { get; set; }
-
         [Required]
         public int Id_Tecnologia { get; set; }
 
@@ -49,5 +44,7 @@ namespace SQLEscola.Models
         public int Id_Atividade { get; set; }
 
         public bool QuestaoRespondida { get; set; }
+
+        public byte[] ArrayBytes { get; set; }
     }
 }

@@ -8,7 +8,17 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
+@if (ViewBag.Error != "")
+{
+    <ul style="color:Red">
+        <li>
+            @ViewBag.Error
+        </li>
+    </ul>
+}
+
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Editar Questão</legend>
@@ -33,6 +43,28 @@
             @Html.TextBoxFor(model => model.Descricao, new { style = "width:400px" })
             @Html.ValidationMessageFor(model => model.Descricao)
         </div>
+
+        @if (Model.ArrayBytes != null)
+        {
+            <br />
+            <div class="editor-field" style="font-weight:bolder">
+                <a href="@Url.Action("PDFDownload", "Questao", new { id = Model.Id_Questao })">
+                    <img alt="logo" src="../../Content/themes/base/images/arquivo.png" width="25px" height="25px" />
+                </a>
+                @Html.ActionLink("Baixar Arquivo", "PDFDownload", new { id = Model.Id_Questao })
+            </div>
+        }
+        else
+        {
+            <br />
+            <div class="editor-label">
+                @Html.Label("Carregamento de Arquivo (PDF ou DOC)")
+            </div>
+            <br />
+            <input type="file" name="file" style="width:400px" />
+            <br />
+            <br />
+        }
 
         <div class="editor-label">
             @Html.Label("Script de Criação")

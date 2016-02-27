@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="sqlescolaModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="sqlescolaModelStoreContainer">
+    <EntitySet Name="tb_arquivo" EntityType="sqlescolaModel.Store.tb_arquivo" store:Type="Tables" Schema="sqlescola" />
     <EntitySet Name="tb_ativar_perfil" EntityType="sqlescolaModel.Store.tb_ativar_perfil" store:Type="Tables" Schema="sqlescola" />
     <EntitySet Name="tb_atividade" EntityType="sqlescolaModel.Store.tb_atividade" store:Type="Tables" Schema="sqlescola" />
     <EntitySet Name="tb_matricula" EntityType="sqlescolaModel.Store.tb_matricula" store:Type="Tables" Schema="sqlescola" />
@@ -12,6 +13,10 @@
     <EntitySet Name="tb_tecnologia" EntityType="sqlescolaModel.Store.tb_tecnologia" store:Type="Tables" Schema="sqlescola" />
     <EntitySet Name="tb_turma" EntityType="sqlescolaModel.Store.tb_turma" store:Type="Tables" Schema="sqlescola" />
     <EntitySet Name="tb_usuario" EntityType="sqlescolaModel.Store.tb_usuario" store:Type="Tables" Schema="sqlescola" />
+    <AssociationSet Name="fk_tb_arquivo_tb_questao" Association="sqlescolaModel.Store.fk_tb_arquivo_tb_questao">
+      <End Role="tb_questao" EntitySet="tb_questao" />
+      <End Role="tb_arquivo" EntitySet="tb_arquivo" />
+    </AssociationSet>
     <AssociationSet Name="fk_tb_matricula_tb_turma1" Association="sqlescolaModel.Store.fk_tb_matricula_tb_turma1">
       <End Role="tb_turma" EntitySet="tb_turma" />
       <End Role="tb_matricula" EntitySet="tb_matricula" />
@@ -45,6 +50,16 @@
       <End Role="tb_resultado" EntitySet="tb_resultado" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="tb_arquivo">
+    <Key>
+      <PropertyRef Name="Id_Arquivo" />
+    </Key>
+    <Property Name="Id_Arquivo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Questao" Type="int" Nullable="false" />
+    <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="Tipo" Type="varchar" Nullable="false" MaxLength="4" />
+    <Property Name="Arquivo" Type="blob" Nullable="false" />
+  </EntityType>
   <EntityType Name="tb_ativar_perfil">
     <Key>
       <PropertyRef Name="Id_Ativar_Perfil" />
@@ -83,7 +98,6 @@
     <Property Name="Ordem" Type="int" Nullable="false" />
     <Property Name="Data_Criacao" Type="datetime" />
     <Property Name="Data_Alteracao" Type="datetime" />
-    <Property Name="Arquivo" Type="blob" />
   </EntityType>
   <EntityType Name="tb_questao_restricoes">
     <Key>
@@ -146,6 +160,18 @@
     <Property Name="Foto" Type="blob" />
     <Property Name="UserName" Type="varchar" MaxLength="60" />
   </EntityType>
+  <Association Name="fk_tb_arquivo_tb_questao">
+    <End Role="tb_questao" Type="sqlescolaModel.Store.tb_questao" Multiplicity="1" />
+    <End Role="tb_arquivo" Type="sqlescolaModel.Store.tb_arquivo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_questao">
+        <PropertyRef Name="Id_Questao" />
+      </Principal>
+      <Dependent Role="tb_arquivo">
+        <PropertyRef Name="Id_Questao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_tb_matricula_tb_turma1">
     <End Role="tb_turma" Type="sqlescolaModel.Store.tb_turma" Multiplicity="1" />
     <End Role="tb_matricula" Type="sqlescolaModel.Store.tb_matricula" Multiplicity="*" />

@@ -99,8 +99,7 @@ namespace SQLEscola.Gerenciadores
                             DataAlteracao = questao.Data_Alteracao,
                             ScriptCriacao = questao.ScriptCriacao,
                             ScriptPovoamento = questao.ScriptPovoamento,
-                            ScriptResultado = questao.ScriptResolucao,
-                            ArrayBytes = questao.Arquivo
+                            ScriptResultado = questao.ScriptResolucao
                         };
             return query;
         }
@@ -143,6 +142,13 @@ namespace SQLEscola.Gerenciadores
             return questoes;
         }
 
+        public QuestaoModel ObterPorData(DateTime data)
+        {
+            IEnumerable<QuestaoModel> resps = GetQuery().Where(resp => resp.DataCriacao == data).OrderBy(quest => quest.Id_Questao);
+
+            return resps.FirstOrDefault();
+        }
+
 
         /// <summary>
         /// Atribui dados do Usuario Model para o Usuario Entity
@@ -161,8 +167,6 @@ namespace SQLEscola.Gerenciadores
             questaoE.ScriptCriacao = questao.ScriptCriacao;
             questaoE.ScriptPovoamento = questao.ScriptPovoamento;
             questaoE.ScriptResolucao = questao.ScriptResultado;
-            Global global = new Global();
-            questaoE.Arquivo = global.ConvertToByte(questao.Arquivo);
         }
     }
 }

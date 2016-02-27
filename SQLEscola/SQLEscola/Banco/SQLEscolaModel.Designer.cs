@@ -23,6 +23,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_arquivo_tb_questao", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_questao), "tb_arquivo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_arquivo), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_atividade1", "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_atividade), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_questao1", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_questao), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "tb_questao_restricoes", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), "tb_restricao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_restricao))]
@@ -224,6 +225,22 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<tb_arquivo> tb_arquivo
+        {
+            get
+            {
+                if ((_tb_arquivo == null))
+                {
+                    _tb_arquivo = base.CreateObjectSet<tb_arquivo>("tb_arquivo");
+                }
+                return _tb_arquivo;
+            }
+        }
+        private ObjectSet<tb_arquivo> _tb_arquivo;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<tb_questao> tb_questao
         {
             get
@@ -314,6 +331,14 @@ namespace SQLEscola.Banco
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the tb_arquivo EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_arquivo(tb_arquivo tb_arquivo)
+        {
+            base.AddObject("tb_arquivo", tb_arquivo);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the tb_questao EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTotb_questao(tb_questao tb_questao)
@@ -328,6 +353,209 @@ namespace SQLEscola.Banco
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="sqlescolaModel", Name="tb_arquivo")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_arquivo : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_arquivo object.
+        /// </summary>
+        /// <param name="id_Arquivo">Initial value of the Id_Arquivo property.</param>
+        /// <param name="id_Questao">Initial value of the Id_Questao property.</param>
+        /// <param name="nome">Initial value of the Nome property.</param>
+        /// <param name="tipo">Initial value of the Tipo property.</param>
+        /// <param name="arquivo">Initial value of the Arquivo property.</param>
+        public static tb_arquivo Createtb_arquivo(global::System.Int32 id_Arquivo, global::System.Int32 id_Questao, global::System.String nome, global::System.String tipo, global::System.Byte[] arquivo)
+        {
+            tb_arquivo tb_arquivo = new tb_arquivo();
+            tb_arquivo.Id_Arquivo = id_Arquivo;
+            tb_arquivo.Id_Questao = id_Questao;
+            tb_arquivo.Nome = nome;
+            tb_arquivo.Tipo = tipo;
+            tb_arquivo.Arquivo = arquivo;
+            return tb_arquivo;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id_Arquivo
+        {
+            get
+            {
+                return _Id_Arquivo;
+            }
+            set
+            {
+                if (_Id_Arquivo != value)
+                {
+                    OnId_ArquivoChanging(value);
+                    ReportPropertyChanging("Id_Arquivo");
+                    _Id_Arquivo = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id_Arquivo");
+                    OnId_ArquivoChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id_Arquivo;
+        partial void OnId_ArquivoChanging(global::System.Int32 value);
+        partial void OnId_ArquivoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id_Questao
+        {
+            get
+            {
+                return _Id_Questao;
+            }
+            set
+            {
+                OnId_QuestaoChanging(value);
+                ReportPropertyChanging("Id_Questao");
+                _Id_Questao = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Id_Questao");
+                OnId_QuestaoChanged();
+            }
+        }
+        private global::System.Int32 _Id_Questao;
+        partial void OnId_QuestaoChanging(global::System.Int32 value);
+        partial void OnId_QuestaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Nome
+        {
+            get
+            {
+                return _Nome;
+            }
+            set
+            {
+                OnNomeChanging(value);
+                ReportPropertyChanging("Nome");
+                _Nome = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Nome");
+                OnNomeChanged();
+            }
+        }
+        private global::System.String _Nome;
+        partial void OnNomeChanging(global::System.String value);
+        partial void OnNomeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Tipo
+        {
+            get
+            {
+                return _Tipo;
+            }
+            set
+            {
+                OnTipoChanging(value);
+                ReportPropertyChanging("Tipo");
+                _Tipo = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Tipo");
+                OnTipoChanged();
+            }
+        }
+        private global::System.String _Tipo;
+        partial void OnTipoChanging(global::System.String value);
+        partial void OnTipoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] Arquivo
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_Arquivo);
+            }
+            set
+            {
+                OnArquivoChanging(value);
+                ReportPropertyChanging("Arquivo");
+                _Arquivo = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Arquivo");
+                OnArquivoChanged();
+            }
+        }
+        private global::System.Byte[] _Arquivo;
+        partial void OnArquivoChanging(global::System.Byte[] value);
+        partial void OnArquivoChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_arquivo_tb_questao", "tb_questao")]
+        public tb_questao tb_questao
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_questao>("sqlescolaModel.fk_tb_arquivo_tb_questao", "tb_questao").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_questao>("sqlescolaModel.fk_tb_arquivo_tb_questao", "tb_questao").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_questao> tb_questaoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_questao>("sqlescolaModel.fk_tb_arquivo_tb_questao", "tb_questao");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_questao>("sqlescolaModel.fk_tb_arquivo_tb_questao", "tb_questao", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -1037,35 +1265,33 @@ namespace SQLEscola.Banco
         private Nullable<global::System.DateTime> _Data_Alteracao;
         partial void OnData_AlteracaoChanging(Nullable<global::System.DateTime> value);
         partial void OnData_AlteracaoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.Byte[] Arquivo
-        {
-            get
-            {
-                return StructuralObject.GetValidValue(_Arquivo);
-            }
-            set
-            {
-                OnArquivoChanging(value);
-                ReportPropertyChanging("Arquivo");
-                _Arquivo = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Arquivo");
-                OnArquivoChanged();
-            }
-        }
-        private global::System.Byte[] _Arquivo;
-        partial void OnArquivoChanging(global::System.Byte[] value);
-        partial void OnArquivoChanged();
 
         #endregion
 
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_arquivo_tb_questao", "tb_arquivo")]
+        public EntityCollection<tb_arquivo> tb_arquivo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_arquivo>("sqlescolaModel.fk_tb_arquivo_tb_questao", "tb_arquivo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_arquivo>("sqlescolaModel.fk_tb_arquivo_tb_questao", "tb_arquivo", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.

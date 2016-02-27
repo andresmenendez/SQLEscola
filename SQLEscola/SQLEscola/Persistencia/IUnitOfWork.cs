@@ -6,6 +6,7 @@ namespace Persistence
     public interface IUnitOfWork
     {
         void Commit(bool shared);
+        IRepositorioGenerico<tb_arquivo> RepositorioArquivo { get; }
         IRepositorioGenerico<tb_atividade> RepositorioAtividade { get; }
         IRepositorioGenerico<tb_ativar_perfil> RepositorioAtivarPerfil { get; }
         IRepositorioGenerico<tb_matricula> RepositorioMatricula { get; }
