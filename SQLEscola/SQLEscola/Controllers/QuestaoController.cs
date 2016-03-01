@@ -76,16 +76,22 @@ namespace SQLEscola.Controllers
             return File(arq.ArrayBytes, "application/pdf", arq.Nome);
         }
 
+        public ActionResult RemoverArquivo(int id)
+        {
+            int idQues = id;
+            ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(id);
+            GerenciadorArquivo.GetInstance().Remover(arq.Id_Arquivo);
+            return RedirectToAction("Edit", new { id = idQues });
+        }
+
         //
         // GET: /Questao/Create
 
         public ActionResult Create(int id)
         {
             QuestaoModel quest = new QuestaoModel();
-            int NumOrdem = GerenciadorQuestao.GetInstance().ObterPorAtividade(id).Count();
             ViewBag.Id_Atividade = id;
             quest.Id_Atividade = id;
-            quest.Ordem = NumOrdem + 1;
             ViewBag.Error = "";
             return View(quest);
         }
@@ -104,6 +110,7 @@ namespace SQLEscola.Controllers
                     model.DataCriacao = DateTime.Now;
                     model.DataAlteracao = DateTime.Now;
                     model.Id_Tecnologia = Global.IdTecnologiaSQLServer;
+                    model.Status = Global.StatusQuestaoCriada;
                     ViewBag.Id_Atividade = model.Id_Atividade;
                     GerenciadorQuestao.GetInstance().Inserir(model);
                     return RedirectToAction("Index", new { id = model.Id_Atividade });
@@ -116,6 +123,7 @@ namespace SQLEscola.Controllers
                         model.DataCriacao = DateTime.Now;
                         model.DataAlteracao = DateTime.Now;
                         model.Id_Tecnologia = Global.IdTecnologiaSQLServer;
+                        model.Status = Global.StatusQuestaoCriada;
                         ViewBag.Id_Atividade = model.Id_Atividade;
                         GerenciadorQuestao.GetInstance().Inserir(model);
                         ArquivoModel arq = new ArquivoModel();
@@ -169,6 +177,8 @@ namespace SQLEscola.Controllers
                     qust.ScriptResultado = model.ScriptResultado;
                     qust.ArrayBytes = model.ArrayBytes;
                     qust.DataCriacao = model.DataCriacao;
+                    qust.Status = model.Status;
+                    qust.Ordem = model.Ordem;
                     GerenciadorQuestao.GetInstance().Editar(qust);
                     return RedirectToAction("Index", new { id = model.Id_Atividade });
                 }

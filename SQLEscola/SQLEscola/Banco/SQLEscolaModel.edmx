@@ -100,9 +100,10 @@
           <Property Name="ScriptCriacao" Type="text" />
           <Property Name="ScriptPovoamento" Type="text" />
           <Property Name="ScriptResolucao" Type="text" />
-          <Property Name="Ordem" Type="int" Nullable="false" />
+          <Property Name="Ordem" Type="int" />
           <Property Name="Data_Criacao" Type="datetime" />
           <Property Name="Data_Alteracao" Type="datetime" />
+          <Property Name="Status" Type="varchar" Nullable="false" MaxLength="1" />
         </EntityType>
         <EntityType Name="tb_questao_restricoes">
           <Key>
@@ -480,9 +481,10 @@
           <Property Type="String" Name="ScriptCriacao" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ScriptPovoamento" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ScriptResolucao" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Ordem" Nullable="false" />
+          <Property Type="Int32" Name="Ordem" />
           <Property Type="DateTime" Name="Data_Criacao" />
           <Property Type="DateTime" Name="Data_Alteracao" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tb_arquivo" Relationship="sqlescolaModel.fk_tb_arquivo_tb_questao" FromRole="tb_questao" ToRole="tb_arquivo" />
           <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_questao" ToRole="tb_atividade" />
           <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_questao1" FromRole="tb_questao" ToRole="tb_resposta" />
@@ -634,6 +636,7 @@
           <EntitySetMapping Name="tb_questao">
             <EntityTypeMapping TypeName="sqlescolaModel.tb_questao">
               <MappingFragment StoreEntitySet="tb_questao">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
                 <ScalarProperty Name="Data_Criacao" ColumnName="Data_Criacao" />
                 <ScalarProperty Name="Ordem" ColumnName="Ordem" />
@@ -703,9 +706,9 @@
         <EntityTypeShape EntityType="sqlescolaModel.tb_atividade" Width="1.5" PointX="5.25" PointY="14" Height="1.787985026041671" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_ativar_perfil" Width="1.5" PointX="2.5" PointY="4.5" Height="1.5956835937500031" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_arquivo" Width="1.5" PointX="9.75" PointY="17.75" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_questao" Width="1.5" PointX="7.5" PointY="13" Height="3.7109993489583388" />
+        <EntityTypeShape EntityType="sqlescolaModel.tb_questao" Width="1.5" PointX="7.5" PointY="13" Height="3.9033007812500031" />
         <AssociationConnector Association="sqlescolaModel.fk_tb_arquivo_tb_questao" >
-          <ConnectorPoint PointX="8.25" PointY="16.710999348958339" />
+          <ConnectorPoint PointX="8.25" PointY="16.903300781250003" />
           <ConnectorPoint PointX="8.25" PointY="18.8362939453125" />
           <ConnectorPoint PointX="9.75" PointY="18.8362939453125" />
         </AssociationConnector>

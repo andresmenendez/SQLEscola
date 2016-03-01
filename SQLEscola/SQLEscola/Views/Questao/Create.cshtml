@@ -25,13 +25,13 @@
         <legend>Criar Questão</legend>
 
         @Html.HiddenFor(model => model.Id_Atividade)
-        @Html.HiddenFor(model => model.Ordem)
 
         <div class="editor-label">
             @Html.Label("Número de Ordem")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Ordem, new { style = "width:30px", disabled = "disabled" })
+            @Html.TextBoxFor(model => model.Ordem, new { style = "width:30px" })
+            @Html.ValidationMessageFor(model => model.Ordem)
         </div>
 
         <div class="editor-label">

@@ -93,13 +93,14 @@ namespace SQLEscola.Gerenciadores
                             Id_Questao = questao.Id_Questao,
                             Id_Tecnologia = questao.Id_Tecnologia,
                             Id_Atividade = questao.Id_Atividade,
-                            Ordem = questao.Ordem,
+                            Ordem = (int)questao.Ordem,
                             Descricao = questao.Descricao,
                             DataCriacao = questao.Data_Criacao,
                             DataAlteracao = questao.Data_Alteracao,
                             ScriptCriacao = questao.ScriptCriacao,
                             ScriptPovoamento = questao.ScriptPovoamento,
-                            ScriptResultado = questao.ScriptResolucao
+                            ScriptResultado = questao.ScriptResolucao,
+                            Status = questao.Status
                         };
             return query;
         }
@@ -167,6 +168,7 @@ namespace SQLEscola.Gerenciadores
             questaoE.ScriptCriacao = questao.ScriptCriacao;
             questaoE.ScriptPovoamento = questao.ScriptPovoamento;
             questaoE.ScriptResolucao = questao.ScriptResultado;
+            questaoE.Status = questao.Status;
         }
     }
 }

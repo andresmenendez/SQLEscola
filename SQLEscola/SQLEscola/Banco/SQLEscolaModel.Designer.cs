@@ -1007,15 +1007,15 @@ namespace SQLEscola.Banco
         /// <param name="id_Tecnologia">Initial value of the Id_Tecnologia property.</param>
         /// <param name="id_Atividade">Initial value of the Id_Atividade property.</param>
         /// <param name="descricao">Initial value of the Descricao property.</param>
-        /// <param name="ordem">Initial value of the Ordem property.</param>
-        public static tb_questao Createtb_questao(global::System.Int32 id_Questao, global::System.Int32 id_Tecnologia, global::System.Int32 id_Atividade, global::System.String descricao, global::System.Int32 ordem)
+        /// <param name="status">Initial value of the Status property.</param>
+        public static tb_questao Createtb_questao(global::System.Int32 id_Questao, global::System.Int32 id_Tecnologia, global::System.Int32 id_Atividade, global::System.String descricao, global::System.String status)
         {
             tb_questao tb_questao = new tb_questao();
             tb_questao.Id_Questao = id_Questao;
             tb_questao.Id_Tecnologia = id_Tecnologia;
             tb_questao.Id_Atividade = id_Atividade;
             tb_questao.Descricao = descricao;
-            tb_questao.Ordem = ordem;
+            tb_questao.Status = status;
             return tb_questao;
         }
 
@@ -1197,9 +1197,9 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 Ordem
+        public Nullable<global::System.Int32> Ordem
         {
             get
             {
@@ -1214,8 +1214,8 @@ namespace SQLEscola.Banco
                 OnOrdemChanged();
             }
         }
-        private global::System.Int32 _Ordem;
-        partial void OnOrdemChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _Ordem;
+        partial void OnOrdemChanging(Nullable<global::System.Int32> value);
         partial void OnOrdemChanged();
     
         /// <summary>
@@ -1265,6 +1265,30 @@ namespace SQLEscola.Banco
         private Nullable<global::System.DateTime> _Data_Alteracao;
         partial void OnData_AlteracaoChanging(Nullable<global::System.DateTime> value);
         partial void OnData_AlteracaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                OnStatusChanging(value);
+                ReportPropertyChanging("Status");
+                _Status = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Status");
+                OnStatusChanged();
+            }
+        }
+        private global::System.String _Status;
+        partial void OnStatusChanging(global::System.String value);
+        partial void OnStatusChanged();
 
         #endregion
 

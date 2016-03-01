@@ -28,12 +28,13 @@
         @Html.HiddenFor(model => model.DataCriacao)
         @Html.HiddenFor(model => model.DataAlteracao)
         @Html.HiddenFor(model => model.Id_Tecnologia)
+        @Html.HiddenFor(model => model.Status)
 
         <div class="editor-label">
             @Html.Label("Número de Ordem")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Ordem, new { style = "width:30px", disabled = "disabled" })
+            @Html.TextBoxFor(model => model.Ordem, new { style = "width:30px" })
         </div>
 
         <div class="editor-label">
@@ -47,12 +48,22 @@
         @if (Model.ArrayBytes != null)
         {
             <br />
+            <div class="editor-label">
+                @Html.Label("Arquivo")
+            </div>
             <div class="editor-field" style="font-weight:bolder">
                 <a href="@Url.Action("PDFDownload", "Questao", new { id = Model.Id_Questao })">
                     <img alt="logo" src="../../Content/themes/base/images/arquivo.png" width="25px" height="25px" />
                 </a>
                 @Html.ActionLink("Baixar Arquivo", "PDFDownload", new { id = Model.Id_Questao })
+
+                &nbsp &nbsp 
+                
+                @Html.ActionLink("Remover Arquivo", "RemoverArquivo", new { id = Model.Id_Questao },
+            new { @class = "but but-error but-shadow but-rc", id = "bt_remover" }) 
             </div>
+
+            
         }
         else
         {
@@ -99,3 +110,11 @@
 <div>
     @Html.ActionLink("Retornar", "Index", "Questao", new { id = @ViewBag.Id_Atividade }, new { @class = "modal-link" })
 </div>
+
+<style>
+    #bt_remover
+    {
+        color:White;
+        text-decoration:none;
+    }
+</style>

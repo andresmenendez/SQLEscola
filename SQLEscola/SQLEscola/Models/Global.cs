@@ -22,6 +22,8 @@ namespace SQLEscola.Models
         public const string PerfilAdm = "Administrador";
         public const int IdTecnologiaSQLServer = 1;
         /*
+         * Status para matrícula
+         * 
             E - Solicitacao de matricula para professor enviada
             A - Aprovação de matricula
             R - Recusada de matricula
@@ -29,6 +31,14 @@ namespace SQLEscola.Models
         public const string StatusSolicitacaoEnviada = "E";
         public const string StatusAprovacao = "A";
         public const string StatusRejeicao = "R";
+        /*
+         * Status para criação da questão
+         * 
+            C - Criada (Questão criada mas não aparece para o aluno)
+            V - Válida (Questão validada)
+        */
+        public const string StatusQuestaoCriada = "C";
+        public const string StatusQuestaoValidada = "V";
 
         public byte[] ConvertToByte(HttpPostedFileBase file)
         {

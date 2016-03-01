@@ -25,7 +25,6 @@ namespace SQLEscola.Models
         [Display(Name = "Script de Resultado")]
         public string ScriptResultado { get; set; }
 
-        [Required]
         [Display(Name = "Ordem da Questão")]
         public int Ordem { get; set; }
 
@@ -36,6 +35,8 @@ namespace SQLEscola.Models
         [Display(Name = "Data da Alteração")]
         [DataType(DataType.Date)]
         public DateTime? DataAlteracao { get; set; }
+
+        public string Status { get; set; }
 
         [Required]
         public int Id_Tecnologia { get; set; }

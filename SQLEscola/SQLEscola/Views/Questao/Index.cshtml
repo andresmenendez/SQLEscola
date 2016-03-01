@@ -23,54 +23,71 @@
 <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
 
 <div class="box-content">
+    @helper CustomRenderingOfColumn(SQLEscola.Models.QuestaoModel questao)
+    {
+        if (questao.Status == "C")
+        {
+            @Html.Label("Criada");
+        }
+        else
+        {
+            @Html.Label("Questão Válida");
+        }
+    }
     @Html.Grid(Model).Columns(columns =>
     {
 
-        columns.Add(quest => quest.Ordem)
-                .Titled("Ordem")
-                .SetWidth(100)
-                .Encoded(false)
-                .Sanitized(false);
+    columns.Add(quest => quest.Ordem)
+            .Titled("Ordem")
+            .SetWidth(100)
+            .Encoded(false)
+            .Sanitized(false);
 
-        columns.Add(quest => quest.Descricao)
-                .Titled("Descrição da Questão")
-                .ThenSortByDescending(quest => quest.Descricao)
-                .SetWidth(400)
-                .Filterable(true);
+    columns.Add(quest => quest.Descricao)
+            .Titled("Descrição da Questão")
+            .ThenSortByDescending(quest => quest.Descricao)
+            .SetWidth(400)
+            .Filterable(true);
 
-        
-
-        /* Adding not mapped column, that renders body, using inline Razor html helper */
-        columns.Add()
-                .Titled("Respostas dos Alunos")
+    columns.Add()
+                .Titled("Status")
                 .Encoded(false)
                 .Sanitized(false)
-                .SetWidth(30)
-                .RenderValueAs(ativ => Html.ActionLink("Respostas", "ListaRespostas", "Resposta",new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
-        
-        columns.Add()
-                .Titled("Visualizar")
-                .Encoded(false)
-                .Sanitized(false)
-                .SetWidth(30)
-                .RenderValueAs(ativ => Html.ActionLink("Visualizar", "Details", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
-        
-        columns.Add()
-                .Titled("Editar")
-                .Encoded(false)
-                .Sanitized(false)
-                .SetWidth(30)
-                .RenderValueAs(ativ => Html.ActionLink("Editar", "Edit", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+                .SetWidth(150)
+                .Filterable(true)
+                .RenderValueAs(questao => CustomRenderingOfColumn(questao));
 
-        columns.Add()
-                .Titled("Remover")
-                .Encoded(false)
-                .Sanitized(false)
-                .SetWidth(30)
-                .RenderValueAs(ativ => Html.ActionLink("Remover", "Delete", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
-  
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    columns.Add()
+            .Titled("Respostas dos Alunos")
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(ativ => Html.ActionLink("Respostas", "ListaRespostas", "Resposta", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
 
-    }).WithPaging(5).Sortable()
+    columns.Add()
+            .Titled("Visualizar")
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(ativ => Html.ActionLink("Visualizar", "Details", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+
+    columns.Add()
+            .Titled("Editar")
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(ativ => Html.ActionLink("Editar", "Edit", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+
+    columns.Add()
+            .Titled("Remover")
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(ativ => Html.ActionLink("Remover", "Delete", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+
+
+}).WithPaging(5).Sortable()
 </div>
 <br />
 <div>
