@@ -34,5 +34,7 @@ namespace SQLEscola.Models
         //Para tela de Respostas
         [Display(Name = "Erros no Script")]
         public string ScriptErros { get; set; }
+        //Para exibir Arquivos
+        public byte[] ArrayBytes { get; set; }
     }
 }

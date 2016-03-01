@@ -44,6 +44,16 @@
 
         <h4 id="Enunciado" style="width:50%;"></h4>
 
+
+        @Html.Hidden("Arquivo", ((string)Session["ListaQuestao"]))
+        <div class="editor-field" style="font-weight:bolder;display:none" id="mostrarArquivo" >
+                <a href="@Url.Action("PDFDownload", "Questao", new { id = Model.Questoes })">
+                    <img alt="logo" src="../../Content/themes/base/images/arquivo.png" width="25px" height="25px" />
+                </a>
+                @Html.ActionLink("Baixar Arquivo", "PDFDownload", "Questao", new { id = Session["NomeDaSession"] }, null)
+            </div>
+            <br />
+
         <div class="editor-label">
             @Html.Label("Script de Resposta")
         </div>
@@ -63,10 +73,21 @@
 </div>
 
 <script type="text/javascript">
+    $("#mostrarArquivo").hide();
     $('#ddlQuestoes').change(function () {
         var sel = $('#ddlQuestoes').get(0);
         var valueSelect = sel.options[sel.selectedIndex].text;
         var valor = sel.options[sel.selectedIndex].value;
         $('#Enunciado').text('Questão Selecionada: ' + valueSelect);
+
+        var lista = $('#Arquivo').val();
+        var array = lista.split(',');
+        for (i = 0; i < array.length; i++) {
+            if (array[i] == valor.toString()) {
+                $("#mostrarArquivo").show();
+                hfSessionValue.Value = HttpContext.Current.Session("NomeDaSession").ToString
+                break;
+            }
+        }
     });
 </script>

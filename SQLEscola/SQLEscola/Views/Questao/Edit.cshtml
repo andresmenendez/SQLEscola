@@ -17,7 +17,7 @@
     </ul>
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Questao", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
     <fieldset>
@@ -25,8 +25,8 @@
 
         @Html.HiddenFor(model => model.Id_Questao)
         @Html.HiddenFor(model => model.Id_Atividade)
-        @Html.HiddenFor(model => model.Ordem)
         @Html.HiddenFor(model => model.DataCriacao)
+        @Html.HiddenFor(model => model.DataAlteracao)
         @Html.HiddenFor(model => model.Id_Tecnologia)
 
         <div class="editor-label">
@@ -40,7 +40,7 @@
             @Html.Label("Descrição")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Descricao, new { style = "width:400px" })
+            @Html.TextAreaFor(model => model.Descricao, new { style = "width:400px;height:100px;" })
             @Html.ValidationMessageFor(model => model.Descricao)
         </div>
 

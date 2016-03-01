@@ -141,7 +141,12 @@ namespace SQLEscola.Controllers
         public ActionResult Edit(int id)
         {
             QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(id);
-            qust.ArrayBytes = GerenciadorArquivo.GetInstance().ObterPorQuestao(id).ArrayBytes;
+            ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(id);
+            if (arq != null)
+            {
+                qust.ArrayBytes = arq.ArrayBytes;
+            }
+            ViewBag.Error = "";
             ViewBag.Id_Atividade = qust.Id_Atividade;
             return View(qust);
         }
@@ -156,8 +161,15 @@ namespace SQLEscola.Controllers
             {
                 if (file == null)
                 {
-                    model.DataAlteracao = DateTime.Now;
-                    GerenciadorQuestao.GetInstance().Editar(model);
+                    QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
+                    qust.DataAlteracao = DateTime.Now;
+                    qust.Descricao = model.Descricao;
+                    qust.ScriptCriacao = model.ScriptCriacao;
+                    qust.ScriptPovoamento = model.ScriptPovoamento;
+                    qust.ScriptResultado = model.ScriptResultado;
+                    qust.ArrayBytes = model.ArrayBytes;
+                    qust.DataCriacao = model.DataCriacao;
+                    GerenciadorQuestao.GetInstance().Editar(qust);
                     return RedirectToAction("Index", new { id = model.Id_Atividade });
                 }
                 else
@@ -165,8 +177,15 @@ namespace SQLEscola.Controllers
                     string[] tipo = file.FileName.Split('.');
                     if (tipo[1].ToLower() == "pdf" | tipo[1].ToLower() == "doc" | tipo[1].ToLower() == "docx")
                     {
-                        model.DataAlteracao = DateTime.Now;
-                        GerenciadorQuestao.GetInstance().Editar(model);
+                        QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
+                        qust.DataAlteracao = DateTime.Now;
+                        qust.Descricao = model.Descricao;
+                        qust.ScriptCriacao = model.ScriptCriacao;
+                        qust.ScriptPovoamento = model.ScriptPovoamento;
+                        qust.ScriptResultado = model.ScriptResultado;
+                        qust.ArrayBytes = model.ArrayBytes;
+                        qust.DataCriacao = model.DataCriacao;
+                        GerenciadorQuestao.GetInstance().Editar(qust);
                         ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(model.Id_Questao);
                         bool novoArq = false;
                         if (arq == null)
@@ -174,6 +193,7 @@ namespace SQLEscola.Controllers
                             arq = new ArquivoModel();
                             novoArq = true;
                         }
+                        arq.Id_Questao = qust.Id_Questao;
                         arq.Arquivo = file;
                         arq.Nome = file.FileName;
                         arq.Tipo = tipo[1];
@@ -213,8 +233,22 @@ namespace SQLEscola.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(id);
-            GerenciadorQuestao.GetInstance().Remover(id);
-            return RedirectToAction("Index", new { id = quest.Id_Atividade });
+            try
+            {
+                ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(id);
+                if (arq != null)
+                {
+                    GerenciadorArquivo.GetInstance().Remover(arq.Id_Arquivo);
+                }
+                GerenciadorQuestao.GetInstance().Remover(id);
+                
+                return RedirectToAction("Index", new { id = quest.Id_Atividade });
+            }
+            catch (Exception)
+            {
+                //TODO Retornar Erro
+                return View(quest);
+            }
         }
     }
 }

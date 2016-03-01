@@ -149,6 +149,18 @@ namespace SQLEscola.Controllers
                         "Id_Questao",
                         "Descricao"
                     );
+                //Listando todas as questões da atividade selecionada para poder exibir o arquivo
+                string listaInteiros = "";
+                List<QuestaoModel> listaQuestParaArquivo = GerenciadorQuestao.GetInstance().ObterPorAtividade(resp.Atividades).ToList();
+                foreach (QuestaoModel item in listaQuestParaArquivo)
+                {
+                    ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(item.Id_Questao);
+                    if (arq != null)
+                    {
+                        listaInteiros += item.Id_Questao.ToString()+",";
+                    }
+                }
+                Session["ListaQuestao"] = listaInteiros;
             }
             //Quando todos os combos são selecionados e clica no botão de submeter
             else if (Convert.ToInt32(Session["IdTurma"].ToString()) != 0
@@ -206,6 +218,11 @@ namespace SQLEscola.Controllers
             ViewBag.NomeQuestao = GerenciadorQuestao.GetInstance().Obter(id).Descricao;
             ViewBag.Ordem = GerenciadorQuestao.GetInstance().Obter(id).Ordem;
             ViewBag.Id_Atividade = GerenciadorQuestao.GetInstance().Obter(id).Id_Atividade;
+            ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(id);
+            if (arq != null)
+            {
+                resp.ArrayBytes = arq.ArrayBytes;
+            }
             return View(resp);
         }
 
