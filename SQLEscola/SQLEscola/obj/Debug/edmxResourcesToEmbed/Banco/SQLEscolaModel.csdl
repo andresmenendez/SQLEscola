@@ -203,9 +203,10 @@
     <Property Type="String" Name="ScriptCriacao" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="ScriptPovoamento" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="ScriptResolucao" MaxLength="65535" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="Ordem" Nullable="false" />
+    <Property Type="Int32" Name="Ordem" />
     <Property Type="DateTime" Name="Data_Criacao" />
     <Property Type="DateTime" Name="Data_Alteracao" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tb_arquivo" Relationship="sqlescolaModel.fk_tb_arquivo_tb_questao" FromRole="tb_questao" ToRole="tb_arquivo" />
     <NavigationProperty Name="tb_atividade" Relationship="sqlescolaModel.fk_tb_questao_tb_atividade1" FromRole="tb_questao" ToRole="tb_atividade" />
     <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resposta_tb_questao1" FromRole="tb_questao" ToRole="tb_resposta" />

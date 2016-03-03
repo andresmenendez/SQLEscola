@@ -105,8 +105,8 @@ namespace SQLEscola.Controllers
 
         public ActionResult Delete(int id)
         {
-            AtividadeModel matricula = GerenciadorAtividade.GetInstance().Obter(id);
-            return View(matricula);
+            AtividadeModel ativ = GerenciadorAtividade.GetInstance().Obter(id);
+            return View(ativ);
         }
 
         //
@@ -116,7 +116,23 @@ namespace SQLEscola.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             AtividadeModel ativ = GerenciadorAtividade.GetInstance().Obter(id);
-            GerenciadorAtividade.GetInstance().Remover(id);
+            try
+            {
+                if (GerenciadorQuestao.GetInstance().ObterPorAtividade(id).Count() == 0)
+                {
+                    GerenciadorAtividade.GetInstance().Remover(id);
+                }
+                else
+                {
+                    ViewBag.Error = "Não foi possível remover esta atividade, pois devem ter questões associadas.";
+                    return View(ativ);
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Não foi possível remover esta atividade.";
+                throw;
+            }
             return RedirectToAction("Index", new { id = ativ.Id_Turma });
         }
     }

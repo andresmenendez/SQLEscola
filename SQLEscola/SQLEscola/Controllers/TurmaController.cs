@@ -130,6 +130,7 @@ namespace SQLEscola.Controllers
         public ActionResult Delete(int id)
         {
             TurmaModel turma = GerenciadorTurma.GetInstance().Obter(id);
+            ViewBag.Error = "";
             return View(turma);
         }
 
@@ -139,7 +140,29 @@ namespace SQLEscola.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            GerenciadorTurma.GetInstance().Remover(id);
+            TurmaModel turma = GerenciadorTurma.GetInstance().Obter(id);
+            try
+            {
+                List<MatriculaModel> listaMats = GerenciadorMatricula.GetInstance().ObterPorTurma(id).ToList();
+                foreach (MatriculaModel item in listaMats)
+                {
+                    GerenciadorMatricula.GetInstance().Remover(item.Id_Matricula);
+                }
+                if (GerenciadorAtividade.GetInstance().ObterPorTurma(id).Count() == 0)
+                {
+                    GerenciadorTurma.GetInstance().Remover(id);
+                }
+                else
+                {
+                    ViewBag.Error = "Não foi possível remover esta turma, pois devem existir atividades associadas. Se não existirem turmas associadas contacte o ADM do sistema.";
+                    return View(turma);
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Não foi possível remover esta turma, pois devem existir atividades associadas. Se não existirem turmas associadas contacte o ADM do sistema.";
+                throw;
+            }
             return RedirectToAction("Index");
         }
 

@@ -95,9 +95,10 @@
     <Property Name="ScriptCriacao" Type="text" />
     <Property Name="ScriptPovoamento" Type="text" />
     <Property Name="ScriptResolucao" Type="text" />
-    <Property Name="Ordem" Type="int" Nullable="false" />
+    <Property Name="Ordem" Type="int" />
     <Property Name="Data_Criacao" Type="datetime" />
     <Property Name="Data_Alteracao" Type="datetime" />
+    <Property Name="Status" Type="varchar" Nullable="false" MaxLength="1" />
   </EntityType>
   <EntityType Name="tb_questao_restricoes">
     <Key>

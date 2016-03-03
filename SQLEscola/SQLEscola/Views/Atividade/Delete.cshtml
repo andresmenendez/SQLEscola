@@ -6,6 +6,15 @@
 
 <h2>Remover</h2>
 
+@if (ViewBag.Error != "")
+{
+    <ul style="color:Red">
+        <li>
+            @ViewBag.Error
+        </li>
+    </ul>
+}
+
 <h3>Tem certeza que deseja remover esta atividade?</h3>
 <fieldset>
     <legend>Atividade</legend>
@@ -18,9 +27,22 @@
 @using (Html.BeginForm()) {
     <p>
         <p>
-            <input type="submit" value="Remover" class="but but-error but-small but-shadow but-rc" />
+            <input type="submit" value="Remover" class="but but-error but-small but-shadow but-rc" onclick="return exibirConfirmacoes()" />
         </p>
         @Html.ActionLink("Voltar", "Index")
     </p>
 }
 
+<!-- Código Javascript para confirmações do botão -->
+    <script type="text/javascript">
+        function exibirConfirmacoes() {
+            var x;
+            var r = confirm("Deseja realmente remover esta atividade?");
+            if (r == true) {
+                return true;
+            } else {
+                alert("Solicitação cancelada.");
+                return false;
+            }
+        }
+    </script>

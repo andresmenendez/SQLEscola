@@ -250,8 +250,14 @@ namespace SQLEscola.Controllers
                 {
                     GerenciadorArquivo.GetInstance().Remover(arq.Id_Arquivo);
                 }
+                List<RespostaModel> listaResp = GerenciadorResposta.GetInstance().ObterPorQuestao(id).ToList();
+                foreach (RespostaModel item in listaResp)
+                {
+                    GerenciadorResposta.GetInstance().Remover(item.Id_Resposta);
+                    ResultadoModel result = GerenciadorResultado.GetInstance().ObterPorResposta(item.Id_Resposta);
+                    GerenciadorResultado.GetInstance().Remover(result.Id_Resultado);
+                }
                 GerenciadorQuestao.GetInstance().Remover(id);
-                
                 return RedirectToAction("Index", new { id = quest.Id_Atividade });
             }
             catch (Exception)
