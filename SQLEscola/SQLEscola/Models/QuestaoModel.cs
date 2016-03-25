@@ -22,7 +22,8 @@ namespace SQLEscola.Models
         [Display(Name = "Script de Povoamento")]
         public string ScriptPovoamento { get; set; }
 
-        [Display(Name = "Script de Resultado")]
+        [Required]
+        [Display(Name = "Script de Resolução")]
         public string ScriptResultado { get; set; }
 
         [Display(Name = "Ordem da Questão")]
@@ -37,6 +38,14 @@ namespace SQLEscola.Models
         public DateTime? DataAlteracao { get; set; }
 
         public string Status { get; set; }
+
+        [Required]
+        [Display(Name = "Nome do Prodecimento do Script de Resolução")]
+        public string NomeProcedimento { get; set; }
+
+        [Required]
+        [Display(Name = "Casos de Teste")]
+        public string CasosTeste { get; set; }
 
         [Required]
         public int Id_Tecnologia { get; set; }

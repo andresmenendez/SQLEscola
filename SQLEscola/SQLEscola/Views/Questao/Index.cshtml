@@ -34,6 +34,13 @@
             @Html.Label("Questão Válida");
         }
     }
+    @helper CustomRenderingOfColumnValidar(SQLEscola.Models.QuestaoModel questao)
+    {
+        if (questao.Status == "C")
+        {
+            @Html.ActionLink("Validar", "Validar", new { id = questao.Id_Questao }, new { @class = "modal-link" })
+        }
+    }
     @Html.Grid(Model).Columns(columns =>
     {
 
@@ -71,6 +78,13 @@
             .Sanitized(false)
             .SetWidth(30)
             .RenderValueAs(ativ => Html.ActionLink("Visualizar", "Details", new { id = ativ.Id_Questao }, new { @class = "modal-link" }));
+
+    columns.Add()
+        .Titled("Validar Questão")
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(questao => CustomRenderingOfColumnValidar(questao));
 
     columns.Add()
             .Titled("Editar")

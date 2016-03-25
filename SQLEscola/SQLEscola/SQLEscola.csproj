@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\themes\base\images\ajax-loader.gif" />
     <Content Include="Content\themes\base\images\arquivo.png" />
     <Content Include="Content\themes\base\images\setaBaixo.png" />
     <Content Include="Content\themes\base\images\setaLado.png" />
@@ -201,6 +202,7 @@
     <Content Include="Content\themes\sqlescola\js\imperio.forms.js" />
     <Content Include="Content\themes\sqlescola\js\imperio.general.js" />
     <Content Include="Content\themes\sqlescola\js\imperio.tables.js" />
+    <Content Include="Scripts\jquery-1.4.3.min.js" />
     <Content Include="Content\themes\sqlescola\js\jquery-ui.js" />
     <Content Include="Content\themes\sqlescola\js\jquery.dataTables.js" />
     <Content Include="Content\themes\sqlescola\js\jquery.dataTables.min.js" />
@@ -243,7 +245,9 @@
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\partial.view.reload.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -343,6 +347,7 @@
     <Content Include="Views\Resultado\Edit.cshtml" />
     <Content Include="Views\Resultado\Delete.cshtml" />
     <Content Include="Views\Resposta\CreateAtalho.cshtml" />
+    <Content Include="Views\Questao\Validar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

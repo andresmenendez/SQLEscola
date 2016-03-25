@@ -94,7 +94,9 @@
     <Property Name="Descricao" Type="text" Nullable="false" />
     <Property Name="ScriptCriacao" Type="text" />
     <Property Name="ScriptPovoamento" Type="text" />
-    <Property Name="ScriptResolucao" Type="text" />
+    <Property Name="ScriptResolucao" Type="text" Nullable="false" />
+    <Property Name="NomeProcedResolucao" Type="varchar" Nullable="false" MaxLength="120" />
+    <Property Name="CasosTeste" Type="text" Nullable="false" />
     <Property Name="Ordem" Type="int" />
     <Property Name="Data_Criacao" Type="datetime" />
     <Property Name="Data_Alteracao" Type="datetime" />
@@ -117,6 +119,7 @@
     <Property Name="Id_Usuario" Type="int" Nullable="false" />
     <Property Name="Data_Resposta" Type="datetime" Nullable="false" />
     <Property Name="Id_Questao" Type="int" Nullable="false" />
+    <Property Name="NomeProcedResposta" Type="varchar" Nullable="false" MaxLength="120" />
   </EntityType>
   <EntityType Name="tb_restricao">
     <Key>

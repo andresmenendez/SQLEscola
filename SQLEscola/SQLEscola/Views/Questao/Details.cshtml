@@ -67,6 +67,16 @@
             @Html.TextAreaFor(model => model.ScriptResultado, new { style = "width:750px;height:350px;", disabled = "disabled" })
         </div>
 
+        <input type="submit" id="Criacao4" value="0" style="display:none;" />
+        <div id="show4" class="editor-label" style="cursor:pointer" title="Clique para exibir os Casos de Teste">
+            <img id="imgLado4" alt="logo" src="../../Content/themes/base/images/setaLado.png" width="15px" height="15px" />
+            <img id="imgBaixo4" alt="logo" src="../../Content/themes/base/images/setaBaixo.png" width="15px" height="15px" />
+            Casos de Teste
+        </div>
+        <div id="panel4" class="editor-field">
+            @Html.TextAreaFor(model => model.CasosTeste, new { style = "width:750px;height:350px;", disabled = "disabled" })
+        </div>
+
         <div class="editor-label">
             @Html.Label("Data da Última Alteração")
         </div>
@@ -135,6 +145,25 @@
             var num = parseInt(n, 10);
             num = num + 1;
             document.querySelector("[id='Criacao3']").value = num;
+        });
+    });
+
+    document.getElementById('panel4').style.display = 'none';
+    document.getElementById('imgBaixo4').style.display = 'none';
+    $("#show4").click(function () {
+        $("#panel4").slideToggle("slow", function teste() {
+            var n = $("#Criacao4").val();
+
+            if (n % 2 == 0) {
+                document.getElementById('imgBaixo4').style.display = 'inline';
+                document.getElementById('imgLado4').style.display = 'none';
+            } else {
+                document.getElementById('imgBaixo4').style.display = 'none';
+                document.getElementById('imgLado4').style.display = 'inline';
+            }
+            var num = parseInt(n, 10);
+            num = num + 1;
+            document.querySelector("[id='Criacao4']").value = num;
         });
     });
 </script>

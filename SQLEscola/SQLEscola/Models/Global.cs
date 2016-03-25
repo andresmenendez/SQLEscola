@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.IO;
+using SQLEscola.Gerenciadores;
 
 namespace SQLEscola.Models
 {
@@ -46,6 +47,60 @@ namespace SQLEscola.Models
             BinaryReader rdr = new BinaryReader(file.InputStream);
             arq = rdr.ReadBytes((int)file.ContentLength);
             return arq;
+        }
+
+        public string ValidarQuestao(QuestaoModel quest)
+        {
+            AcessandoSQL acess = new AcessandoSQL();
+            if (quest.ScriptCriacao != null)
+            {
+                string retorno = acess.AcessandoSQLScript(quest.ScriptCriacao);
+                if (retorno != "OK")
+                {
+                    return "Houve um problema no Script de Criação. Favor verificar novamente.<br />" + retorno;
+                }
+            }
+            if (quest.ScriptPovoamento != null)
+            {
+                string retorno = acess.AcessandoSQLScript(quest.ScriptPovoamento);
+                if (retorno != "OK")
+                {
+                    return "Houve um problema no Script de Povoamento. Favor verificar novamente.<br />" + retorno;
+                }
+            }
+            //Testando para saber se o nome do procedimento informado está no script resposta
+            if (!quest.ScriptResultado.Contains(quest.NomeProcedimento))
+            {
+                return "O nome do procedimento informado difere do que está informado no Script de Resolução";
+            }
+            else
+            {
+                //exec script de resolução
+                string retrnoScriptReso = acess.AcessandoSQLScript(quest.ScriptResultado);
+                if (retrnoScriptReso != "OK")
+                {
+                    return "Houve um problema no Script de Resolução. Favor verificar novamente.<br />" + retrnoScriptReso;
+                }
+                else
+                {
+                    //exec casos de teste
+                    List<string> casos = quest.CasosTeste.Split(';').ToList<string>();
+                    foreach (string item in casos)
+                    {
+                        if (item.Length > 1)
+                        {
+                            string retorno = acess.AcessandoSQLScript(item);
+                            if (retorno != "OK")
+                            {
+                                acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento);
+                                return "Houve um problema em algum dos Casos de Teste. Favor verificar novamente.<br />SQL ERRO:" + retorno;
+                            }
+                        }
+                    }
+                }
+            }
+            acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento);
+            return "OK";
         }
     }
 

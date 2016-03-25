@@ -50,6 +50,7 @@ namespace SQLEscola.Controllers
                         {
                             if (model.UserName == "admin")
                             {
+                                //Usuario e senha: admin
                                 Session["Perfil"] = Global.PerfilAdm;
                                 Session[Global.NomeUsuario] = model.UserName;
                                 MembershipUser mu = Membership.GetUser(model.UserName);

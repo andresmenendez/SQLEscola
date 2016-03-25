@@ -93,7 +93,8 @@ namespace SQLEscola.Gerenciadores
                             Id_Resposta = resp.Id_Resposta,
                             Id_Usuario = resp.Id_Usuario,
                             ScriptResposta = resp.ScriptResposta,
-                            DataResposta = resp.Data_Resposta
+                            DataResposta = resp.Data_Resposta,
+                            NomeProcedResposta = resp.NomeProcedResposta
                         };
             return query;
         }
@@ -171,6 +172,7 @@ namespace SQLEscola.Gerenciadores
             respostaE.Id_Resposta = resp.Id_Resposta;
             respostaE.Id_Usuario = resp.Id_Usuario;
             respostaE.ScriptResposta = resp.ScriptResposta;
+            respostaE.NomeProcedResposta = resp.NomeProcedResposta;
         }
     }
 }

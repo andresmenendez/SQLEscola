@@ -27,6 +27,9 @@ namespace SQLEscola.Models
 
         public string Usuario { get; set; }
 
+        [Required]
+        public string NomeProcedResposta { get; set; }
+
         //Para tela de CreateAtaho/Reposta
         public int Turmas { get; set; }
         public int Atividades { get; set; }

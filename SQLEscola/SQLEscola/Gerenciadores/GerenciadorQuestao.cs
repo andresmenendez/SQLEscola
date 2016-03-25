@@ -100,7 +100,9 @@ namespace SQLEscola.Gerenciadores
                             ScriptCriacao = questao.ScriptCriacao,
                             ScriptPovoamento = questao.ScriptPovoamento,
                             ScriptResultado = questao.ScriptResolucao,
-                            Status = questao.Status
+                            Status = questao.Status,
+                            NomeProcedimento = questao.NomeProcedResolucao,
+                            CasosTeste = questao.CasosTeste
                         };
             return query;
         }
@@ -169,6 +171,8 @@ namespace SQLEscola.Gerenciadores
             questaoE.ScriptPovoamento = questao.ScriptPovoamento;
             questaoE.ScriptResolucao = questao.ScriptResultado;
             questaoE.Status = questao.Status;
+            questaoE.CasosTeste = questao.CasosTeste;
+            questaoE.NomeProcedResolucao = questao.NomeProcedimento;
         }
     }
 }

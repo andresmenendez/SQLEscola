@@ -51,5 +51,43 @@ namespace SQLEscola.Gerenciadores
                 
             }
         }
+
+        public List<string> AcessandoSQLScriptObtendoDados(string script)
+        {
+            List<string> listaRetorno = new List<string>();
+            //definição da string de conexão
+            SqlConnection conn = new SqlConnection(@"Data Source=pc-trabalho\SQLEXPRESS;Initial Catalog=TESTE;Integrated Security=True;Pooling=False");
+            
+            try
+            {
+                //abre a conexao
+                conn.Open();
+                //executa o comando com os parametros que foram adicionados acima
+                SqlCommand cmd = new SqlCommand(script, conn);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    listaRetorno.Add(dr[0].ToString());
+                }
+
+                //fecha a conexao
+                conn.Close();
+                return listaRetorno;
+            }
+            catch (Exception ex)
+            {
+                listaRetorno.Add(ex.Message);
+                //fecha a conexao
+                conn.Close();
+                return listaRetorno;
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+        }
     }
 }

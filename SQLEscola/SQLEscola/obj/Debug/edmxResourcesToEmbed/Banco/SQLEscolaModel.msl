@@ -10,17 +10,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tb_resposta">
-      <EntityTypeMapping TypeName="sqlescolaModel.tb_resposta">
-        <MappingFragment StoreEntitySet="tb_resposta">
-          <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
-          <ScalarProperty Name="Data_Resposta" ColumnName="Data_Resposta" />
-          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
-          <ScalarProperty Name="ScriptResposta" ColumnName="ScriptResposta" />
-          <ScalarProperty Name="Id_Resposta" ColumnName="Id_Resposta" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tb_restricao">
       <EntityTypeMapping TypeName="sqlescolaModel.tb_restricao">
         <MappingFragment StoreEntitySet="tb_restricao">
@@ -105,6 +94,8 @@
           <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
           <ScalarProperty Name="Data_Criacao" ColumnName="Data_Criacao" />
           <ScalarProperty Name="Ordem" ColumnName="Ordem" />
+          <ScalarProperty Name="CasosTeste" ColumnName="CasosTeste" />
+          <ScalarProperty Name="NomeProcedResolucao" ColumnName="NomeProcedResolucao" />
           <ScalarProperty Name="ScriptResolucao" ColumnName="ScriptResolucao" />
           <ScalarProperty Name="ScriptPovoamento" ColumnName="ScriptPovoamento" />
           <ScalarProperty Name="ScriptCriacao" ColumnName="ScriptCriacao" />
@@ -112,6 +103,18 @@
           <ScalarProperty Name="Id_Atividade" ColumnName="Id_Atividade" />
           <ScalarProperty Name="Id_Tecnologia" ColumnName="Id_Tecnologia" />
           <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_resposta">
+      <EntityTypeMapping TypeName="sqlescolaModel.tb_resposta">
+        <MappingFragment StoreEntitySet="tb_resposta">
+          <ScalarProperty Name="NomeProcedResposta" ColumnName="NomeProcedResposta" />
+          <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
+          <ScalarProperty Name="Data_Resposta" ColumnName="Data_Resposta" />
+          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+          <ScalarProperty Name="ScriptResposta" ColumnName="ScriptResposta" />
+          <ScalarProperty Name="Id_Resposta" ColumnName="Id_Resposta" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

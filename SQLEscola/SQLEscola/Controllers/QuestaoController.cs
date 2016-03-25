@@ -143,6 +143,47 @@ namespace SQLEscola.Controllers
             return View(model);
         }
 
+        public ActionResult Validar(int id)
+        {
+            QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(id);
+            ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(id);
+            if (arq != null)
+            {
+                qust.ArrayBytes = arq.ArrayBytes;
+            }
+            ViewBag.Error = "";
+            ViewBag.Id_Atividade = qust.Id_Atividade;
+            return View(qust);
+        }
+
+        //
+        // POST: /Questao/Edit/5
+
+        [HttpPost]
+        public ActionResult Validar(QuestaoModel model)
+        {
+            //Retirando validações do model
+            ModelState.Remove("Descricao");
+            ModelState.Remove("NomeProcedimento");
+            ModelState.Remove("ScriptResultado");
+            ModelState.Remove("CasosTeste");
+            //Para adiconar validação no Model: ModelState.Remove("Descricao", "");
+            QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
+            Global go = new Global();
+            string validacao = go.ValidarQuestao(quest);
+            if (validacao == "OK")
+            {
+                quest.Status = "V";
+                //GerenciadorQuestao.GetInstance().Editar(quest);
+                return RedirectToAction("Index", new { id = model.Id_Atividade });
+            }
+            else
+            {
+                ViewBag.Error = validacao;
+            }
+            return View(quest);
+        }
+
         //
         // GET: /Questao/Edit/5
 
@@ -179,6 +220,8 @@ namespace SQLEscola.Controllers
                     qust.DataCriacao = model.DataCriacao;
                     qust.Status = model.Status;
                     qust.Ordem = model.Ordem;
+                    qust.NomeProcedimento = model.NomeProcedimento;
+                    qust.CasosTeste = model.CasosTeste;
                     GerenciadorQuestao.GetInstance().Editar(qust);
                     return RedirectToAction("Index", new { id = model.Id_Atividade });
                 }

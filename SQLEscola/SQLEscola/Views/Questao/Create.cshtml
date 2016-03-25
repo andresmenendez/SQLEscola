@@ -68,11 +68,27 @@
         </div>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.NomeProcedimento)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NomeProcedimento, new { style = "width:400px;" })
+            @Html.ValidationMessageFor(model => model.NomeProcedimento)
+        </div>
+
+        <div class="editor-label">
             @Html.Label("Script de Resolução")
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.ScriptResultado, new { style = "width:400px;height:150px;" })
             @Html.ValidationMessageFor(model => model.ScriptResultado)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CasosTeste)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.CasosTeste, new { style = "width:400px;height:150px;" })
+            @Html.ValidationMessageFor(model => model.CasosTeste)
         </div>
         
         <p>

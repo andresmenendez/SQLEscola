@@ -1,0 +1,146 @@
+﻿@model SQLEscola.Models.QuestaoModel
+
+@{
+    ViewBag.Title = "Validar Questão";
+}
+<h2>Validar Questão</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<div id="pagCarregamento" ></div>
+
+@if (ViewBag.Error != "")
+{
+    <ul style="color:Red">
+        <li>
+            @Html.Raw(ViewBag.Error)
+        </li>
+    </ul>
+}
+<div>
+    @Html.ActionLink("Ir para Editar Questão", "Edit", "Questao", new { id = Model.Id_Questao }, new { @class = "modal-link" })
+</div>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Validar Questão</legend>
+
+        @Html.HiddenFor(model => model.Id_Questao)
+        @Html.HiddenFor(model => model.Id_Atividade)
+        @Html.HiddenFor(model => model.DataCriacao)
+        @Html.HiddenFor(model => model.DataAlteracao)
+        @Html.HiddenFor(model => model.Id_Tecnologia)
+        @Html.HiddenFor(model => model.Status)
+
+        <div class="editor-label">
+            @Html.Label("Número de Ordem")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Ordem, new { style = "width:30px", disabled = "disabled" })
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Descrição")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Descricao, new { style = "width:400px;height:100px;", disabled = "disabled" })
+        </div>
+
+        @if (Model.ArrayBytes != null)
+        {
+            <br />
+            <div class="editor-label">
+                @Html.Label("Arquivo")
+            </div>
+            <div class="editor-field" style="font-weight:bolder">
+                <a href="@Url.Action("PDFDownload", "Questao", new { id = Model.Id_Questao })">
+                    <img alt="logo" src="../../Content/themes/base/images/arquivo.png" width="25px" height="25px" />
+                </a>
+                @Html.ActionLink("Baixar Arquivo", "PDFDownload", new { id = Model.Id_Questao })
+
+            </div>
+
+            
+        }
+
+        <div class="editor-label">
+            @Html.Label("Script de Criação")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptCriacao, new { style = "width:400px;height:150px;", disabled = "disabled" })
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Script de Povoamento")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptPovoamento, new { style = "width:400px;height:150px;", disabled = "disabled" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NomeProcedimento)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NomeProcedimento, new { style = "width:400px;", disabled = "disabled" })
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Script de Resolução")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ScriptResultado, new { style = "width:400px;height:150px;", disabled = "disabled" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CasosTeste)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.CasosTeste, new { style = "width:400px;height:150px;", disabled = "disabled" })
+        </div>
+
+        <p>
+            <input type="submit" value="Validar Questão" class="but but-primary but-small but-shadow but-rc" id="bt_validar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Lista de Questões", "Index", "Questao", new { id = @ViewBag.Id_Atividade }, new { @class = "modal-link" })
+</div>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.4.3.min.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_validar").click(function () {
+                $("#pagCarregamento").addClass("jquery-waiting-base-container").text("Aguarde enquanto validamos todos os Scripts...");
+            });
+        });
+    </script>
+
+<style>
+        .jquery-waiting-base-container {
+            position: absolute;
+            left: 0px;
+            top:0px;
+            margin:0px;
+            width: 100%;
+            height: 100%;
+            display:block;
+            z-index: 9999997;
+            opacity: 0.65;
+            -moz-opacity: 0.65;
+            filter: alpha(opacity = 65);
+            background: black;
+            background-image: url("../Content/themes/base/images/ajax-loader.gif");
+            background-repeat: no-repeat;
+            background-position:50% 50%;
+            text-align: center;
+            overflow: hidden;
+            font-weight: bold;
+            color: white;
+            padding-top: 25%;
+        }
+    </style>

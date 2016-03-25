@@ -19,13 +19,13 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_resposta), "tb_resultado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resultado), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_matricula_tb_turma1", "tb_turma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_turma), "tb_matricula", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_matricula), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_arquivo_tb_questao", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_questao), "tb_arquivo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_arquivo), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_atividade1", "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_atividade), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_questao1", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_questao), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_resposta), "tb_resultado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resultado), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "tb_questao_restricoes", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), "tb_restricao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_restricao))]
 
 #endregion
@@ -93,22 +93,6 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_matricula> _tb_matricula;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<tb_resposta> tb_resposta
-        {
-            get
-            {
-                if ((_tb_resposta == null))
-                {
-                    _tb_resposta = base.CreateObjectSet<tb_resposta>("tb_resposta");
-                }
-                return _tb_resposta;
-            }
-        }
-        private ObjectSet<tb_resposta> _tb_resposta;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -253,6 +237,22 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_questao> _tb_questao;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_resposta> tb_resposta
+        {
+            get
+            {
+                if ((_tb_resposta == null))
+                {
+                    _tb_resposta = base.CreateObjectSet<tb_resposta>("tb_resposta");
+                }
+                return _tb_resposta;
+            }
+        }
+        private ObjectSet<tb_resposta> _tb_resposta;
 
         #endregion
 
@@ -264,14 +264,6 @@ namespace SQLEscola.Banco
         public void AddTotb_matricula(tb_matricula tb_matricula)
         {
             base.AddObject("tb_matricula", tb_matricula);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the tb_resposta EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_resposta(tb_resposta tb_resposta)
-        {
-            base.AddObject("tb_resposta", tb_resposta);
         }
     
         /// <summary>
@@ -344,6 +336,14 @@ namespace SQLEscola.Banco
         public void AddTotb_questao(tb_questao tb_questao)
         {
             base.AddObject("tb_questao", tb_questao);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_resposta EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_resposta(tb_resposta tb_resposta)
+        {
+            base.AddObject("tb_resposta", tb_resposta);
         }
 
         #endregion
@@ -1007,14 +1007,20 @@ namespace SQLEscola.Banco
         /// <param name="id_Tecnologia">Initial value of the Id_Tecnologia property.</param>
         /// <param name="id_Atividade">Initial value of the Id_Atividade property.</param>
         /// <param name="descricao">Initial value of the Descricao property.</param>
+        /// <param name="scriptResolucao">Initial value of the ScriptResolucao property.</param>
+        /// <param name="nomeProcedResolucao">Initial value of the NomeProcedResolucao property.</param>
+        /// <param name="casosTeste">Initial value of the CasosTeste property.</param>
         /// <param name="status">Initial value of the Status property.</param>
-        public static tb_questao Createtb_questao(global::System.Int32 id_Questao, global::System.Int32 id_Tecnologia, global::System.Int32 id_Atividade, global::System.String descricao, global::System.String status)
+        public static tb_questao Createtb_questao(global::System.Int32 id_Questao, global::System.Int32 id_Tecnologia, global::System.Int32 id_Atividade, global::System.String descricao, global::System.String scriptResolucao, global::System.String nomeProcedResolucao, global::System.String casosTeste, global::System.String status)
         {
             tb_questao tb_questao = new tb_questao();
             tb_questao.Id_Questao = id_Questao;
             tb_questao.Id_Tecnologia = id_Tecnologia;
             tb_questao.Id_Atividade = id_Atividade;
             tb_questao.Descricao = descricao;
+            tb_questao.ScriptResolucao = scriptResolucao;
+            tb_questao.NomeProcedResolucao = nomeProcedResolucao;
+            tb_questao.CasosTeste = casosTeste;
             tb_questao.Status = status;
             return tb_questao;
         }
@@ -1173,7 +1179,7 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String ScriptResolucao
         {
@@ -1185,7 +1191,7 @@ namespace SQLEscola.Banco
             {
                 OnScriptResolucaoChanging(value);
                 ReportPropertyChanging("ScriptResolucao");
-                _ScriptResolucao = StructuralObject.SetValidValue(value, true);
+                _ScriptResolucao = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ScriptResolucao");
                 OnScriptResolucaoChanged();
             }
@@ -1193,6 +1199,54 @@ namespace SQLEscola.Banco
         private global::System.String _ScriptResolucao;
         partial void OnScriptResolucaoChanging(global::System.String value);
         partial void OnScriptResolucaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NomeProcedResolucao
+        {
+            get
+            {
+                return _NomeProcedResolucao;
+            }
+            set
+            {
+                OnNomeProcedResolucaoChanging(value);
+                ReportPropertyChanging("NomeProcedResolucao");
+                _NomeProcedResolucao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NomeProcedResolucao");
+                OnNomeProcedResolucaoChanged();
+            }
+        }
+        private global::System.String _NomeProcedResolucao;
+        partial void OnNomeProcedResolucaoChanging(global::System.String value);
+        partial void OnNomeProcedResolucaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CasosTeste
+        {
+            get
+            {
+                return _CasosTeste;
+            }
+            set
+            {
+                OnCasosTesteChanging(value);
+                ReportPropertyChanging("CasosTeste");
+                _CasosTeste = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CasosTeste");
+                OnCasosTesteChanged();
+            }
+        }
+        private global::System.String _CasosTeste;
+        partial void OnCasosTesteChanging(global::System.String value);
+        partial void OnCasosTesteChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1421,7 +1475,8 @@ namespace SQLEscola.Banco
         /// <param name="id_Usuario">Initial value of the Id_Usuario property.</param>
         /// <param name="data_Resposta">Initial value of the Data_Resposta property.</param>
         /// <param name="id_Questao">Initial value of the Id_Questao property.</param>
-        public static tb_resposta Createtb_resposta(global::System.Int32 id_Resposta, global::System.String scriptResposta, global::System.Int32 id_Usuario, global::System.DateTime data_Resposta, global::System.Int32 id_Questao)
+        /// <param name="nomeProcedResposta">Initial value of the NomeProcedResposta property.</param>
+        public static tb_resposta Createtb_resposta(global::System.Int32 id_Resposta, global::System.String scriptResposta, global::System.Int32 id_Usuario, global::System.DateTime data_Resposta, global::System.Int32 id_Questao, global::System.String nomeProcedResposta)
         {
             tb_resposta tb_resposta = new tb_resposta();
             tb_resposta.Id_Resposta = id_Resposta;
@@ -1429,6 +1484,7 @@ namespace SQLEscola.Banco
             tb_resposta.Id_Usuario = id_Usuario;
             tb_resposta.Data_Resposta = data_Resposta;
             tb_resposta.Id_Questao = id_Questao;
+            tb_resposta.NomeProcedResposta = nomeProcedResposta;
             return tb_resposta;
         }
 
@@ -1558,6 +1614,30 @@ namespace SQLEscola.Banco
         private global::System.Int32 _Id_Questao;
         partial void OnId_QuestaoChanging(global::System.Int32 value);
         partial void OnId_QuestaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NomeProcedResposta
+        {
+            get
+            {
+                return _NomeProcedResposta;
+            }
+            set
+            {
+                OnNomeProcedRespostaChanging(value);
+                ReportPropertyChanging("NomeProcedResposta");
+                _NomeProcedResposta = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NomeProcedResposta");
+                OnNomeProcedRespostaChanged();
+            }
+        }
+        private global::System.String _NomeProcedResposta;
+        partial void OnNomeProcedRespostaChanging(global::System.String value);
+        partial void OnNomeProcedRespostaChanged();
 
         #endregion
 
@@ -1570,18 +1650,34 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resultado")]
-        public EntityCollection<tb_resultado> tb_resultado
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_resposta_tb_questao1", "tb_questao")]
+        public tb_questao tb_questao
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_resultado>("sqlescolaModel.fk_tb_resultado_tb_resposta1", "tb_resultado");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_questao>("sqlescolaModel.fk_tb_resposta_tb_questao1", "tb_questao").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_questao>("sqlescolaModel.fk_tb_resposta_tb_questao1", "tb_questao").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_questao> tb_questaoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_questao>("sqlescolaModel.fk_tb_resposta_tb_questao1", "tb_questao");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_resultado>("sqlescolaModel.fk_tb_resultado_tb_resposta1", "tb_resultado", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_questao>("sqlescolaModel.fk_tb_resposta_tb_questao1", "tb_questao", value);
                 }
             }
         }
@@ -1630,34 +1726,18 @@ namespace SQLEscola.Banco
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_resposta_tb_questao1", "tb_questao")]
-        public tb_questao tb_questao
+        [EdmRelationshipNavigationPropertyAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resultado")]
+        public EntityCollection<tb_resultado> tb_resultado
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_questao>("sqlescolaModel.fk_tb_resposta_tb_questao1", "tb_questao").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_questao>("sqlescolaModel.fk_tb_resposta_tb_questao1", "tb_questao").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<tb_questao> tb_questaoReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_questao>("sqlescolaModel.fk_tb_resposta_tb_questao1", "tb_questao");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_resultado>("sqlescolaModel.fk_tb_resultado_tb_resposta1", "tb_resultado");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_questao>("sqlescolaModel.fk_tb_resposta_tb_questao1", "tb_questao", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_resultado>("sqlescolaModel.fk_tb_resultado_tb_resposta1", "tb_resultado", value);
                 }
             }
         }
