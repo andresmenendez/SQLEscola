@@ -141,6 +141,19 @@ namespace SQLEscola.Gerenciadores
             return listaAtiv;
         }
 
+        public IEnumerable<AtividadeModel> ObterPorTurmaQuestoesValidas(int idTurma)
+        {
+            IEnumerable<AtividadeModel> ativs = GetQuery().Where(atividadeModel => atividadeModel.Id_Turma == idTurma).
+                OrderBy(atividadeModel => atividadeModel.Nome_Atividade);
+            //TODO loop em cada atividade buscando a qtde de questões.
+            List<AtividadeModel> listaAtiv = ativs.ToList();
+            foreach (AtividadeModel item in listaAtiv)
+            {
+                item.QtdeQuestoes = GerenciadorQuestao.GetInstance().ObterPorAtividadeValidas(item.Id_Atividade).Count();
+            }
+            return listaAtiv;
+        }
+
         /// <summary>
         /// Atribui dados do Usuario Model para o Usuario Entity
         /// </summary>

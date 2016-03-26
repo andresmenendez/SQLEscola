@@ -39,7 +39,7 @@ namespace SQLEscola.Controllers
             ViewBag.Atividade = ativ.Nome_Atividade;
             MembershipUser mu = Membership.GetUser(Session[Global.NomeUsuario].ToString());
             int userId = Convert.ToInt32(mu.ProviderUserKey.ToString());
-            List<QuestaoModel> lista = GerenciadorQuestao.GetInstance().ObterPorAtividade(id).ToList();
+            List<QuestaoModel> lista = GerenciadorQuestao.GetInstance().ObterPorAtividadeValidas(id).ToList();
             foreach (QuestaoModel item in lista)
             {
                 if (GerenciadorResposta.GetInstance().ObterPorQuestaoUsuario(item.Id_Questao, userId).FirstOrDefault() == null)
@@ -174,7 +174,7 @@ namespace SQLEscola.Controllers
             if (validacao == "OK")
             {
                 quest.Status = "V";
-                //GerenciadorQuestao.GetInstance().Editar(quest);
+                GerenciadorQuestao.GetInstance().Editar(quest);
                 return RedirectToAction("Index", new { id = model.Id_Atividade });
             }
             else

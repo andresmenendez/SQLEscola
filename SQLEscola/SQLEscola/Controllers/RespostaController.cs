@@ -145,13 +145,13 @@ namespace SQLEscola.Controllers
                 Session["IdAtividade"] = resp.Atividades;
                 ViewBag.Questoes = new SelectList
                     (
-                        GerenciadorQuestao.GetInstance().ObterPorAtividade(resp.Atividades),
+                        GerenciadorQuestao.GetInstance().ObterPorAtividadeValidas(resp.Atividades),
                         "Id_Questao",
                         "Descricao"
                     );
                 //Listando todas as questões da atividade selecionada para poder exibir o arquivo
                 string listaInteiros = "";
-                List<QuestaoModel> listaQuestParaArquivo = GerenciadorQuestao.GetInstance().ObterPorAtividade(resp.Atividades).ToList();
+                List<QuestaoModel> listaQuestParaArquivo = GerenciadorQuestao.GetInstance().ObterPorAtividadeValidas(resp.Atividades).ToList();
                 foreach (QuestaoModel item in listaQuestParaArquivo)
                 {
                     ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(item.Id_Questao);

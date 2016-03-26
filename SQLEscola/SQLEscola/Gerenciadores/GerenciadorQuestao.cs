@@ -132,16 +132,20 @@ namespace SQLEscola.Gerenciadores
         }
 
 
-        /// <summary>
-        /// Obtém um user pelo nome
-        /// </summary>
-        /// <param name="nome">Nome do user que será buscado base de dados</param>
-        /// <returns>Usuario model</returns>
+        public IEnumerable<QuestaoModel> ObterPorAtividadeValidas(int idAtividade)
+        {
+            IEnumerable<QuestaoModel> questoes = GetQuery().Where(questaoModel => questaoModel.Id_Atividade == idAtividade && 
+                questaoModel.Status == "V").
+                OrderBy(quest => quest.Ordem);
+            
+            return questoes;
+        }
+
         public IEnumerable<QuestaoModel> ObterPorAtividade(int idAtividade)
         {
             IEnumerable<QuestaoModel> questoes = GetQuery().Where(questaoModel => questaoModel.Id_Atividade == idAtividade).
                 OrderBy(quest => quest.Ordem);
-            
+
             return questoes;
         }
 

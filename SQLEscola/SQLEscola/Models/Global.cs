@@ -54,10 +54,19 @@ namespace SQLEscola.Models
             AcessandoSQL acess = new AcessandoSQL();
             if (quest.ScriptCriacao != null)
             {
-                string retorno = acess.AcessandoSQLScript(quest.ScriptCriacao);
-                if (retorno != "OK")
+                if (!quest.ScriptCriacao.ToLower().Contains("alter"))
                 {
-                    return "Houve um problema no Script de Criação. Favor verificar novamente.<br />" + retorno;
+                    string retorno = acess.AcessandoSQLScript(quest.ScriptCriacao);
+                    if (retorno != "OK")
+                    {
+                        acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
+                        return "Houve um problema no Script de Criação. Favor verificar novamente.<br />" + retorno;
+                    }
+                }
+                else
+                {
+                    acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
+                    return "Seu Script de Criação contém um ALTER. Favor inserir todas as tabelas com o comando CREATE.";
                 }
             }
             if (quest.ScriptPovoamento != null)
@@ -100,7 +109,23 @@ namespace SQLEscola.Models
                 }
             }
             acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento);
+            acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
             return "OK";
+        }
+
+        public string DandoDropsTables(string script)
+        {
+            string retorno = "";
+            List<string> lista = script.Split(new[] { "CREATE TABLE" }, StringSplitOptions.None).ToList();
+            foreach (string item in lista)
+            {
+                if (item.Length > 0)
+                {
+                    string tb = item.Replace(" ", "");
+                    retorno += "DROP TABLE " + tb.Substring(0, tb.IndexOf('(')) + " ";
+                }
+            }
+            return retorno;
         }
     }
 

@@ -28,7 +28,7 @@ namespace SQLEscola.Controllers
             TurmaModel turma = GerenciadorTurma.GetInstance().Obter(id);
             ViewBag.Turma = turma.Turma;
             ViewBag.Professor = GerenciadorUsuario.GetInstance().Obter(turma.Id_Usuario).Nome;
-            return View(GerenciadorAtividade.GetInstance().ObterPorTurma(id));
+            return View(GerenciadorAtividade.GetInstance().ObterPorTurmaQuestoesValidas(id));
         }
 
         //
