@@ -28,6 +28,7 @@ namespace SQLEscola.Models
         public string Usuario { get; set; }
 
         [Required]
+        [Display(Name = "Nome do Procedimento no Script de Resposta")]
         public string NomeProcedResposta { get; set; }
 
         //Para tela de CreateAtaho/Reposta

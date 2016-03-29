@@ -167,7 +167,7 @@ namespace SQLEscola.Controllers
             ModelState.Remove("NomeProcedimento");
             ModelState.Remove("ScriptResultado");
             ModelState.Remove("CasosTeste");
-            //Para adiconar validação no Model: ModelState.Remove("Descricao", "");
+            //Para adiconar validação no Model: ModelState.AddModelError("Descricao", "");
             QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
             Global go = new Global();
             string validacao = go.ValidarQuestao(quest);

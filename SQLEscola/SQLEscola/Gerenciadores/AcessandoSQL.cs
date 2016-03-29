@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace SQLEscola.Gerenciadores
 {
@@ -12,7 +13,7 @@ namespace SQLEscola.Gerenciadores
         public AcessandoSQL()
         {
         }
-
+        
         public string AcessandoSQLScript(string script)
         {
             //definição da string de conexão
@@ -52,9 +53,9 @@ namespace SQLEscola.Gerenciadores
             }
         }
 
-        public List<string> AcessandoSQLScriptObtendoDados(string script)
+        public DataTable AcessandoSQLScriptObtendoDados(string script)
         {
-            List<string> listaRetorno = new List<string>();
+            DataTable tab = new DataTable();
             //definição da string de conexão
             SqlConnection conn = new SqlConnection(@"Data Source=pc-trabalho\SQLEXPRESS;Initial Catalog=TESTE;Integrated Security=True;Pooling=False");
             
@@ -65,23 +66,27 @@ namespace SQLEscola.Gerenciadores
                 //executa o comando com os parametros que foram adicionados acima
                 SqlCommand cmd = new SqlCommand(script, conn);
 
-                SqlDataReader dr = cmd.ExecuteReader();
+                tab = ObterTabela(cmd.ExecuteReader());
 
-                while (dr.Read())
+                // Percorrendo todas as linhas
+                foreach (DataRow dtRow in tab.Rows)
                 {
-                    listaRetorno.Add(dr[0].ToString());
+                    // Percorrendo toda as colunas
+                    foreach (DataColumn dc in tab.Columns)
+                    {
+                        var field1 = dtRow[dc].ToString();
+                    }
                 }
 
                 //fecha a conexao
                 conn.Close();
-                return listaRetorno;
+                return tab;
             }
             catch (Exception ex)
             {
-                listaRetorno.Add(ex.Message);
                 //fecha a conexao
                 conn.Close();
-                return listaRetorno;
+                return tab;
             }
             finally
             {
@@ -89,5 +94,33 @@ namespace SQLEscola.Gerenciadores
 
             }
         }
+
+        public DataTable ObterTabela(DbDataReader reader)
+        { 
+            DataTable tbEsquema = reader.GetSchemaTable(); 
+            DataTable tbRetorno = new DataTable();
+            foreach (DataRow r in tbEsquema.Rows) 
+            { 
+                if(!tbRetorno.Columns.Contains(r["ColumnName"].ToString())) 
+                { 
+                    DataColumn col = new DataColumn(){ 
+                        ColumnName = r["ColumnName"].ToString(), 
+                        Unique = Convert.ToBoolean(r["IsUnique"]), 
+                        AllowDBNull = Convert.ToBoolean(r["AllowDBNull"]), 
+                        ReadOnly = Convert.ToBoolean(r["IsReadOnly"]) }; 
+                    tbRetorno.Columns.Add(col); 
+                } 
+            } 
+            while(reader.Read()) 
+            { 
+                DataRow novaLinha = tbRetorno.NewRow(); 
+                for(int i = 0; i<tbRetorno.Columns.Count;i++) { 
+                    novaLinha[i] = reader.GetValue(i); 
+                } 
+                tbRetorno.Rows.Add(novaLinha); 
+            } 
+            return tbRetorno; 
+        }
+
     }
 }

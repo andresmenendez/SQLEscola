@@ -11,7 +11,7 @@ using SQLEscola.Gerenciadores;
 using System.Web.Security;
 
 namespace SQLEscola.Controllers
-{ 
+{
     public class RespostaController : Controller
     {
         public ViewResult ListaRespostas(int id)
@@ -103,8 +103,8 @@ namespace SQLEscola.Controllers
                         "Descricao"
                     );
             }
-                //Carregamento após a turma ser selecionada
-            else  if (resp.Turmas != 0 & resp.Atividades == 0 & resp.Questoes == 0)
+            //Carregamento após a turma ser selecionada
+            else if (resp.Turmas != 0 & resp.Atividades == 0 & resp.Questoes == 0)
             {
                 ViewBag.Turmas = new SelectList
                     (
@@ -126,7 +126,7 @@ namespace SQLEscola.Controllers
                         "Descricao"
                     );
             }
-                //Carregamento após atividade ser selecionada
+            //Carregamento após atividade ser selecionada
             else if (resp.Turmas == 0 & resp.Atividades != 0 & resp.Questoes == 0)
             {
                 ViewBag.Turmas = new SelectList
@@ -157,7 +157,7 @@ namespace SQLEscola.Controllers
                     ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(item.Id_Questao);
                     if (arq != null)
                     {
-                        listaInteiros += item.Id_Questao.ToString()+",";
+                        listaInteiros += item.Id_Questao.ToString() + ",";
                     }
                 }
                 Session["ListaQuestao"] = listaInteiros;
@@ -223,6 +223,7 @@ namespace SQLEscola.Controllers
             {
                 resp.ArrayBytes = arq.ArrayBytes;
             }
+            ViewBag.Error = "";
             return View(resp);
         }
 
@@ -234,25 +235,54 @@ namespace SQLEscola.Controllers
         {
             if (ModelState.IsValid)
             {
-                AcessandoSQL acesso = new AcessandoSQL();
-                string resultado = acesso.AcessandoSQLScript(model.ScriptResposta);
-                if (resultado == "OK")
+                if (!model.ScriptResposta.ToLower().Contains("alter"))
                 {
-                    model.DataResposta = DateTime.Now;
-                    GerenciadorResposta.GetInstance().Inserir(model);
-                    ResultadoModel result = new ResultadoModel();
-                    result.Erros = "OK";
-                    result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
-                    GerenciadorResultado.GetInstance().Inserir(result);
-                    return RedirectToAction("Index", "Resposta",
-                        new { id = model.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });
+                    //Testando se o nome do procedimento passado é igual ao que está no Script de resposta
+                    string nomeProc = model.ScriptResposta.Substring(0, model.ScriptResposta.IndexOf('('));
+                    nomeProc = nomeProc.ToLower().Replace("create", "");
+                    nomeProc = nomeProc.ToLower().Replace("procedure", "");
+                    nomeProc = nomeProc.ToLower().Replace(" ", "");
+                    if (nomeProc.Trim() == model.NomeProcedResposta.Trim())
+                    {
+
+                        AcessandoSQL acesso = new AcessandoSQL();
+                        Global go = new Global();
+                        string resultado = acesso.AcessandoSQLScript(model.ScriptResposta);
+                        if (resultado == "OK")
+                        {
+                            acesso.AcessandoSQLScript("DROP PROCEDURE " + model.NomeProcedResposta);
+                            model.DataResposta = DateTime.Now;
+                            //GerenciadorResposta.GetInstance().Inserir(model);
+                            ResultadoModel result = new ResultadoModel();
+                            result.Erros = "OK";
+                            //result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
+
+                            //GerenciadorResultado.GetInstance().Inserir(result);
+                            return RedirectToAction("Index", "Resposta",
+                                new { id = model.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });
+                        }
+                        else
+                        {
+                            acesso.AcessandoSQLScript("DROP PROCEDURE " + model.NomeProcedResposta);
+                            ViewBag.Error = "Não foi possível submeter sua resposta para avaliação automática.</br>Verifique o campo 'Erros no Script' e submeta novamente.";
+                            model.ScriptErros = resultado;
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Não foi possível submeter sua resposta para avaliação automática.";
+                        ModelState.AddModelError("NomeProcedResposta", "O nome do procedimento deve ser o mesmo que está no Script de Resposta: " + nomeProc.ToUpper() + ".");
+                    }
                 }
                 else
                 {
-                    model.ScriptErros = resultado;
+                    ViewBag.Error = "Não foi possível submeter sua resposta para avaliação automática.";
+                    ModelState.AddModelError("ScriptResposta", "O Script de Resposta não pode conter o comando 'ALTER' apenas 'CREATE'.");
                 }
             }
-
+            ViewBag.NomeQuestao = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao).Descricao;
+            ViewBag.Ordem = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao).Ordem;
+            ViewBag.Id_Atividade = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao).Id_Atividade;
             return View(model);
         }
 

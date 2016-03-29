@@ -116,16 +116,44 @@ namespace SQLEscola.Models
         public string DandoDropsTables(string script)
         {
             string retorno = "";
-            List<string> lista = script.Split(new[] { "CREATE TABLE" }, StringSplitOptions.None).ToList();
-            foreach (string item in lista)
+            if (script != null)
             {
-                if (item.Length > 0)
+                List<string> lista = script.Split(new[] { "CREATE TABLE" }, StringSplitOptions.None).ToList();
+                foreach (string item in lista)
                 {
-                    string tb = item.Replace(" ", "");
-                    retorno += "DROP TABLE " + tb.Substring(0, tb.IndexOf('(')) + " ";
+                    if (item.Length > 0)
+                    {
+                        string tb = item.Replace(" ", "");
+                        retorno += "DROP TABLE " + tb.Substring(0, tb.IndexOf('(')) + " ";
+                    }
                 }
             }
             return retorno;
+        }
+
+        public string SubmeterResposta(string scCriacao, string scPovoa, string NomeSCProf, string scProf, 
+            string NomeSCAluno, string scAluno, string scCasosTeste)
+        {
+            AcessandoSQL acesso = new AcessandoSQL();
+            //Guardando o nome do procedimento dos casos de teste
+            string NomesExecCasosTeste = NomeSCProf;
+            //Alterando o nome no script do prof para NOME_PROCEDIMENTO_HORA
+            scProf = scProf.ToLower().Replace(NomeSCProf.ToLower().Trim(), NomeSCProf.ToUpper()
+                + DateTime.Now.ToShortTimeString().Replace(":", ""));
+            string nomeProc = scProf.Substring(0, scProf.IndexOf('('));
+            NomeSCProf = nomeProc.ToLower().Replace("create procedure ", "");
+            //Alterando o nome no script do aluno para NOME_PROCEDIMENTO_HORA
+            scAluno = scAluno.ToLower().Replace(NomeSCAluno.ToLower().Trim(), NomeSCAluno.ToUpper()
+                + DateTime.Now.ToShortTimeString().Replace(":", ""));
+            nomeProc = scAluno.Substring(0, scProf.IndexOf('('));
+            NomeSCAluno = nomeProc.ToLower().Replace("create procedure ", "");
+            if (scCriacao != null)
+            {
+                acesso.AcessandoSQLScript(scCriacao);
+                acesso.AcessandoSQLScript(scPovoa);
+            }
+
+            return "OK";
         }
     }
 
