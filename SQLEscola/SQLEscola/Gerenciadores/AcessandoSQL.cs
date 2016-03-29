@@ -53,8 +53,9 @@ namespace SQLEscola.Gerenciadores
             }
         }
 
-        public DataTable AcessandoSQLScriptObtendoDados(string script)
+        public List<string> AcessandoSQLScriptObtendoDados(string script)
         {
+            List<string> listaRetorno = new List<string>();
             DataTable tab = new DataTable();
             //definição da string de conexão
             SqlConnection conn = new SqlConnection(@"Data Source=pc-trabalho\SQLEXPRESS;Initial Catalog=TESTE;Integrated Security=True;Pooling=False");
@@ -67,26 +68,35 @@ namespace SQLEscola.Gerenciadores
                 SqlCommand cmd = new SqlCommand(script, conn);
 
                 tab = ObterTabela(cmd.ExecuteReader());
-
+                
                 // Percorrendo todas as linhas
                 foreach (DataRow dtRow in tab.Rows)
                 {
+                    string linha = "";
                     // Percorrendo toda as colunas
                     foreach (DataColumn dc in tab.Columns)
                     {
-                        var field1 = dtRow[dc].ToString();
+                        if (dtRow[dc].ToString() == "")
+                        {
+                            linha += "NULL | ";
+                        }
+                        else
+                        {
+                            linha += dtRow[dc].ToString()+ " | ";
+                        }
                     }
+                    listaRetorno.Add(linha);
                 }
 
                 //fecha a conexao
                 conn.Close();
-                return tab;
+                return listaRetorno;
             }
             catch (Exception ex)
             {
                 //fecha a conexao
                 conn.Close();
-                return tab;
+                return listaRetorno;
             }
             finally
             {

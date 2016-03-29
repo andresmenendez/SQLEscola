@@ -256,11 +256,16 @@ namespace SQLEscola.Controllers
                             ResultadoModel result = new ResultadoModel();
                             result.Erros = "OK";
                             //result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
-
+                            //Submetendo resposta
+                            QuestaoModel q = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
+                            /*result.Erros = go.SubmeterResposta(q.ScriptCriacao, q.ScriptPovoamento, q.NomeProcedimento, q.ScriptResultado,
+                                model.NomeProcedResposta, model.ScriptResposta, q.CasosTeste);*/
+                            model.ScriptErros = go.SubmeterResposta(q.ScriptCriacao, q.ScriptPovoamento, q.NomeProcedimento, q.ScriptResultado,
+                                model.NomeProcedResposta, model.ScriptResposta, q.CasosTeste);
                             //GerenciadorResultado.GetInstance().Inserir(result);
-                            return RedirectToAction("Index", "Resposta",
+                            /*return RedirectToAction("Index", "Resposta",
                                 new { id = model.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });
-                        }
+                        */}
                         else
                         {
                             acesso.AcessandoSQLScript("DROP PROCEDURE " + model.NomeProcedResposta);

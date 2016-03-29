@@ -92,19 +92,26 @@ namespace SQLEscola.Models
                 }
                 else
                 {
-                    //exec casos de teste
-                    List<string> casos = quest.CasosTeste.Split(';').ToList<string>();
-                    foreach (string item in casos)
+                    if (quest.CasosTeste.Trim().LastOrDefault() == ';')
                     {
-                        if (item.Length > 1)
+                        //exec casos de teste
+                        List<string> casos = quest.CasosTeste.Split(';').ToList<string>();
+                        foreach (string item in casos)
                         {
-                            string retorno = acess.AcessandoSQLScript(item);
-                            if (retorno != "OK")
+                            if (item.Length > 1)
                             {
-                                acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento);
-                                return "Houve um problema em algum dos Casos de Teste. Favor verificar novamente.<br />SQL ERRO:" + retorno;
+                                string retorno = acess.AcessandoSQLScript(item);
+                                if (retorno != "OK")
+                                {
+                                    acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento);
+                                    return "Houve um problema em algum dos Casos de Teste. Favor verificar novamente.<br />SQL ERRO:" + retorno;
+                                }
                             }
                         }
+                    }
+                    else
+                    {
+                        return "Todos os casos de teste devem ser separdos por ';'(ponto e vígula).</br>O último caso de teste também deve conter ponto e vígula.";
                     }
                 }
             }
@@ -135,26 +142,93 @@ namespace SQLEscola.Models
             string NomeSCAluno, string scAluno, string scCasosTeste)
         {
             AcessandoSQL acesso = new AcessandoSQL();
+            Global go = new Global();
             //Guardando o nome do procedimento dos casos de teste
-            string NomesExecCasosTeste = NomeSCProf;
-            //Alterando o nome no script do prof para NOME_PROCEDIMENTO_HORA
+            string NomeExecCasosTeste = NomeSCProf;
+
+            //Alterando o nome no script do prof para NOME_PROCEDIMENTO_P_HORA
             scProf = scProf.ToLower().Replace(NomeSCProf.ToLower().Trim(), NomeSCProf.ToUpper()
-                + DateTime.Now.ToShortTimeString().Replace(":", ""));
+                + "_P_" + DateTime.Now.ToShortTimeString().Replace(":", ""));
             string nomeProc = scProf.Substring(0, scProf.IndexOf('('));
             NomeSCProf = nomeProc.ToLower().Replace("create procedure ", "");
-            //Alterando o nome no script do aluno para NOME_PROCEDIMENTO_HORA
+
+            //Alterando o nome no script do aluno para NOME_PROCEDIMENTO_A_HORA
             scAluno = scAluno.ToLower().Replace(NomeSCAluno.ToLower().Trim(), NomeSCAluno.ToUpper()
-                + DateTime.Now.ToShortTimeString().Replace(":", ""));
-            nomeProc = scAluno.Substring(0, scProf.IndexOf('('));
+                + "_A_" +DateTime.Now.ToShortTimeString().Replace(":", ""));
+            nomeProc = scAluno.Substring(0, scAluno.IndexOf('('));
             NomeSCAluno = nomeProc.ToLower().Replace("create procedure ", "");
+
             if (scCriacao != null)
             {
+                //exec scripts de criação e povoamento se existirem
                 acesso.AcessandoSQLScript(scCriacao);
                 acesso.AcessandoSQLScript(scPovoa);
             }
+            //exec script do prof e do aluno com nomes já alterados para evitar duplicidades
+            acesso.AcessandoSQLScript(scProf);
+            acesso.AcessandoSQLScript(scAluno);
 
-            return "OK";
+            //Listando casos de teste e fazendo a exec
+            List<string> casos = scCasosTeste.Split(';').ToList<string>();
+            int i = 1;
+            string retorno = "";
+            foreach (string item in casos)
+            {
+                if (item.Length > 1)
+                {
+                    retorno += "Caso de Teste " + i++ + "\n";
+                    retorno += item + "\n";
+
+                    //Alterando o nome dos casos de teste para os do professor atual
+                    string scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste, NomeSCProf);
+                    List<string> resultadosProf = acesso.AcessandoSQLScriptObtendoDados(scriptDeCasosDeTeste);
+                    //Alterando o nome dos casos de teste para os do aluno atual
+                    scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste, NomeSCAluno);
+                    List<string> resultadosAluno = acesso.AcessandoSQLScriptObtendoDados(scriptDeCasosDeTeste);
+                    //Comparando as respostas
+                    if (CompararResposta(resultadosProf, resultadosAluno))
+                    {
+                        retorno += "Resultado Correto: \n";
+
+                    }
+                    else
+                    {
+                        retorno += "Resultado Difere do Professor: \n";
+                    }
+
+                    //exibindo os resultados
+                    foreach (string linhas in resultadosAluno)
+                    {
+                        retorno += linhas.Substring(0, linhas.Length-2) + "\n";
+                    }
+                    retorno += "\n";
+                }
+            }
+            if (scCriacao != null)
+            {
+                //dando drop nas tabelas de criação
+                go.DandoDropsTables(scCriacao);
+            }
+            acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCProf);
+            acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCAluno);
+            return retorno;
+        }
+
+
+        public bool CompararResposta(List<string> listaProf, List<string> listaAluno)
+        {
+            if (listaProf.Count != listaAluno.Count)
+            {
+                return false;
+            }
+            for (int i = 0; i < listaProf.Count; i++)
+            {
+                if (listaProf.ElementAt(i) != listaAluno.ElementAt(i))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
-
 }

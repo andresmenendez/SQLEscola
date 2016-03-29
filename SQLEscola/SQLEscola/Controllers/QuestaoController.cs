@@ -168,20 +168,21 @@ namespace SQLEscola.Controllers
             ModelState.Remove("ScriptResultado");
             ModelState.Remove("CasosTeste");
             //Para adiconar validação no Model: ModelState.AddModelError("Descricao", "");
-            QuestaoModel quest = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
+            QuestaoModel questao = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
             Global go = new Global();
-            string validacao = go.ValidarQuestao(quest);
+            string validacao = go.ValidarQuestao(questao);
             if (validacao == "OK")
             {
-                quest.Status = "V";
-                GerenciadorQuestao.GetInstance().Editar(quest);
+                QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
+                qust.Status = "V";
+                GerenciadorQuestao.GetInstance().Editar(qust);
                 return RedirectToAction("Index", new { id = model.Id_Atividade });
             }
             else
             {
                 ViewBag.Error = validacao;
             }
-            return View(quest);
+            return View(questao);
         }
 
         //
@@ -210,6 +211,7 @@ namespace SQLEscola.Controllers
             {
                 if (file == null)
                 {
+                    //Evitando problemas com ObjectSet
                     QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
                     qust.DataAlteracao = DateTime.Now;
                     qust.Descricao = model.Descricao;
@@ -222,6 +224,7 @@ namespace SQLEscola.Controllers
                     qust.Ordem = model.Ordem;
                     qust.NomeProcedimento = model.NomeProcedimento;
                     qust.CasosTeste = model.CasosTeste;
+                    qust.Status = "C";
                     GerenciadorQuestao.GetInstance().Editar(qust);
                     return RedirectToAction("Index", new { id = model.Id_Atividade });
                 }
