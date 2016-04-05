@@ -146,24 +146,57 @@ namespace SQLEscola.Models
             //Guardando o nome do procedimento dos casos de teste
             string NomeExecCasosTeste = NomeSCProf;
 
+            //Pegando HORA
+            string hora = DateTime.Now.ToShortTimeString().Replace(":", "");
             //Alterando o nome no script do prof para NOME_PROCEDIMENTO_P_HORA
-            scProf = scProf.ToLower().Replace(NomeSCProf.ToLower().Trim(), NomeSCProf.ToUpper()
-                + "_P_" + DateTime.Now.ToShortTimeString().Replace(":", ""));
-            string nomeProc = scProf.Substring(0, scProf.IndexOf('('));
-            NomeSCProf = nomeProc.ToLower().Replace("create procedure ", "");
+            string nomeProc = go.RetornaNomeProcedimento(scProf).ToLower()  + "_P_" + hora;
+            scProf = scProf.ToLower().Replace(NomeSCProf.ToLower().Trim(), nomeProc.ToLower());
+            NomeSCProf = nomeProc;
 
             //Alterando o nome no script do aluno para NOME_PROCEDIMENTO_A_HORA
-            scAluno = scAluno.ToLower().Replace(NomeSCAluno.ToLower().Trim(), NomeSCAluno.ToUpper()
-                + "_A_" +DateTime.Now.ToShortTimeString().Replace(":", ""));
-            nomeProc = scAluno.Substring(0, scAluno.IndexOf('('));
-            NomeSCAluno = nomeProc.ToLower().Replace("create procedure ", "");
+            nomeProc = go.RetornaNomeProcedimento(scAluno).ToLower() + "_A_" + hora;
+            scAluno = scAluno.ToLower().Replace(NomeSCAluno.ToLower().Trim(), nomeProc.ToLower());
+            NomeSCAluno = nomeProc;
 
             if (scCriacao != null)
             {
-                //exec scripts de criação e povoamento se existirem
-                acesso.AcessandoSQLScript(scCriacao);
-                acesso.AcessandoSQLScript(scPovoa);
+                //pegando nome das tabelas do script criação original
+                List<string> listaNomeTables = go.RetornarNomesTablesCriacao(scCriacao);
+                List<string> listaNomeTablesProf = new List<string>();
+                List<string> listaNomeTablesAluno = new List<string>();
+
+                //Alterando scripts de criação e executando para o Prof e Aluno
+                string scCriacaoProf = scCriacao;
+                string scCriacaoAluno = scCriacao;
+                foreach (string tb in listaNomeTables)
+                {
+                    listaNomeTablesProf.Add(tb + "_P_"+ hora);
+                    scCriacaoProf = scCriacaoProf.Replace(tb, tb + "_P_" + hora);
+                    listaNomeTablesAluno.Add(tb + "_A_" + hora);
+                    scCriacaoAluno = scCriacaoAluno.Replace(tb, tb + "_A_" + hora);
+                }
+                
+                //exec scripts de criação
+                acesso.AcessandoSQLScript(scCriacaoProf);
+                acesso.AcessandoSQLScript(scCriacaoAluno);
+
+                //altera os nomes das tables dentro do script de povoamento
+                string scPovoaProf = scPovoa;
+                string scPovoaAluno = scPovoa;
+                for (int i = 0; i < listaNomeTables.Count; i++)
+                {
+                    scPovoaProf = scPovoaProf.Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
+                    scPovoaAluno = scPovoaAluno.Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
+                }
+                //executando os scripts de povoamento alterados para Prof e Aluno
+                acesso.AcessandoSQLScript(scPovoaProf);
+                acesso.AcessandoSQLScript(scPovoaAluno);
+
+
             }
+
+
+
             //exec script do prof e do aluno com nomes já alterados para evitar duplicidades
             acesso.AcessandoSQLScript(scProf);
             acesso.AcessandoSQLScript(scAluno);
@@ -206,6 +239,7 @@ namespace SQLEscola.Models
             }
             if (scCriacao != null)
             {
+
                 //dando drop nas tabelas de criação
                 go.DandoDropsTables(scCriacao);
             }
@@ -229,6 +263,62 @@ namespace SQLEscola.Models
                 }
             }
             return true;
+        }
+
+        public string RetornaNomeProcedimento(string script)
+        {
+            string sc = script;
+            string auxiliar = sc.Replace("\r", "");
+            auxiliar = auxiliar.Replace("\n", "");
+            auxiliar = auxiliar.Replace(" ", "");
+
+            int NtemProcedure = auxiliar.ToLower().IndexOf("procedure");
+            if (NtemProcedure == -1)
+            {
+                auxiliar = auxiliar.ToLower().Replace("proc", "procedure");
+            }
+
+            string nome = "";
+            string busca = "asbegin";
+            int encontrouBusca = auxiliar.IndexOf(busca);
+            nome = auxiliar.Substring(0, auxiliar.ToLower().IndexOf(busca));
+            nome = nome.ToLower().Replace("(", "");
+            int temArroba = nome.ToLower().IndexOf("@");
+            if (temArroba > 0)
+            {
+                nome = nome.Substring(0, auxiliar.IndexOf("@"));
+                nome = nome.ToLower().Replace("createprocedure", "").Trim();
+            }
+            else
+            {
+                nome = nome.ToLower().Replace("createprocedure", "").Trim();
+            }
+            nome = nome.Replace("@", "").Trim();
+            return nome;
+
+        }
+
+        public List<string> RetornarNomesTablesCriacao(string scriptCriacao)
+        {
+            List<string> retorno = new List<string>();
+            string guardaScript = scriptCriacao;
+            scriptCriacao = scriptCriacao.ToLower();
+            List<string> lista = scriptCriacao.Split(new string[] { "create table" }, StringSplitOptions.None).ToList<string>();
+            foreach (var item in lista)
+            {
+                if (item.Length > 0)
+                {
+                    retorno.Add(item.Substring(0, item.IndexOf("(")).Trim());
+                }
+            }
+
+            return retorno;
+        }
+
+        public string AlterarNomesTablesPovoamento(string scCriacaoOriginal, string scriptPovoamento, string tipoUser, string hora)
+        {
+
+            return "";
         }
     }
 }

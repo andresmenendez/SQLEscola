@@ -238,19 +238,16 @@ namespace SQLEscola.Controllers
                 if (!model.ScriptResposta.ToLower().Contains("alter"))
                 {
                     //Testando se o nome do procedimento passado é igual ao que está no Script de resposta
-                    string nomeProc = model.ScriptResposta.Substring(0, model.ScriptResposta.IndexOf('('));
-                    nomeProc = nomeProc.ToLower().Replace("create", "");
-                    nomeProc = nomeProc.ToLower().Replace("procedure", "");
-                    nomeProc = nomeProc.ToLower().Replace(" ", "");
-                    if (nomeProc.Trim() == model.NomeProcedResposta.Trim())
+                    Global go = new Global();
+                    string nomeProc = go.RetornaNomeProcedimento(model.ScriptResposta);
+                    if (nomeProc.Trim().ToLower() == model.NomeProcedResposta.Trim().ToLower())
                     {
 
                         AcessandoSQL acesso = new AcessandoSQL();
-                        Global go = new Global();
                         string resultado = acesso.AcessandoSQLScript(model.ScriptResposta);
                         if (resultado == "OK")
                         {
-                            acesso.AcessandoSQLScript("DROP PROCEDURE " + model.NomeProcedResposta);
+                            acesso.AcessandoSQLScript("DROP PROCEDURE " + nomeProc);
                             model.DataResposta = DateTime.Now;
                             //GerenciadorResposta.GetInstance().Inserir(model);
                             ResultadoModel result = new ResultadoModel();
@@ -268,7 +265,7 @@ namespace SQLEscola.Controllers
                         */}
                         else
                         {
-                            acesso.AcessandoSQLScript("DROP PROCEDURE " + model.NomeProcedResposta);
+                            acesso.AcessandoSQLScript("DROP PROCEDURE " + nomeProc);
                             ViewBag.Error = "Não foi possível submeter sua resposta para avaliação automática.</br>Verifique o campo 'Erros no Script' e submeta novamente.";
                             model.ScriptErros = resultado;
                         }
