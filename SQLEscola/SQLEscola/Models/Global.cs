@@ -52,10 +52,22 @@ namespace SQLEscola.Models
         public string ValidarQuestao(QuestaoModel quest)
         {
             AcessandoSQL acess = new AcessandoSQL();
+            Global go = new Global();
+            //Pegando HORA
+            string hora = DateTime.Now.ToShortTimeString().Replace(":", "");
+
+            List<string> listaNomeTables = new List<string>();
             if (quest.ScriptCriacao != null)
             {
                 if (!quest.ScriptCriacao.ToLower().Contains("alter"))
                 {
+                    //Alterar o Nome do Script para não haver problemas de duplicidade
+                    listaNomeTables = go.RetornarNomesTablesCriacao(quest.ScriptCriacao);
+                    quest.ScriptCriacao = quest.ScriptCriacao.ToLower();
+                    foreach (string tb in listaNomeTables)
+                    {
+                        quest.ScriptCriacao = quest.ScriptCriacao.Replace(tb, tb + "_T_" + hora);
+                    }
                     string retorno = acess.AcessandoSQLScript(quest.ScriptCriacao);
                     if (retorno != "OK")
                     {
@@ -65,29 +77,43 @@ namespace SQLEscola.Models
                 }
                 else
                 {
-                    acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
                     return "Seu Script de Criação contém um ALTER. Favor inserir todas as tabelas com o comando CREATE.";
                 }
             }
             if (quest.ScriptPovoamento != null)
             {
+                quest.ScriptPovoamento = quest.ScriptPovoamento.ToLower();
+                foreach (string tb in listaNomeTables)
+                {
+                    quest.ScriptPovoamento = quest.ScriptPovoamento.Replace(tb, tb + "_T_" + hora);
+                }
                 string retorno = acess.AcessandoSQLScript(quest.ScriptPovoamento);
                 if (retorno != "OK")
                 {
+                    acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
                     return "Houve um problema no Script de Povoamento. Favor verificar novamente.<br />" + retorno;
                 }
             }
             //Testando para saber se o nome do procedimento informado está no script resposta
-            if (!quest.ScriptResultado.Contains(quest.NomeProcedimento))
+            if (quest.NomeProcedimento.ToLower() != go.RetornaNomeProcedimento(quest.ScriptResultado))
             {
                 return "O nome do procedimento informado difere do que está informado no Script de Resolução";
             }
             else
             {
+                quest.ScriptResultado = quest.ScriptResultado.ToLower();
+                foreach (string tb in listaNomeTables)
+                {
+                    quest.ScriptResultado = quest.ScriptResultado.Replace(tb, tb + "_T_" + hora);
+                }
+                //Altera o nome do script a ser validado
+                string nome = go.RetornaNomeProcedimento(quest.ScriptResultado);
+                quest.ScriptResultado = quest.ScriptResultado.Replace(nome, nome + "_T_" + hora);
                 //exec script de resolução
                 string retrnoScriptReso = acess.AcessandoSQLScript(quest.ScriptResultado);
                 if (retrnoScriptReso != "OK")
                 {
+                    acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
                     return "Houve um problema no Script de Resolução. Favor verificar novamente.<br />" + retrnoScriptReso;
                 }
                 else
@@ -100,10 +126,18 @@ namespace SQLEscola.Models
                         {
                             if (item.Length > 1)
                             {
-                                string retorno = acess.AcessandoSQLScript(item);
+                                //Alterando os nomes das tabelas dentro dos casos de teste
+                                string caso = item.ToLower();
+                                foreach (string tb in listaNomeTables)
+                                {
+                                    caso = caso.Replace(tb, tb + "_T_" + hora);
+                                }
+                                //alterando o nome do procedimento
+                                caso = caso.Replace(nome, nome + "_T_" + hora);
+                                string retorno = acess.AcessandoSQLScript(caso);
                                 if (retorno != "OK")
                                 {
-                                    acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento);
+                                    acess.AcessandoSQLScript("DROP PROCEDURE " + nome + "_T_" + hora);
                                     return "Houve um problema em algum dos Casos de Teste. Favor verificar novamente.<br />SQL ERRO:" + retorno;
                                 }
                             }
@@ -115,27 +149,9 @@ namespace SQLEscola.Models
                     }
                 }
             }
-            acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento);
+            acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento.ToLower() + "_T_" + hora);
             acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
             return "OK";
-        }
-
-        public string DandoDropsTables(string script)
-        {
-            string retorno = "";
-            if (script != null)
-            {
-                List<string> lista = script.Split(new[] { "CREATE TABLE" }, StringSplitOptions.None).ToList();
-                foreach (string item in lista)
-                {
-                    if (item.Length > 0)
-                    {
-                        string tb = item.Replace(" ", "");
-                        retorno += "DROP TABLE " + tb.Substring(0, tb.IndexOf('(')) + " ";
-                    }
-                }
-            }
-            return retorno;
         }
 
         public string SubmeterResposta(string scCriacao, string scPovoa, string NomeSCProf, string scProf, 
@@ -158,12 +174,14 @@ namespace SQLEscola.Models
             scAluno = scAluno.ToLower().Replace(NomeSCAluno.ToLower().Trim(), nomeProc.ToLower());
             NomeSCAluno = nomeProc;
 
+            //criando lista com nomes tables para serem usadas caso haja script de Criação
+            List<string> listaNomeTables = new List<string>();
+            List<string> listaNomeTablesProf = new List<string>();
+            List<string> listaNomeTablesAluno = new List<string>();
             if (scCriacao != null)
             {
                 //pegando nome das tabelas do script criação original
-                List<string> listaNomeTables = go.RetornarNomesTablesCriacao(scCriacao);
-                List<string> listaNomeTablesProf = new List<string>();
-                List<string> listaNomeTablesAluno = new List<string>();
+                listaNomeTables = go.RetornarNomesTablesCriacao(scCriacao);
 
                 //Alterando scripts de criação e executando para o Prof e Aluno
                 string scCriacaoProf = scCriacao;
@@ -192,7 +210,17 @@ namespace SQLEscola.Models
                 acesso.AcessandoSQLScript(scPovoaProf);
                 acesso.AcessandoSQLScript(scPovoaAluno);
 
-
+                //altera os nomes das tabelas no script de resposta do prof e aluno
+                string scRespProf = scProf;
+                string scRespAluno = scAluno;
+                for (int i = 0; i < listaNomeTables.Count; i++)
+                {
+                    scRespProf = scPovoaProf.Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
+                    scRespAluno = scPovoaAluno.Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
+                }
+                //executando os scripts de resposta alterados para Prof e Aluno
+                acesso.AcessandoSQLScript(scRespProf);
+                acesso.AcessandoSQLScript(scRespAluno);
             }
 
 
@@ -203,13 +231,13 @@ namespace SQLEscola.Models
 
             //Listando casos de teste e fazendo a exec
             List<string> casos = scCasosTeste.Split(';').ToList<string>();
-            int i = 1;
+            int cont = 1;
             string retorno = "";
             foreach (string item in casos)
             {
                 if (item.Length > 1)
                 {
-                    retorno += "Caso de Teste " + i++ + "\n";
+                    retorno += "Caso de Teste " + cont++ + "\n";
                     retorno += item + "\n";
 
                     //Alterando o nome dos casos de teste para os do professor atual
@@ -239,9 +267,11 @@ namespace SQLEscola.Models
             }
             if (scCriacao != null)
             {
-
-                //dando drop nas tabelas de criação
-                go.DandoDropsTables(scCriacao);
+                for (int x = 0; x < listaNomeTables.Count; x++)
+                {
+                    acesso.AcessandoSQLScript("DROP PROCEDURE " + listaNomeTablesAluno.ElementAt(x));
+                    acesso.AcessandoSQLScript("DROP PROCEDURE " + listaNomeTablesProf.ElementAt(x));
+                }
             }
             acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCProf);
             acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCAluno);
@@ -315,10 +345,23 @@ namespace SQLEscola.Models
             return retorno;
         }
 
-        public string AlterarNomesTablesPovoamento(string scCriacaoOriginal, string scriptPovoamento, string tipoUser, string hora)
+        public string DandoDropsTables(string script)
         {
-
-            return "";
+            string retorno = "";
+            if (script != null)
+            {
+                script = script.ToUpper();
+                List<string> lista = script.Split(new[] { "CREATE TABLE" }, StringSplitOptions.None).ToList();
+                foreach (string item in lista)
+                {
+                    if (item.Length > 0)
+                    {
+                        string tb = item.Replace(" ", "");
+                        retorno += "DROP TABLE " + tb.Substring(0, tb.IndexOf('(')) + " ";
+                    }
+                }
+            }
+            return retorno;
         }
     }
 }
