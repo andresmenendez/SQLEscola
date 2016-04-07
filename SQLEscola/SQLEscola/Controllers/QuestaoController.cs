@@ -10,6 +10,7 @@ using SQLEscola.Models;
 using SQLEscola.Gerenciadores;
 using System.Web.Security;
 using System.IO;
+using Persistence;
 
 namespace SQLEscola.Controllers
 { 
@@ -162,27 +163,29 @@ namespace SQLEscola.Controllers
         [HttpPost]
         public ActionResult Validar(QuestaoModel model)
         {
+            model = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
             //Retirando validações do model
             ModelState.Remove("Descricao");
             ModelState.Remove("NomeProcedimento");
             ModelState.Remove("ScriptResultado");
             ModelState.Remove("CasosTeste");
             //Para adiconar validação no Model: ModelState.AddModelError("Descricao", "");
-            QuestaoModel questao = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
+            QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
             Global go = new Global();
-            string validacao = go.ValidarQuestao(questao);
+            string validacao = go.ValidarQuestao(qust);
             if (validacao == "OK")
             {
-                QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
-                qust.Status = "V";
-                GerenciadorQuestao.GetInstance().Editar(qust);
+                //Evitando problemas com ObjectSet
+                model.Status = "V";
+                GerenciadorQuestao ge = new GerenciadorQuestao();
+                ge.Editar(model);
                 return RedirectToAction("Index", new { id = model.Id_Atividade });
             }
             else
             {
                 ViewBag.Error = validacao;
             }
-            return View(questao);
+            return View(model);
         }
 
         //
@@ -212,20 +215,10 @@ namespace SQLEscola.Controllers
                 if (file == null)
                 {
                     //Evitando problemas com ObjectSet
-                    QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
-                    qust.DataAlteracao = DateTime.Now;
-                    qust.Descricao = model.Descricao;
-                    qust.ScriptCriacao = model.ScriptCriacao;
-                    qust.ScriptPovoamento = model.ScriptPovoamento;
-                    qust.ScriptResultado = model.ScriptResultado;
-                    qust.ArrayBytes = model.ArrayBytes;
-                    qust.DataCriacao = model.DataCriacao;
-                    qust.Status = model.Status;
-                    qust.Ordem = model.Ordem;
-                    qust.NomeProcedimento = model.NomeProcedimento;
-                    qust.CasosTeste = model.CasosTeste;
-                    qust.Status = "C";
-                    GerenciadorQuestao.GetInstance().Editar(qust);
+                    model.Status = "C";
+                    model.DataAlteracao = DateTime.Now;
+                    GerenciadorQuestao ge = new GerenciadorQuestao();
+                    ge.Editar(model);
                     return RedirectToAction("Index", new { id = model.Id_Atividade });
                 }
                 else
@@ -233,15 +226,10 @@ namespace SQLEscola.Controllers
                     string[] tipo = file.FileName.Split('.');
                     if (tipo[1].ToLower() == "pdf" | tipo[1].ToLower() == "doc" | tipo[1].ToLower() == "docx")
                     {
-                        QuestaoModel qust = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
-                        qust.DataAlteracao = DateTime.Now;
-                        qust.Descricao = model.Descricao;
-                        qust.ScriptCriacao = model.ScriptCriacao;
-                        qust.ScriptPovoamento = model.ScriptPovoamento;
-                        qust.ScriptResultado = model.ScriptResultado;
-                        qust.ArrayBytes = model.ArrayBytes;
-                        qust.DataCriacao = model.DataCriacao;
-                        GerenciadorQuestao.GetInstance().Editar(qust);
+                        model.DataAlteracao = DateTime.Now;
+                        model.Status = "C";
+                        GerenciadorQuestao ge = new GerenciadorQuestao();
+                        ge.Editar(model);
                         ArquivoModel arq = GerenciadorArquivo.GetInstance().ObterPorQuestao(model.Id_Questao);
                         bool novoArq = false;
                         if (arq == null)
@@ -249,7 +237,7 @@ namespace SQLEscola.Controllers
                             arq = new ArquivoModel();
                             novoArq = true;
                         }
-                        arq.Id_Questao = qust.Id_Questao;
+                        arq.Id_Questao = model.Id_Questao;
                         arq.Arquivo = file;
                         arq.Nome = file.FileName;
                         arq.Tipo = tipo[1];

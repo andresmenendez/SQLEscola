@@ -189,9 +189,9 @@ namespace SQLEscola.Models
                 foreach (string tb in listaNomeTables)
                 {
                     listaNomeTablesProf.Add(tb + "_P_"+ hora);
-                    scCriacaoProf = scCriacaoProf.Replace(tb, tb + "_P_" + hora);
+                    scCriacaoProf = scCriacaoProf.ToLower().Replace(tb, tb + "_P_" + hora);
                     listaNomeTablesAluno.Add(tb + "_A_" + hora);
-                    scCriacaoAluno = scCriacaoAluno.Replace(tb, tb + "_A_" + hora);
+                    scCriacaoAluno = scCriacaoAluno.ToLower().Replace(tb, tb + "_A_" + hora);
                 }
                 
                 //exec scripts de criação
@@ -203,8 +203,8 @@ namespace SQLEscola.Models
                 string scPovoaAluno = scPovoa;
                 for (int i = 0; i < listaNomeTables.Count; i++)
                 {
-                    scPovoaProf = scPovoaProf.Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
-                    scPovoaAluno = scPovoaAluno.Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
+                    scPovoaProf = scPovoaProf.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
+                    scPovoaAluno = scPovoaAluno.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
                 }
                 //executando os scripts de povoamento alterados para Prof e Aluno
                 acesso.AcessandoSQLScript(scPovoaProf);
@@ -215,19 +215,22 @@ namespace SQLEscola.Models
                 string scRespAluno = scAluno;
                 for (int i = 0; i < listaNomeTables.Count; i++)
                 {
-                    scRespProf = scPovoaProf.Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
-                    scRespAluno = scPovoaAluno.Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
+                    scRespProf = scRespProf.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
+                    scRespAluno = scRespAluno.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
                 }
+
                 //executando os scripts de resposta alterados para Prof e Aluno
                 acesso.AcessandoSQLScript(scRespProf);
                 acesso.AcessandoSQLScript(scRespAluno);
             }
 
-
-
-            //exec script do prof e do aluno com nomes já alterados para evitar duplicidades
-            acesso.AcessandoSQLScript(scProf);
-            acesso.AcessandoSQLScript(scAluno);
+            if (scCriacao == null)
+            {
+                //exec script do prof e do aluno com nomes já alterados para evitar duplicidades
+                acesso.AcessandoSQLScript(scProf);
+                acesso.AcessandoSQLScript(scAluno);
+            }
+            
 
             //Listando casos de teste e fazendo a exec
             List<string> casos = scCasosTeste.Split(';').ToList<string>();
@@ -242,9 +245,17 @@ namespace SQLEscola.Models
 
                     //Alterando o nome dos casos de teste para os do professor atual
                     string scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste, NomeSCProf);
+                    for (int i = 0; i < listaNomeTables.Count; i++)
+                    {
+                        scriptDeCasosDeTeste = scriptDeCasosDeTeste.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
+                    }
                     List<string> resultadosProf = acesso.AcessandoSQLScriptObtendoDados(scriptDeCasosDeTeste);
                     //Alterando o nome dos casos de teste para os do aluno atual
                     scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste, NomeSCAluno);
+                    for (int i = 0; i < listaNomeTables.Count; i++)
+                    {
+                        scriptDeCasosDeTeste = scriptDeCasosDeTeste.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
+                    }
                     List<string> resultadosAluno = acesso.AcessandoSQLScriptObtendoDados(scriptDeCasosDeTeste);
                     //Comparando as respostas
                     if (CompararResposta(resultadosProf, resultadosAluno))
@@ -269,8 +280,8 @@ namespace SQLEscola.Models
             {
                 for (int x = 0; x < listaNomeTables.Count; x++)
                 {
-                    acesso.AcessandoSQLScript("DROP PROCEDURE " + listaNomeTablesAluno.ElementAt(x));
-                    acesso.AcessandoSQLScript("DROP PROCEDURE " + listaNomeTablesProf.ElementAt(x));
+                    acesso.AcessandoSQLScript("DROP TABLE " + listaNomeTablesAluno.ElementAt(x));
+                    acesso.AcessandoSQLScript("DROP TABLE " + listaNomeTablesProf.ElementAt(x));
                 }
             }
             acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCProf);

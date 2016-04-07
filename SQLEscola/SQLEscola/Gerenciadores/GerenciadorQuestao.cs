@@ -17,7 +17,7 @@ namespace SQLEscola.Gerenciadores
 
         private static GerenciadorQuestao gQuestao;
 
-        private GerenciadorQuestao()
+        public GerenciadorQuestao()
         {
             this.unitOfWork = new UnitOfWork();
             shared = false;
