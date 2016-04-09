@@ -66,7 +66,7 @@ namespace SQLEscola.Models
                     quest.ScriptCriacao = quest.ScriptCriacao.ToLower();
                     foreach (string tb in listaNomeTables)
                     {
-                        quest.ScriptCriacao = quest.ScriptCriacao.Replace(tb, tb + "_T_" + hora);
+                        quest.ScriptCriacao = quest.ScriptCriacao.Replace(tb, tb + "_V_" + hora);
                     }
                     string retorno = acess.AcessandoSQLScript(quest.ScriptCriacao);
                     if (retorno != "OK")
@@ -85,7 +85,7 @@ namespace SQLEscola.Models
                 quest.ScriptPovoamento = quest.ScriptPovoamento.ToLower();
                 foreach (string tb in listaNomeTables)
                 {
-                    quest.ScriptPovoamento = quest.ScriptPovoamento.Replace(tb, tb + "_T_" + hora);
+                    quest.ScriptPovoamento = quest.ScriptPovoamento.Replace(tb, tb + "_V_" + hora);
                 }
                 string retorno = acess.AcessandoSQLScript(quest.ScriptPovoamento);
                 if (retorno != "OK")
@@ -97,6 +97,7 @@ namespace SQLEscola.Models
             //Testando para saber se o nome do procedimento informado está no script resposta
             if (quest.NomeProcedimento.ToLower() != go.RetornaNomeProcedimento(quest.ScriptResultado))
             {
+                acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
                 return "O nome do procedimento informado difere do que está informado no Script de Resolução";
             }
             else
@@ -104,11 +105,11 @@ namespace SQLEscola.Models
                 quest.ScriptResultado = quest.ScriptResultado.ToLower();
                 foreach (string tb in listaNomeTables)
                 {
-                    quest.ScriptResultado = quest.ScriptResultado.Replace(tb, tb + "_T_" + hora);
+                    quest.ScriptResultado = quest.ScriptResultado.Replace(tb, tb + "_V_" + hora);
                 }
                 //Altera o nome do script a ser validado
                 string nome = go.RetornaNomeProcedimento(quest.ScriptResultado);
-                quest.ScriptResultado = quest.ScriptResultado.Replace(nome, nome + "_T_" + hora);
+                quest.ScriptResultado = quest.ScriptResultado.Replace(nome, nome + "_V_" + hora);
                 //exec script de resolução
                 string retrnoScriptReso = acess.AcessandoSQLScript(quest.ScriptResultado);
                 if (retrnoScriptReso != "OK")
@@ -130,26 +131,29 @@ namespace SQLEscola.Models
                                 string caso = item.ToLower();
                                 foreach (string tb in listaNomeTables)
                                 {
-                                    caso = caso.Replace(tb, tb + "_T_" + hora);
+                                    caso = caso.Replace(tb, tb + "_V_" + hora);
                                 }
                                 //alterando o nome do procedimento
-                                caso = caso.Replace(nome, nome + "_T_" + hora);
+                                caso = caso.Replace(nome, nome + "_V_" + hora);
                                 string retorno = acess.AcessandoSQLScript(caso);
                                 if (retorno != "OK")
                                 {
-                                    acess.AcessandoSQLScript("DROP PROCEDURE " + nome + "_T_" + hora);
+                                    acess.AcessandoSQLScript("DROP PROCEDURE " + nome + "_V_" + hora);
                                     return "Houve um problema em algum dos Casos de Teste. Favor verificar novamente.<br />SQL ERRO:" + retorno;
                                 }
+                                acess.AcessandoSQLScript("DROP PROCEDURE " + nome + "_V_" + hora);
                             }
                         }
                     }
                     else
                     {
+                        acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento.ToLower() + "_V_" + hora);
+                        acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
                         return "Todos os casos de teste devem ser separdos por ';'(ponto e vígula).</br>O último caso de teste também deve conter ponto e vígula.";
                     }
                 }
             }
-            acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento.ToLower() + "_T_" + hora);
+            acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento.ToLower() + "_V_" + hora);
             acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
             return "OK";
         }
@@ -260,12 +264,12 @@ namespace SQLEscola.Models
                     //Comparando as respostas
                     if (CompararResposta(resultadosProf, resultadosAluno))
                     {
-                        retorno += "Resultado Correto: \n";
+                        retorno += "\nResultado Correto: \n";
 
                     }
                     else
                     {
-                        retorno += "Resultado Difere do Professor: \n";
+                        retorno += "\nSeu Resultado Difere do Professor: \n";
                     }
 
                     //exibindo os resultados
