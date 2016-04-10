@@ -95,8 +95,9 @@ namespace SQLEscola.Models
                 }
             }
             //Testando para saber se o nome do procedimento informado está no script resposta
-            if (quest.NomeProcedimento.ToLower() != go.RetornaNomeProcedimento(quest.ScriptResultado))
+            if (quest.NomeProcedimento.Trim().ToLower() != go.RetornaNomeProcedimento(quest.ScriptResultado))
             {
+                acess.AcessandoSQLScript("DROP PROCEDURE " + quest.NomeProcedimento.ToLower() + "_V_" + hora);
                 acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
                 return "O nome do procedimento informado difere do que está informado no Script de Resolução";
             }
@@ -139,11 +140,12 @@ namespace SQLEscola.Models
                                 if (retorno != "OK")
                                 {
                                     acess.AcessandoSQLScript("DROP PROCEDURE " + nome + "_V_" + hora);
+                                    acess.AcessandoSQLScript(DandoDropsTables(quest.ScriptCriacao));
                                     return "Houve um problema em algum dos Casos de Teste. Favor verificar novamente.<br />SQL ERRO:" + retorno;
                                 }
-                                acess.AcessandoSQLScript("DROP PROCEDURE " + nome + "_V_" + hora);
                             }
                         }
+                        acess.AcessandoSQLScript("DROP PROCEDURE " + nome + "_V_" + hora);
                     }
                     else
                     {
@@ -197,7 +199,10 @@ namespace SQLEscola.Models
                     listaNomeTablesAluno.Add(tb + "_A_" + hora);
                     scCriacaoAluno = scCriacaoAluno.ToLower().Replace(tb, tb + "_A_" + hora);
                 }
-                
+                //Pegando os nomes das tabelas de criação prof e aluno modificadas
+                listaNomeTablesProf = go.RetornarNomesTablesCriacao(scCriacaoProf);
+                listaNomeTablesAluno = go.RetornarNomesTablesCriacao(scCriacaoAluno);
+
                 //exec scripts de criação
                 acesso.AcessandoSQLScript(scCriacaoProf);
                 acesso.AcessandoSQLScript(scCriacaoAluno);
@@ -248,14 +253,14 @@ namespace SQLEscola.Models
                     retorno += item + "\n";
 
                     //Alterando o nome dos casos de teste para os do professor atual
-                    string scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste, NomeSCProf);
+                    string scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste.Trim(), NomeSCProf);
                     for (int i = 0; i < listaNomeTables.Count; i++)
                     {
                         scriptDeCasosDeTeste = scriptDeCasosDeTeste.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
                     }
                     List<string> resultadosProf = acesso.AcessandoSQLScriptObtendoDados(scriptDeCasosDeTeste);
                     //Alterando o nome dos casos de teste para os do aluno atual
-                    scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste, NomeSCAluno);
+                    scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste.Trim(), NomeSCAluno);
                     for (int i = 0; i < listaNomeTables.Count; i++)
                     {
                         scriptDeCasosDeTeste = scriptDeCasosDeTeste.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
@@ -273,9 +278,16 @@ namespace SQLEscola.Models
                     }
 
                     //exibindo os resultados
-                    foreach (string linhas in resultadosAluno)
+                    if (resultadosAluno.Count == 0)
                     {
-                        retorno += linhas.Substring(0, linhas.Length-2) + "\n";
+                        retorno += "Não há registros para este caso de teste.\n";
+                    }
+                    else
+                    {
+                        foreach (string linhas in resultadosAluno)
+                        {
+                            retorno += linhas.Substring(0, linhas.Length - 2) + "\n";
+                        }
                     }
                     retorno += "\n";
                 }

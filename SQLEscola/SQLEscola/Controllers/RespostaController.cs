@@ -81,6 +81,7 @@ namespace SQLEscola.Controllers
             IEnumerable<AtividadeModel> listaAtivVazia = (IEnumerable<AtividadeModel>)ativs;
             List<QuestaoModel> quests = new List<QuestaoModel>();
             IEnumerable<QuestaoModel> listaQuestVazia = (IEnumerable<QuestaoModel>)quests;
+            ViewBag.SelecionouQuestao = "false";
             //Carregamento Inicial ao entrar na tela
             if (resp.Turmas == 0 & resp.Atividades == 0 & resp.Questoes == 0)
             {
@@ -102,6 +103,7 @@ namespace SQLEscola.Controllers
                         "Id_Questao",
                         "Descricao"
                     );
+                ModelState.Remove("Questoes");
             }
             //Carregamento após a turma ser selecionada
             else if (resp.Turmas != 0 & resp.Atividades == 0 & resp.Questoes == 0)
@@ -125,6 +127,7 @@ namespace SQLEscola.Controllers
                         "Id_Questao",
                         "Descricao"
                     );
+                ModelState.Remove("Questoes");
             }
             //Carregamento após atividade ser selecionada
             else if (resp.Turmas == 0 & resp.Atividades != 0 & resp.Questoes == 0)
@@ -201,6 +204,33 @@ namespace SQLEscola.Controllers
                         "Id_Questao",
                         "Descricao"
                     );
+            }
+            //Quando o user altera o último combo de Questões
+            else if (resp.Turmas == 0 & resp.Atividades == 0 & resp.Questoes != 0)
+            {
+                ViewBag.SelecionouQuestao = "true";
+                resp.ScriptResposta = GerenciadorQuestao.GetInstance().Obter(resp.Questoes).Descricao;
+                resp.Id_Questao = resp.Questoes;
+                ViewBag.Turmas = new SelectList
+                    (
+                        listaTurmas,
+                        "Id_Turma",
+                        "Turma", Session["IdTurma"]
+                    );
+                ViewBag.Atividades = new SelectList
+                    (
+                        GerenciadorAtividade.GetInstance().ObterPorTurma(Convert.ToInt32(Session["IdTurma"].ToString())),
+                        "Id_Atividade",
+                        "Nome_Atividade",
+                        Session["IdAtividade"]
+                    );
+                ViewBag.Questoes = new SelectList
+                    (
+                        GerenciadorQuestao.GetInstance().ObterPorAtividadeValidas(Convert.ToInt32(Session["IdAtividade"])),
+                        "Id_Questao",
+                        "Descricao"
+                    );
+                ModelState.Remove("ScriptResposta");
             }
             return View(resp);
         }

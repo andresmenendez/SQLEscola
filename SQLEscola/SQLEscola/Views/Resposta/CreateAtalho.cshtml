@@ -34,18 +34,38 @@
                 @Html.DropDownList("Atividades", null, "Selecione", new { onchange = "this.form.submit();" })
             </div>
         }
-        
-        <div class="editor-label">
-            @Html.Label("Questão")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("Questoes", null, "Selecione", new { id = "ddlQuestoes" })
-        </div>
 
-        <h4 id="Enunciado" style="width:50%;"></h4>
+        @using (Ajax.BeginForm("CreateAtalho", "Resposta", FormMethod.Get, null))
+        {
+            <div class="editor-label">
+                @Html.Label("Questão")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("Questoes", null, "Selecione", new { onchange = "this.form.submit();" })
+            </div>
+        }
 
+        @if (ViewBag.SelecionouQuestao == "true")
+        {
+            <div class="editor-label">
+                @Html.Label("Descrição da Questão Selecionada")
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.ScriptResposta, new { style = "width:700px;height:250px;", disabled = "disabled" })
+            </div>
+            <br />
+            @Html.ActionLink("Responder", "Create", "Resposta", new { id = Model.Id_Questao },
+              new
+              {
+                  @class = "but but-primary but-small but-shadow but-rc",
+                  style = "color:White;font-size:larger;text-decoration:none;",
+                  id = "bt"
+              })
+        }
 
-        @Html.Hidden("Arquivo", ((string)Session["ListaQuestao"]))
+        @*<h4 id="Enunciado" style="width:50%;"></h4>
+
+        Html.Hidden("Arquivo", ((string)Session["ListaQuestao"]))
         <div class="editor-field" style="font-weight:bolder;display:none" id="mostrarArquivo" >
                 <a href="@Url.Action("PDFDownload", "Questao", new { id = Model.Questoes })">
                     <img alt="logo" src="../../Content/themes/base/images/arquivo.png" width="25px" height="25px" />
@@ -60,11 +80,8 @@
         <div class="editor-field">
             @Html.TextAreaFor(model => model.ScriptResposta, new { style = "width:700px;height:250px;" })
             @Html.ValidationMessageFor(model => model.ScriptResposta)
-        </div>
-
-        <p>
-            <input type="submit" value="Submeter Resposta para Avaliação Automática" class="but but-success but-small but-shadow but-rc" />
-        </p>
+        </div>*@
+        
     </fieldset>
 }
 
@@ -73,21 +90,22 @@
 </div>
 
 <script type="text/javascript">
-    $("#mostrarArquivo").hide();
-    $('#ddlQuestoes').change(function () {
+    //$("#mostrarArquivo").hide();
+    /*$('#ddlQuestoes').change(function () {
         var sel = $('#ddlQuestoes').get(0);
         var valueSelect = sel.options[sel.selectedIndex].text;
         var valor = sel.options[sel.selectedIndex].value;
         $('#Enunciado').text('Questão Selecionada: ' + valueSelect);
+        $('#bt').show();
 
         var lista = $('#Arquivo').val();
         var array = lista.split(',');
         for (i = 0; i < array.length; i++) {
-            if (array[i] == valor.toString()) {
-                $("#mostrarArquivo").show();
-                hfSessionValue.Value = HttpContext.Current.Session("NomeDaSession").ToString
-                break;
-            }
+        if (array[i] == valor.toString()) {
+        $("#mostrarArquivo").show();
+        hfSessionValue.Value = HttpContext.Current.Session("NomeDaSession").ToString
+        break;
         }
-    });
+        }
+    });*/
 </script>
