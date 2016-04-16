@@ -16,7 +16,7 @@
 
         @Html.HiddenFor(model => model.Id_Resultado)
         @Html.HiddenFor(model => model.Id_Resposta)
-        @Html.HiddenFor(model => model.Erros)
+        @Html.HiddenFor(model => model.Resultados)
 
         <div class="editor-label">
             @Html.Label("Script de Resposta")
@@ -29,7 +29,7 @@
             @Html.Label("Resultado")
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Erros, new { style = "width:750px;height:350px;", disabled = "disabled" })
+            @Html.TextAreaFor(model => model.Resultados, new { style = "width:750px;height:350px;", disabled = "disabled" })
         </div>
 
         <div class="editor-label">

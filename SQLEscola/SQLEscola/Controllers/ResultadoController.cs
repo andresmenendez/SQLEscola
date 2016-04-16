@@ -77,7 +77,7 @@ namespace SQLEscola.Controllers
             ViewBag.Ordem = GerenciadorQuestao.GetInstance().Obter(resp.Id_Questao).Ordem;
             ViewBag.IdUser = idUser;
             ViewBag.Id_Questao = resp.Id_Questao;
-            ViewBag.Erros = result.Erros;
+            ViewBag.Erros = result.Resultados;
             result.ScriptResposta = resp.ScriptResposta;
             return View(result);
         }
@@ -91,7 +91,8 @@ namespace SQLEscola.Controllers
             if (ModelState.IsValid)
             {
                 RespostaModel resp = GerenciadorResposta.GetInstance().Obter(model.Id_Resposta);
-                GerenciadorResultado.GetInstance().Editar(model);
+                GerenciadorResultado gr = new GerenciadorResultado();
+                gr.Editar(model);
                 return RedirectToAction("Index", "Resposta", new { id = resp.Id_Questao, idUser = resp.Id_Usuario});
             }
             return View(model);

@@ -139,7 +139,7 @@
             <PropertyRef Name="Id_Resultado" />
           </Key>
           <Property Name="Id_Resultado" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Erros" Type="text" />
+          <Property Name="Resultado" Type="text" Nullable="false" />
           <Property Name="Comentarios_Prof" Type="text" />
           <Property Name="Id_Resposta" Type="int" Nullable="false" />
         </EntityType>
@@ -284,7 +284,6 @@
         <EntityContainer Name="sqlescolaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tb_matricula" EntityType="sqlescolaModel.tb_matricula" />
           <EntitySet Name="tb_restricao" EntityType="sqlescolaModel.tb_restricao" />
-          <EntitySet Name="tb_resultado" EntityType="sqlescolaModel.tb_resultado" />
           <EntitySet Name="tb_tecnologia" EntityType="sqlescolaModel.tb_tecnologia" />
           <EntitySet Name="tb_usuario" EntityType="sqlescolaModel.tb_usuario" />
           <AssociationSet Name="fk_tb_matricula_tb_usuario1" Association="sqlescolaModel.fk_tb_matricula_tb_usuario1">
@@ -317,13 +316,14 @@
             <End Role="tb_usuario" EntitySet="tb_usuario" />
             <End Role="tb_resposta" EntitySet="tb_resposta" />
           </AssociationSet>
-          <AssociationSet Name="fk_tb_resultado_tb_resposta1" Association="sqlescolaModel.fk_tb_resultado_tb_resposta1">
-            <End Role="tb_resposta" EntitySet="tb_resposta" />
-            <End Role="tb_resultado" EntitySet="tb_resultado" />
-          </AssociationSet>
           <AssociationSet Name="tb_questao_restricoes" Association="sqlescolaModel.tb_questao_restricoes">
             <End Role="tb_questao" EntitySet="tb_questao" />
             <End Role="tb_restricao" EntitySet="tb_restricao" />
+          </AssociationSet>
+          <EntitySet Name="tb_resultado" EntityType="sqlescolaModel.tb_resultado" />
+          <AssociationSet Name="fk_tb_resultado_tb_resposta1" Association="sqlescolaModel.fk_tb_resultado_tb_resposta1">
+            <End Role="tb_resposta" EntitySet="tb_resposta" />
+            <End Role="tb_resultado" EntitySet="tb_resultado" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="tb_matricula">
@@ -344,16 +344,6 @@
           <Property Type="String" Name="Descricao" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Double" Name="Valores" Nullable="false" />
           <NavigationProperty Name="tb_questao" Relationship="sqlescolaModel.tb_questao_restricoes" FromRole="tb_restricao" ToRole="tb_questao" />
-        </EntityType>
-        <EntityType Name="tb_resultado">
-          <Key>
-            <PropertyRef Name="Id_Resultado" />
-          </Key>
-          <Property Type="Int32" Name="Id_Resultado" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Erros" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Comentarios_Prof" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Id_Resposta" Nullable="false" />
-          <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resultado_tb_resposta1" FromRole="tb_resultado" ToRole="tb_resposta" />
         </EntityType>
         <EntityType Name="tb_tecnologia">
           <Key>
@@ -520,6 +510,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="tb_questao_restricoes">
+          <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
+          <End Type="sqlescolaModel.tb_restricao" Role="tb_restricao" Multiplicity="*" />
+        </Association>
+        <EntityType Name="tb_resultado">
+          <Key>
+            <PropertyRef Name="Id_Resultado" />
+          </Key>
+          <Property Type="Int32" Name="Id_Resultado" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Resultado" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Comentarios_Prof" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Id_Resposta" Nullable="false" />
+          <NavigationProperty Name="tb_resposta" Relationship="sqlescolaModel.fk_tb_resultado_tb_resposta1" FromRole="tb_resultado" ToRole="tb_resposta" />
+        </EntityType>
         <Association Name="fk_tb_resultado_tb_resposta1">
           <End Type="sqlescolaModel.tb_resposta" Role="tb_resposta" Multiplicity="1" />
           <End Type="sqlescolaModel.tb_resultado" Role="tb_resultado" Multiplicity="*" />
@@ -531,10 +535,6 @@
               <PropertyRef Name="Id_Resposta" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="tb_questao_restricoes">
-          <End Type="sqlescolaModel.tb_questao" Role="tb_questao" Multiplicity="*" />
-          <End Type="sqlescolaModel.tb_restricao" Role="tb_restricao" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -557,16 +557,6 @@
                 <ScalarProperty Name="Valores" ColumnName="Valores" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
                 <ScalarProperty Name="Id_Restricoes" ColumnName="Id_Restricoes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tb_resultado">
-            <EntityTypeMapping TypeName="sqlescolaModel.tb_resultado">
-              <MappingFragment StoreEntitySet="tb_resultado">
-                <ScalarProperty Name="Id_Resposta" ColumnName="Id_Resposta" />
-                <ScalarProperty Name="Comentarios_Prof" ColumnName="Comentarios_Prof" />
-                <ScalarProperty Name="Erros" ColumnName="Erros" />
-                <ScalarProperty Name="Id_Resultado" ColumnName="Id_Resultado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -667,6 +657,16 @@
               <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tb_resultado">
+            <EntityTypeMapping TypeName="sqlescolaModel.tb_resultado">
+              <MappingFragment StoreEntitySet="tb_resultado">
+                <ScalarProperty Name="Id_Resposta" ColumnName="Id_Resposta" />
+                <ScalarProperty Name="Comentarios_Prof" ColumnName="Comentarios_Prof" />
+                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+                <ScalarProperty Name="Id_Resultado" ColumnName="Id_Resultado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -690,7 +690,6 @@
       <Diagram Name="SQLEscolaModel">
         <EntityTypeShape EntityType="sqlescolaModel.tb_matricula" Width="1.5" PointX="5.25" PointY="10.125" Height="1.9802864583333388" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_restricao" Width="1.5" PointX="9.75" PointY="14" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="sqlescolaModel.tb_resultado" Width="1.5" PointX="5.25" PointY="6.625" Height="1.9802864583333246" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_tecnologia" Width="1.5" PointX="5.25" PointY="17" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="sqlescolaModel.tb_usuario" Width="1.5" PointX="0.75" PointY="9.25" Height="2.7494921875000031" />
         <AssociationConnector Association="sqlescolaModel.fk_tb_matricula_tb_usuario1" >
@@ -719,21 +718,21 @@
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_resposta_tb_questao1" >
           <ConnectorPoint PointX="8.25" PointY="12.75" />
-          <ConnectorPoint PointX="8.25" PointY="11.124746093750002" />
-          <ConnectorPoint PointX="9.75" PointY="11.124746093750002" />
+          <ConnectorPoint PointX="8.25" PointY="11.20287109375" />
+          <ConnectorPoint PointX="9.75" PointY="11.20287109375" />
         </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.fk_tb_resposta_tb_usuario1" >
           <ConnectorPoint PointX="2.25" PointY="9.90625" />
           <ConnectorPoint PointX="9.75" PointY="9.90625" />
         </AssociationConnector>
-        <AssociationConnector Association="sqlescolaModel.fk_tb_resultado_tb_resposta1" >
-          <ConnectorPoint PointX="10.5" PointY="9.75" />
-          <ConnectorPoint PointX="10.5" PointY="7.6151432291666659" />
-          <ConnectorPoint PointX="6.75" PointY="7.6151432291666659" />
-        </AssociationConnector>
         <AssociationConnector Association="sqlescolaModel.tb_questao_restricoes" >
           <ConnectorPoint PointX="9" PointY="14.893992513020834" />
           <ConnectorPoint PointX="9.75" PointY="14.893992513020834" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="sqlescolaModel.tb_resultado" Width="1.5" PointX="12" PointY="10.125" Height="1.9802864583333317" />
+        <AssociationConnector Association="sqlescolaModel.fk_tb_resultado_tb_resposta1" >
+          <ConnectorPoint PointX="11.25" PointY="11.115143229166666" />
+          <ConnectorPoint PointX="12" PointY="11.115143229166666" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

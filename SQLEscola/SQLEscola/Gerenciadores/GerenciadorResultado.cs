@@ -16,7 +16,7 @@ namespace SQLEscola.Gerenciadores
 
         private static GerenciadorResultado gResultado;
 
-        private GerenciadorResultado()
+        public GerenciadorResultado()
         {
             this.unitOfWork = new UnitOfWork();
             shared = false;
@@ -91,8 +91,8 @@ namespace SQLEscola.Gerenciadores
                         {
                             Id_Resultado = result.Id_Resultado,
                             Id_Resposta = result.Id_Resposta,
-                            Erros = result.Erros,
-                            Comentarios_Prof = result.Comentarios_Prof
+                            Comentarios_Prof = result.Comentarios_Prof,
+                            Resultados = result.Resultado
                         };
             return query;
         }
@@ -127,8 +127,8 @@ namespace SQLEscola.Gerenciadores
         {
             resultadoE.Id_Resposta = resp.Id_Resposta;
             resultadoE.Id_Resultado = resp.Id_Resultado;
-            resultadoE.Erros = resp.Erros;
             resultadoE.Comentarios_Prof = resp.Comentarios_Prof;
+            resultadoE.Resultado = resp.Resultados;
         }
     }
 }

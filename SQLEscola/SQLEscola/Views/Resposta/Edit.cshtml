@@ -5,8 +5,13 @@
 }
 
 <h2>Editar Script de Resposta</h2>
-<h3>Questão: @ViewBag.NomeQuestao</h3>
-<h3>Ordem: @ViewBag.Ordem</h3>
+<h3>Ordem: @ViewBag.Ordem / Questão: @ViewBag.NomeQuestao</h3>
+
+<ul style="color:Blue">
+    <li>
+        Para evitar discrepâncias na avaliação automática, mantenha o mesmo nome no procedimento "@ViewBag.Nome".
+    </li>
+</ul>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -16,6 +21,7 @@
         @Html.HiddenFor(resp => resp.Id_Resposta)
         @Html.HiddenFor(resp => resp.Id_Questao)
         @Html.HiddenFor(resp => resp.Id_Usuario)
+        @Html.HiddenFor(resp => resp.NomeProcedResposta)
 
         <div class="editor-label">
             @Html.Label("Script de Resposta")

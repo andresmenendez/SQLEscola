@@ -134,7 +134,7 @@
       <PropertyRef Name="Id_Resultado" />
     </Key>
     <Property Name="Id_Resultado" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Erros" Type="text" />
+    <Property Name="Resultado" Type="text" Nullable="false" />
     <Property Name="Comentarios_Prof" Type="text" />
     <Property Name="Id_Resposta" Type="int" Nullable="false" />
   </EntityType>

@@ -19,16 +19,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tb_resultado">
-      <EntityTypeMapping TypeName="sqlescolaModel.tb_resultado">
-        <MappingFragment StoreEntitySet="tb_resultado">
-          <ScalarProperty Name="Id_Resposta" ColumnName="Id_Resposta" />
-          <ScalarProperty Name="Comentarios_Prof" ColumnName="Comentarios_Prof" />
-          <ScalarProperty Name="Erros" ColumnName="Erros" />
-          <ScalarProperty Name="Id_Resultado" ColumnName="Id_Resultado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tb_tecnologia">
       <EntityTypeMapping TypeName="sqlescolaModel.tb_tecnologia">
         <MappingFragment StoreEntitySet="tb_tecnologia">
@@ -126,5 +116,15 @@
         <ScalarProperty Name="Id_Questao" ColumnName="Id_Questao" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="tb_resultado">
+      <EntityTypeMapping TypeName="sqlescolaModel.tb_resultado">
+        <MappingFragment StoreEntitySet="tb_resultado">
+          <ScalarProperty Name="Id_Resposta" ColumnName="Id_Resposta" />
+          <ScalarProperty Name="Comentarios_Prof" ColumnName="Comentarios_Prof" />
+          <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+          <ScalarProperty Name="Id_Resultado" ColumnName="Id_Resultado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

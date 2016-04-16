@@ -25,8 +25,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_questao_tb_atividade1", "tb_atividade", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_atividade), "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_questao1", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_questao), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resposta_tb_usuario1", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_usuario), "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resposta), true)]
-[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_resposta), "tb_resultado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resultado), true)]
 [assembly: EdmRelationshipAttribute("sqlescolaModel", "tb_questao_restricoes", "tb_questao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_questao), "tb_restricao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_restricao))]
+[assembly: EdmRelationshipAttribute("sqlescolaModel", "fk_tb_resultado_tb_resposta1", "tb_resposta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLEscola.Banco.tb_resposta), "tb_resultado", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLEscola.Banco.tb_resultado), true)]
 
 #endregion
 
@@ -109,22 +109,6 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_restricao> _tb_restricao;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<tb_resultado> tb_resultado
-        {
-            get
-            {
-                if ((_tb_resultado == null))
-                {
-                    _tb_resultado = base.CreateObjectSet<tb_resultado>("tb_resultado");
-                }
-                return _tb_resultado;
-            }
-        }
-        private ObjectSet<tb_resultado> _tb_resultado;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -253,6 +237,22 @@ namespace SQLEscola.Banco
             }
         }
         private ObjectSet<tb_resposta> _tb_resposta;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_resultado> tb_resultado
+        {
+            get
+            {
+                if ((_tb_resultado == null))
+                {
+                    _tb_resultado = base.CreateObjectSet<tb_resultado>("tb_resultado");
+                }
+                return _tb_resultado;
+            }
+        }
+        private ObjectSet<tb_resultado> _tb_resultado;
 
         #endregion
 
@@ -272,14 +272,6 @@ namespace SQLEscola.Banco
         public void AddTotb_restricao(tb_restricao tb_restricao)
         {
             base.AddObject("tb_restricao", tb_restricao);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the tb_resultado EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_resultado(tb_resultado tb_resultado)
-        {
-            base.AddObject("tb_resultado", tb_resultado);
         }
     
         /// <summary>
@@ -344,6 +336,14 @@ namespace SQLEscola.Banco
         public void AddTotb_resposta(tb_resposta tb_resposta)
         {
             base.AddObject("tb_resposta", tb_resposta);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_resultado EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_resultado(tb_resultado tb_resultado)
+        {
+            base.AddObject("tb_resultado", tb_resultado);
         }
 
         #endregion
@@ -1895,11 +1895,13 @@ namespace SQLEscola.Banco
         /// Create a new tb_resultado object.
         /// </summary>
         /// <param name="id_Resultado">Initial value of the Id_Resultado property.</param>
+        /// <param name="resultado">Initial value of the Resultado property.</param>
         /// <param name="id_Resposta">Initial value of the Id_Resposta property.</param>
-        public static tb_resultado Createtb_resultado(global::System.Int32 id_Resultado, global::System.Int32 id_Resposta)
+        public static tb_resultado Createtb_resultado(global::System.Int32 id_Resultado, global::System.String resultado, global::System.Int32 id_Resposta)
         {
             tb_resultado tb_resultado = new tb_resultado();
             tb_resultado.Id_Resultado = id_Resultado;
+            tb_resultado.Resultado = resultado;
             tb_resultado.Id_Resposta = id_Resposta;
             return tb_resultado;
         }
@@ -1938,26 +1940,26 @@ namespace SQLEscola.Banco
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Erros
+        public global::System.String Resultado
         {
             get
             {
-                return _Erros;
+                return _Resultado;
             }
             set
             {
-                OnErrosChanging(value);
-                ReportPropertyChanging("Erros");
-                _Erros = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Erros");
-                OnErrosChanged();
+                OnResultadoChanging(value);
+                ReportPropertyChanging("Resultado");
+                _Resultado = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Resultado");
+                OnResultadoChanged();
             }
         }
-        private global::System.String _Erros;
-        partial void OnErrosChanging(global::System.String value);
-        partial void OnErrosChanged();
+        private global::System.String _Resultado;
+        partial void OnResultadoChanging(global::System.String value);
+        partial void OnResultadoChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

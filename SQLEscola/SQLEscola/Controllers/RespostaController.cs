@@ -176,7 +176,7 @@ namespace SQLEscola.Controllers
                 resp.Id_Questao = resp.Questoes;
                 GerenciadorResposta.GetInstance().Inserir(resp);
                 ResultadoModel result = new ResultadoModel();
-                result.Erros = "OK";
+                result.Resultados = "OK";
                 result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(resp.DataResposta.Value).Id_Resposta;
                 GerenciadorResultado.GetInstance().Inserir(result);
                 return RedirectToAction("Index", "Resposta",
@@ -279,20 +279,17 @@ namespace SQLEscola.Controllers
                         {
                             acesso.AcessandoSQLScript("DROP PROCEDURE " + nomeProc);
                             model.DataResposta = DateTime.Now;
-                            //GerenciadorResposta.GetInstance().Inserir(model);
+                            GerenciadorResposta.GetInstance().Inserir(model);
                             ResultadoModel result = new ResultadoModel();
-                            result.Erros = "OK";
-                            //result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
+                            result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
                             //Submetendo resposta
                             QuestaoModel q = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
-                            /*result.Erros = go.SubmeterResposta(q.ScriptCriacao, q.ScriptPovoamento, q.NomeProcedimento, q.ScriptResultado,
-                                model.NomeProcedResposta, model.ScriptResposta, q.CasosTeste);*/
-                            model.ScriptErros = go.SubmeterResposta(q.ScriptCriacao, q.ScriptPovoamento, q.NomeProcedimento, q.ScriptResultado,
+                            result.Resultados = go.SubmeterResposta(q.ScriptCriacao, q.ScriptPovoamento, q.NomeProcedimento, q.ScriptResultado,
                                 model.NomeProcedResposta, model.ScriptResposta, q.CasosTeste);
-                            //GerenciadorResultado.GetInstance().Inserir(result);
-                            /*return RedirectToAction("Index", "Resposta",
+                            GerenciadorResultado.GetInstance().Inserir(result);
+                            return RedirectToAction("Index", "Resposta",
                                 new { id = model.Id_Questao, idUser = Convert.ToInt32(Membership.GetUser().ProviderUserKey.ToString()) });
-                        */}
+                        }
                         else
                         {
                             acesso.AcessandoSQLScript("DROP PROCEDURE " + nomeProc);
@@ -326,6 +323,7 @@ namespace SQLEscola.Controllers
             RespostaModel resp = GerenciadorResposta.GetInstance().Obter(id);
             ViewBag.NomeQuestao = GerenciadorQuestao.GetInstance().Obter(resp.Id_Questao).Descricao;
             ViewBag.Ordem = GerenciadorQuestao.GetInstance().Obter(resp.Id_Questao).Ordem;
+            ViewBag.Nome = resp.NomeProcedResposta;
             return View(resp);
         }
 
@@ -335,12 +333,15 @@ namespace SQLEscola.Controllers
         [HttpPost]
         public ActionResult Edit(RespostaModel model)
         {
-            if (ModelState.IsValid)
+            if (model.ScriptResposta != null)
             {
+                Global go = new Global();
+                QuestaoModel q = GerenciadorQuestao.GetInstance().Obter(model.Id_Questao);
                 model.DataResposta = DateTime.Now;
                 GerenciadorResposta.GetInstance().Inserir(model);
                 ResultadoModel result = new ResultadoModel();
-                result.Erros = "OK";
+                result.Resultados = go.SubmeterResposta(q.ScriptCriacao, q.ScriptPovoamento, q.NomeProcedimento, q.ScriptResultado,
+                                model.NomeProcedResposta, model.ScriptResposta, q.CasosTeste);
                 result.Id_Resposta = GerenciadorResposta.GetInstance().ObterPorData(model.DataResposta.Value).Id_Resposta;
                 GerenciadorResultado.GetInstance().Inserir(result);
                 return RedirectToAction("Index", "Resposta", new { id = model.Id_Questao, idUser = model.Id_Usuario });

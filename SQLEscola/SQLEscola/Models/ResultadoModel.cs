@@ -13,10 +13,9 @@ namespace SQLEscola.Models
         public int Id_Resultado { get; set; }
 
         [Required]
-        [Display(Name = "Erros")]
-        public string Erros { get; set; }
+        [Display(Name = "Resultado")]
+        public string Resultados { get; set; }
 
-        [Required]
         [Display(Name = "Comentários do Professor")]
         public string Comentarios_Prof { get; set; }
 
