@@ -168,141 +168,161 @@ namespace SQLEscola.Models
             //Guardando o nome do procedimento dos casos de teste
             string NomeExecCasosTeste = NomeSCProf;
 
-            //Pegando HORA
-            string hora = DateTime.Now.ToShortTimeString().Replace(":", "");
-            //Alterando o nome no script do prof para NOME_PROCEDIMENTO_P_HORA
-            string nomeProc = go.RetornaNomeProcedimento(scProf).ToLower()  + "_P_" + hora;
-            scProf = scProf.ToLower().Replace(NomeSCProf.ToLower().Trim(), nomeProc.ToLower());
-            NomeSCProf = nomeProc;
-
-            //Alterando o nome no script do aluno para NOME_PROCEDIMENTO_A_HORA
-            nomeProc = go.RetornaNomeProcedimento(scAluno).ToLower() + "_A_" + hora;
-            scAluno = scAluno.ToLower().Replace(NomeSCAluno.ToLower().Trim(), nomeProc.ToLower());
-            NomeSCAluno = nomeProc;
-
             //criando lista com nomes tables para serem usadas caso haja script de Criação
             List<string> listaNomeTables = new List<string>();
             List<string> listaNomeTablesProf = new List<string>();
             List<string> listaNomeTablesAluno = new List<string>();
-            if (scCriacao != null)
+
+            try
             {
-                //pegando nome das tabelas do script criação original
-                listaNomeTables = go.RetornarNomesTablesCriacao(scCriacao);
+                //Pegando HORA
+                string hora = DateTime.Now.ToShortTimeString().Replace(":", "");
+                //Alterando o nome no script do prof para NOME_PROCEDIMENTO_P_HORA
+                string nomeProc = go.RetornaNomeProcedimento(scProf).ToLower() + "_P_" + hora;
+                scProf = scProf.ToLower().Replace(NomeSCProf.ToLower().Trim(), nomeProc.ToLower());
+                NomeSCProf = nomeProc;
 
-                //Alterando scripts de criação e executando para o Prof e Aluno
-                string scCriacaoProf = scCriacao;
-                string scCriacaoAluno = scCriacao;
-                foreach (string tb in listaNomeTables)
+                //Alterando o nome no script do aluno para NOME_PROCEDIMENTO_A_HORA
+                nomeProc = go.RetornaNomeProcedimento(scAluno).ToLower() + "_A_" + hora;
+                scAluno = scAluno.ToLower().Replace(NomeSCAluno.ToLower().Trim(), nomeProc.ToLower());
+                NomeSCAluno = nomeProc;
+
+                
+                if (scCriacao != null)
                 {
-                    listaNomeTablesProf.Add(tb + "_P_"+ hora);
-                    scCriacaoProf = scCriacaoProf.ToLower().Replace(tb, tb + "_P_" + hora);
-                    listaNomeTablesAluno.Add(tb + "_A_" + hora);
-                    scCriacaoAluno = scCriacaoAluno.ToLower().Replace(tb, tb + "_A_" + hora);
+                    //pegando nome das tabelas do script criação original
+                    listaNomeTables = go.RetornarNomesTablesCriacao(scCriacao);
+
+                    //Alterando scripts de criação e executando para o Prof e Aluno
+                    string scCriacaoProf = scCriacao;
+                    string scCriacaoAluno = scCriacao;
+                    foreach (string tb in listaNomeTables)
+                    {
+                        listaNomeTablesProf.Add(tb + "_P_" + hora);
+                        scCriacaoProf = scCriacaoProf.ToLower().Replace(tb, tb + "_P_" + hora);
+                        listaNomeTablesAluno.Add(tb + "_A_" + hora);
+                        scCriacaoAluno = scCriacaoAluno.ToLower().Replace(tb, tb + "_A_" + hora);
+                    }
+                    //Pegando os nomes das tabelas de criação prof e aluno modificadas
+                    listaNomeTablesProf = go.RetornarNomesTablesCriacao(scCriacaoProf);
+                    listaNomeTablesAluno = go.RetornarNomesTablesCriacao(scCriacaoAluno);
+
+                    //exec scripts de criação
+                    acesso.AcessandoSQLScript(scCriacaoProf);
+                    acesso.AcessandoSQLScript(scCriacaoAluno);
+
+                    //altera os nomes das tables dentro do script de povoamento
+                    string scPovoaProf = scPovoa;
+                    string scPovoaAluno = scPovoa;
+                    for (int i = 0; i < listaNomeTables.Count; i++)
+                    {
+                        scPovoaProf = scPovoaProf.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
+                        scPovoaAluno = scPovoaAluno.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
+                    }
+                    //executando os scripts de povoamento alterados para Prof e Aluno
+                    acesso.AcessandoSQLScript(scPovoaProf);
+                    acesso.AcessandoSQLScript(scPovoaAluno);
+
+                    //altera os nomes das tabelas no script de resposta do prof e aluno
+                    string scRespProf = scProf;
+                    string scRespAluno = scAluno;
+                    for (int i = 0; i < listaNomeTables.Count; i++)
+                    {
+                        scRespProf = scRespProf.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
+                        scRespAluno = scRespAluno.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
+                    }
+
+                    //executando os scripts de resposta alterados para Prof e Aluno
+                    acesso.AcessandoSQLScript(scRespProf);
+                    acesso.AcessandoSQLScript(scRespAluno);
                 }
-                //Pegando os nomes das tabelas de criação prof e aluno modificadas
-                listaNomeTablesProf = go.RetornarNomesTablesCriacao(scCriacaoProf);
-                listaNomeTablesAluno = go.RetornarNomesTablesCriacao(scCriacaoAluno);
 
-                //exec scripts de criação
-                acesso.AcessandoSQLScript(scCriacaoProf);
-                acesso.AcessandoSQLScript(scCriacaoAluno);
-
-                //altera os nomes das tables dentro do script de povoamento
-                string scPovoaProf = scPovoa;
-                string scPovoaAluno = scPovoa;
-                for (int i = 0; i < listaNomeTables.Count; i++)
+                if (scCriacao == null)
                 {
-                    scPovoaProf = scPovoaProf.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
-                    scPovoaAluno = scPovoaAluno.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
+                    //exec script do prof e do aluno com nomes já alterados para evitar duplicidades
+                    acesso.AcessandoSQLScript(scProf);
+                    acesso.AcessandoSQLScript(scAluno);
                 }
-                //executando os scripts de povoamento alterados para Prof e Aluno
-                acesso.AcessandoSQLScript(scPovoaProf);
-                acesso.AcessandoSQLScript(scPovoaAluno);
 
-                //altera os nomes das tabelas no script de resposta do prof e aluno
-                string scRespProf = scProf;
-                string scRespAluno = scAluno;
-                for (int i = 0; i < listaNomeTables.Count; i++)
+
+                //Listando casos de teste e fazendo a exec
+                List<string> casos = scCasosTeste.Split(';').ToList<string>();
+                int cont = 1;
+                string retorno = "";
+                foreach (string item in casos)
                 {
-                    scRespProf = scRespProf.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
-                    scRespAluno = scRespAluno.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
-                }
+                    if (item.Length > 1)
+                    {
+                        retorno += "Caso de Teste " + cont++ + "\n";
+                        retorno += item + "\n";
 
-                //executando os scripts de resposta alterados para Prof e Aluno
-                acesso.AcessandoSQLScript(scRespProf);
-                acesso.AcessandoSQLScript(scRespAluno);
+                        //Alterando o nome dos casos de teste para os do professor atual
+                        string scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste.Trim(), NomeSCProf);
+                        for (int i = 0; i < listaNomeTables.Count; i++)
+                        {
+                            scriptDeCasosDeTeste = scriptDeCasosDeTeste.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
+                        }
+                        List<string> resultadosProf = acesso.AcessandoSQLScriptObtendoDados(scriptDeCasosDeTeste);
+                        //Alterando o nome dos casos de teste para os do aluno atual
+                        scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste.Trim(), NomeSCAluno);
+                        for (int i = 0; i < listaNomeTables.Count; i++)
+                        {
+                            scriptDeCasosDeTeste = scriptDeCasosDeTeste.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
+                        }
+                        List<string> resultadosAluno = acesso.AcessandoSQLScriptObtendoDados(scriptDeCasosDeTeste);
+                        //Comparando as respostas
+                        if (CompararResposta(resultadosProf, resultadosAluno))
+                        {
+                            retorno += "\nResultado Correto: \n";
+
+                        }
+                        else
+                        {
+                            retorno += "\nSeu Resultado Difere do Professor: \n";
+                        }
+
+                        //exibindo os resultados
+                        if (resultadosAluno.Count == 0)
+                        {
+                            retorno += "Não há registros para este caso de teste.\n";
+                        }
+                        else
+                        {
+                            foreach (string linhas in resultadosAluno)
+                            {
+                                retorno += linhas.Substring(0, linhas.Length - 2) + "\n";
+                            }
+                        }
+                        retorno += "\n";
+                    }
+                }
+                if (scCriacao != null)
+                {
+                    for (int x = 0; x < listaNomeTables.Count; x++)
+                    {
+                        acesso.AcessandoSQLScript("DROP TABLE " + listaNomeTablesAluno.ElementAt(x));
+                        acesso.AcessandoSQLScript("DROP TABLE " + listaNomeTablesProf.ElementAt(x));
+                    }
+                }
+                acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCProf);
+                acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCAluno);
+                return retorno;
             }
-
-            if (scCriacao == null)
+            catch (Exception)
             {
-                //exec script do prof e do aluno com nomes já alterados para evitar duplicidades
-                acesso.AcessandoSQLScript(scProf);
-                acesso.AcessandoSQLScript(scAluno);
+                if (scCriacao != null)
+                {
+                    for (int x = 0; x < listaNomeTables.Count; x++)
+                    {
+                        acesso.AcessandoSQLScript("DROP TABLE " + listaNomeTablesAluno.ElementAt(x));
+                        acesso.AcessandoSQLScript("DROP TABLE " + listaNomeTablesProf.ElementAt(x));
+                    }
+                }
+                acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCProf);
+                acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCAluno);
+                return "Não foi possível realizar a avaliação automática de ";
             }
             
-
-            //Listando casos de teste e fazendo a exec
-            List<string> casos = scCasosTeste.Split(';').ToList<string>();
-            int cont = 1;
-            string retorno = "";
-            foreach (string item in casos)
-            {
-                if (item.Length > 1)
-                {
-                    retorno += "Caso de Teste " + cont++ + "\n";
-                    retorno += item + "\n";
-
-                    //Alterando o nome dos casos de teste para os do professor atual
-                    string scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste.Trim(), NomeSCProf);
-                    for (int i = 0; i < listaNomeTables.Count; i++)
-                    {
-                        scriptDeCasosDeTeste = scriptDeCasosDeTeste.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesProf.ElementAt(i));
-                    }
-                    List<string> resultadosProf = acesso.AcessandoSQLScriptObtendoDados(scriptDeCasosDeTeste);
-                    //Alterando o nome dos casos de teste para os do aluno atual
-                    scriptDeCasosDeTeste = item.Replace(NomeExecCasosTeste.Trim(), NomeSCAluno);
-                    for (int i = 0; i < listaNomeTables.Count; i++)
-                    {
-                        scriptDeCasosDeTeste = scriptDeCasosDeTeste.ToLower().Replace(listaNomeTables.ElementAt(i), listaNomeTablesAluno.ElementAt(i));
-                    }
-                    List<string> resultadosAluno = acesso.AcessandoSQLScriptObtendoDados(scriptDeCasosDeTeste);
-                    //Comparando as respostas
-                    if (CompararResposta(resultadosProf, resultadosAluno))
-                    {
-                        retorno += "\nResultado Correto: \n";
-
-                    }
-                    else
-                    {
-                        retorno += "\nSeu Resultado Difere do Professor: \n";
-                    }
-
-                    //exibindo os resultados
-                    if (resultadosAluno.Count == 0)
-                    {
-                        retorno += "Não há registros para este caso de teste.\n";
-                    }
-                    else
-                    {
-                        foreach (string linhas in resultadosAluno)
-                        {
-                            retorno += linhas.Substring(0, linhas.Length - 2) + "\n";
-                        }
-                    }
-                    retorno += "\n";
-                }
-            }
-            if (scCriacao != null)
-            {
-                for (int x = 0; x < listaNomeTables.Count; x++)
-                {
-                    acesso.AcessandoSQLScript("DROP TABLE " + listaNomeTablesAluno.ElementAt(x));
-                    acesso.AcessandoSQLScript("DROP TABLE " + listaNomeTablesProf.ElementAt(x));
-                }
-            }
-            acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCProf);
-            acesso.AcessandoSQLScript("DROP PROCEDURE " + NomeSCAluno);
-            return retorno;
         }
 
 

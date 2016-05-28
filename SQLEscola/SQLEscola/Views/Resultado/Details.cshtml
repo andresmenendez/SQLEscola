@@ -5,7 +5,7 @@
 }
 
 <h2>Visualizar Resultado</h2>
-<h3>Questão: @ViewBag.NomeQuestao  Ordem: @ViewBag.Ordem  Data e Hora da Resposta: @ViewBag.Data</h3>
+<h3>Questão: @ViewBag.NomeQuestao / Ordem: @ViewBag.Ordem / Data e Hora da Resposta: @ViewBag.Data</h3>
 
 <fieldset>
     <legend>Resultado</legend>
@@ -15,7 +15,7 @@
         @Html.TextAreaFor(model => model.ScriptResposta, new { style = "width:750px;height:350px;", disabled = "disabled" })
     </div>
 
-    <div class="display-label">Erros</div>
+    <div class="display-label">Resultado</div>
     <div class="display-field">
         @Html.TextAreaFor(model => model.Resultados, new { style = "width:750px;height:350px;", disabled = "disabled" })
     </div>
